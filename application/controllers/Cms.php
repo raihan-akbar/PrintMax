@@ -75,6 +75,17 @@ class Cms extends CI_Controller
 
 	}
 
+	public function user()
+	{
+		$data['getMenu'] = $this->Mod->getMenu()->result();
+
+		$data_session = array('menu_active' => '4');
+		$this->session->set_userdata($data_session);
+
+		$this->load->view('cms/user', $data);
+
+	}
+
 }
 
 /* End of file Cms.php */

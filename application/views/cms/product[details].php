@@ -18,7 +18,8 @@
 				<!-- Page Content Script Here -->
 				<div id="page-header" class="w-full">
 					<h3 class="text-2xl font-bold text-slate-900 dark:text-slate-100">Product Details</h3>
-					<p class="font-base text-slate-800 dark:text-slate-200">Showing Details Result for <b><?= $i->product_name; ?></b>.</p>
+					<p class="font-base text-slate-800 dark:text-slate-200">Showing Details Result for
+						<b><?= $i->product_name; ?></b>.</p>
 				</div>
 				<div class="w-full">
 					<hr class="w-full h-px my-4 bg-slate-500 border-0">
@@ -31,14 +32,16 @@
 								<h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300">Hello, World!</h3>
 								<hr class="w-full h-px my-2 bg-slate-400 border-0">
 								<div class="w-full">
-									<label for="name" class="block text-sm font-medium text-slate-600 dark:text-slate-400">Name
+									<label for="name"
+										class="block text-sm font-medium text-slate-600 dark:text-slate-400">Name
 										of Product</label>
 									<input type="text" name="name" id="name"
 										class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
 										placeholder="Type product name" required value="<?= $i->product_name ?>" />
 								</div>
 								<div class="w-full">
-									<label for="price" class="block text-sm font-medium text-slate-600 dark:text-slate-400">Price</label>
+									<label for="price"
+										class="block text-sm font-medium text-slate-600 dark:text-slate-400">Price</label>
 									<div class="relative w-full">
 										<div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
 											<p class="text-slate-400">Rp.</p>
@@ -50,7 +53,8 @@
 									</div>
 								</div>
 								<div class="w-full">
-									<label for="description" class="block text-sm font-medium text-slate-600 dark:text-slate-400">Product
+									<label for="description"
+										class="block text-sm font-medium text-slate-600 dark:text-slate-400">Product
 										Description</label>
 									<textarea name="description" id="desc" rows="3"
 										class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 mb-2 h-fixed"
@@ -66,9 +70,10 @@
 							</div>
 						</div>
 						<div class="w-full lg:w-1/3 mb-4 px-2">
-							<div class="bg-slate-100 rounded-lg shadow-lg p-4 h-96 overflow-x-auto">
+							<div class="bg-slate-100 dark:bg-slate-900 rounded-lg shadow-lg p-4 h-96 overflow-x-auto">
 								<div class="columns-2 text-right">
-									<h3 class="text-lg font-semibold text-slate-700 text-left">Variant 1 Lists</h3>
+									<h3 class="text-lg font-semibold text-slate-700 text-left dark:text-slate-300">Variant 1
+										Lists</h3>
 									<button class="text-blue-600 font-semibold text-sm">[ Add <i
 											class="fa-solid fa-plus fa-xs"></i> ]</button>
 								</div>
@@ -82,12 +87,12 @@
 										<div class="flex items-center mx-auto w-full text-right">
 											<div class="relative w-full">
 												<input type="text" id="simple-search"
-													class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-tl-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+													class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-tl-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
 													placeholder="Search branch name..." required />
 											</div>
 											<button type="submit"
-												class="p-2.5 text-sm font-medium text-slate-100 bg-red-500 rounded-tr-lg border border-red-400 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300">
-												<i class="fa-solid fa-trash px-2"></i>
+												class="p-2.5 text-sm font-medium text-slate-100 bg-blue-500 rounded-tr-lg border border-blue-400 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300">
+												<i class="fa-solid fa-floppy-disk px-2"></i>
 											</button>
 										</div>
 										<div class="flex items-center mx-auto w-full text-right">
@@ -97,12 +102,12 @@
 													<p class="text-slate-400">Rp.</p>
 												</div>
 												<input type="text" id="simple-search" data-input-counter
-													class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-bl-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ps-10"
+													class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-bl-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ps-10"
 													placeholder="Search branch name..." required />
 											</div>
 											<button type="submit"
-												class="p-2.5 text-sm font-medium text-slate-100 bg-blue-500 rounded-br-lg border border-blue-400 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300">
-												<i class="fa-solid fa-floppy-disk px-2"></i>
+												class="p-2.5 text-sm font-medium text-slate-100 bg-red-500 rounded-br-lg border border-red-400 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300">
+												<i class="fa-solid fa-trash px-2"></i>
 											</button>
 										</div>
 									</form>
@@ -110,9 +115,10 @@
 							</div>
 						</div>
 						<div class="w-full lg:w-1/3 mb-4 px-2">
-							<div class="bg-slate-100 rounded-lg shadow-lg p-4 h-96 overflow-x-auto">
+							<div class="bg-slate-100 dark:bg-slate-900 rounded-lg shadow-lg p-4 h-96 overflow-x-auto">
 								<div class="columns-2 text-right">
-									<h3 class="text-lg font-semibold text-slate-700 text-left">Variant 2 Lists</h3>
+									<h3 class="text-lg font-semibold text-slate-700 text-left dark:text-slate-300">Variant 1
+										Lists</h3>
 									<button class="text-blue-600 font-semibold text-sm">[ Add <i
 											class="fa-solid fa-plus fa-xs"></i> ]</button>
 								</div>
@@ -126,12 +132,12 @@
 										<div class="flex items-center mx-auto w-full text-right">
 											<div class="relative w-full">
 												<input type="text" id="simple-search"
-													class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-tl-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+													class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-tl-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
 													placeholder="Search branch name..." required />
 											</div>
 											<button type="submit"
-												class="p-2.5 text-sm font-medium text-slate-100 bg-red-700 rounded-tr-lg border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300">
-												<i class="fa-solid fa-trash px-2"></i>
+												class="p-2.5 text-sm font-medium text-slate-100 bg-blue-500 rounded-tr-lg border border-blue-400 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300">
+												<i class="fa-solid fa-floppy-disk px-2"></i>
 											</button>
 										</div>
 										<div class="flex items-center mx-auto w-full text-right">
@@ -141,12 +147,12 @@
 													<p class="text-slate-400">Rp.</p>
 												</div>
 												<input type="text" id="simple-search" data-input-counter
-													class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-bl-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ps-10"
+													class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-bl-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ps-10"
 													placeholder="Search branch name..." required />
 											</div>
 											<button type="submit"
-												class="p-2.5 text-sm font-medium text-slate-100 bg-blue-700 rounded-br-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-												<i class="fa-solid fa-check-double px-2"></i>
+												class="p-2.5 text-sm font-medium text-slate-100 bg-red-500 rounded-br-lg border border-red-400 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300">
+												<i class="fa-solid fa-trash px-2"></i>
 											</button>
 										</div>
 									</form>
@@ -158,7 +164,8 @@
 
 					<!-- Gallery -->
 					<div class="w-full bg-slate-100 dark:bg-slate-900 p-4 mt-4 rounded-lg shadow-lg">
-						<h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300"><?= $i->product_name ?> Images Catalogue</h3>
+						<h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300"><?= $i->product_name ?> Images
+							Catalogue</h3>
 						<hr class="w-full h-px my-2 bg-slate-400 dark:bg-slate-600 border-0">
 						<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
 							<!-- /Images -->
@@ -212,7 +219,8 @@
 														class="absolute inset-0 w-full h-full opacity-0 z-50" required>
 
 													<div class="text-center">
-														<h3 class="mt-2 text-sm font-medium text-slate-900 dark:text-slate-100">
+														<h3
+															class="mt-2 text-sm font-medium text-slate-900 dark:text-slate-100">
 															<i class="text-center fa-regular fa-image text-6xl w-full text-slate-800 dark:text-slate-200 pb-4"
 																id="ph"></i>
 															<label for="file-upload"
@@ -238,7 +246,8 @@
 								</div>
 							</div>
 							<!-- /Images -->
-							<div class="rounded-lg bg-slate-50 dark:bg-slate-950 shadow-xl border border-slate-50 dark:border-slate-950">
+							<div
+								class="rounded-lg bg-slate-50 dark:bg-slate-950 shadow-xl border border-slate-50 dark:border-slate-950">
 								<!-- <div class="relative inline-flex rounded-lg max-h-80 h-screen "> -->
 								<div
 									class="relative inline-flex bg-center bg-cover rounded-t-lg max-h-36 md:max-h-32 lg:max-h-36 xl:max-h-64 bg-[url('<?= base_url('src/item/_thumbnails/' . $i->product_thumbnails) ?>')]">
@@ -248,9 +257,9 @@
 											src="<?= base_url('src/item/_thumbnails/' . $i->product_thumbnails); ?>" alt="">
 									</p>
 									<div
-											class="absolute inline-flex items-center justify-center w-fit text-center text-xs font-medium text-slate-100 dark:text-slate-900 bg-purple-600 rounded-br-md rounded-tl-md p-1">
-											Thumbnails
-										</div>
+										class="absolute inline-flex items-center justify-center w-fit text-center text-xs font-medium text-slate-100 dark:text-slate-900 bg-purple-600 rounded-br-md rounded-tl-md p-1">
+										Thumbnails
+									</div>
 									<!-- <div
 										class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
 										20</div> -->
@@ -364,7 +373,8 @@
 							<?php $n = 3;
 							foreach ($getImage as $image) { ?>
 								<!-- /Images -->
-								<div class="rounded-xl bg-slate-50 dark:bg-slate-950 shadow-xl border border-slate-50 dark:border-slate-950 rounded-lg max-h-full">
+								<div
+									class="rounded-xl bg-slate-50 dark:bg-slate-950 shadow-xl border border-slate-50 dark:border-slate-950 rounded-lg max-h-full">
 									<div
 										class="relative inline-flex bg-center bg-cover rounded-t-lg max-h-36 md:max-h-32 lg:max-h-36 xl:max-h-64 bg-[url('<?= base_url('src/item/' . $image->product_image_name) ?>')]">
 										<p class="cursor-pointer"
