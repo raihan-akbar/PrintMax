@@ -78,7 +78,7 @@ $host = 'localhost:3306';
 $username = 'u1754963';
 $password = 'TDP#Indonesia123';
 $database = 'u1754963_print-max';
-
+ 
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => '127.0.0.1',
