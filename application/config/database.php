@@ -73,12 +73,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+
+$host = 'localhost:3306';
+$username = 'u1754963';
+$password = 'TDP#Indonesia123';
+$database = 'u1754963_print-max';
+
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '127.0.0.1',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'printmax',
+	'hostname' => 'localhost:3306',
+	'username' => 'u1754963',
+	'password' => 'TDP#Indonesia123',
+	'database' => 'u1754963_printmax',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
