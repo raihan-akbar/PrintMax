@@ -67,7 +67,7 @@
 												class="fa fa-circle fa-xs text-green-700 pr-2"></i>ghino</p>
 									</a>
 								</div>
-							</li>
+						</li>
 						</ul>
 					</div>
 				</div>
