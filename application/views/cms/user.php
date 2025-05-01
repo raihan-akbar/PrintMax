@@ -51,6 +51,20 @@
 									</div>
 								</li>
 							<?php } ?>
+							<li class="py-1">
+									<div class="w-full bg-slate-800 p-3 rounded-lg">
+										<a href="#">
+											<p class="text-slate-700 dark:text-slate-300">uzi</p>
+										</a>
+									</div>
+								</li>
+								<li class="py-1">
+									<div class="w-full bg-slate-800 p-3 rounded-lg">
+										<a href="#">
+											<p class="text-slate-700 dark:text-slate-300">ghino</p>
+										</a>
+									</div>
+								</li>
 						</ul>
 					</div>
 				</div>
