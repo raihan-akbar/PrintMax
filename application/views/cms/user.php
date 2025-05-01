@@ -31,7 +31,7 @@
 					<h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300">User Account List</h3>
 					<hr class="w-full h-px my-2 bg-slate-400 border-0">
 					<div class="w-full py-2">
-						<div class="relative w-full lg:w-1/4">
+						<div class="relative w-full md:w-full lg:w-1/3 xl:w-1/4">
 							<div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
 								<p class="text-slate-700 dark:text-slate-300"><i class="fa fa-paper-plane"></i></p>
 							</div>
@@ -46,25 +46,28 @@
 								<li class="py-1">
 									<div class="w-full bg-slate-800 p-3 rounded-lg">
 										<a href="#">
-											<p class="text-slate-700 dark:text-slate-300"><i class="fa fa-circle fa-xs text-green-700"></i></p>
+											<p class="text-slate-700 dark:text-slate-300"><i
+													class="fa fa-circle fa-xs text-green-700"></i></p>
 										</a>
 									</div>
 								</li>
 							<?php } ?>
 							<li class="py-1">
-									<div class="w-full bg-slate-800 p-3 rounded-lg">
-										<a href="#">
-											<p class="text-slate-700 dark:text-slate-300">uzi</p>
-										</a>
-									</div>
-								</li>
-								<li class="py-1">
-									<div class="w-full bg-slate-800 p-3 rounded-lg">
-										<a href="#">
-											<p class="text-slate-700 dark:text-slate-300">ghino</p>
-										</a>
-									</div>
-								</li>
+								<div class="w-full bg-slate-800 p-3 rounded-lg">
+									<a href="#">
+										<p class="text-slate-700 dark:text-slate-300"><i
+												class="fa fa-circle fa-xs text-green-700 pr-2"></i>uzi</p>
+									</a>
+								</div>
+							</li>
+							<li class="py-1">
+								<div class="w-full bg-slate-800 p-3 rounded-lg">
+									<a href="#">
+										<p class="text-slate-700 dark:text-slate-300"><i
+												class="fa fa-circle fa-xs text-green-700 pr-2"></i>ghino</p>
+									</a>
+								</div>
+							</li>
 						</ul>
 					</div>
 				</div>
