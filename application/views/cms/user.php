@@ -33,41 +33,47 @@
 					<div class="w-full py-2">
 						<div class="relative w-full md:w-full lg:w-1/3 xl:w-1/4">
 							<div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-								<p class="text-slate-700 dark:text-slate-300"><i class="fa fa-paper-plane"></i></p>
+								<p class="text-slate-700 dark:text-slate-300"><i
+										class="fa-solid fa-magnifying-glass fa-xs"></i></p>
 							</div>
 							<input type="text" id="myInput" onkeyup="myFunction()"
 								class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ps-10"
 								placeholder="Search Account..." required />
 						</div>
-						<ul id="myUL" class="py-2">
+						<ul id="myUL" class="py-2 w-full">
 
-							<?php for ($i = 0; $i < 4; $i++) { ?>
-								<!-- Account Row Item -->
+							<div
+								class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 								<li class="py-1">
-									<div class="w-full bg-slate-800 p-3 rounded-lg">
+									<div class="flex w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
 										<a href="#">
-											<p class="text-slate-700 dark:text-slate-300"><i
-													class="fa fa-circle fa-xs text-green-700"></i></p>
+											<p class="text-slate-700 dark:text-slate-300">
+												<!-- <i class="fa fa-circle fa-xs text-green-700 pr-2"></i> -->
+												<span class="pl-2">Ghina Nur Agsya</span>
+												<span class="pl-2">Admin</span>
+												<span class="pl-2">22 April 2022</span>
+												<span class="pl-2">gnuragsya@gmail.com</span>
+											</p>
 										</a>
 									</div>
 								</li>
-							<?php } ?>
-							<li class="py-1">
-								<div class="w-full bg-slate-800 p-3 rounded-lg">
-									<a href="#">
-										<p class="text-slate-700 dark:text-slate-300"><i
-												class="fa fa-circle fa-xs text-green-700 pr-2"></i>uzi</p>
-									</a>
-								</div>
-							</li>
-							<li class="py-1">
-								<div class="w-full bg-slate-800 p-3 rounded-lg">
-									<a href="#">
-										<p class="text-slate-700 dark:text-slate-300"><i
-												class="fa fa-circle fa-xs text-green-700 pr-2"></i>ghino</p>
-									</a>
-								</div>
-						</li>
+								<li class="py-1">
+									<div class="flex w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
+										<a href="#">
+											<p class="text-slate-700 dark:text-slate-300">
+												<!-- <i class="fa fa-circle fa-xs text-green-700 pr-2"></i> -->
+												<span class="pl-2">Raihan Muhammad Akbar</span>
+												<span class="pl-2">Admin</span>
+												<span class="pl-2">22 April 2022</span>
+												<span class="pl-2">gnuragsya@gmail.com</span>
+											</p>
+										</a>
+									</div>
+								</li>
+								
+							</div>
+
+
 						</ul>
 					</div>
 				</div>
