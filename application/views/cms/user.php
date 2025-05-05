@@ -43,34 +43,43 @@
 						<ul id="myUL" class="py-2 w-full">
 
 							<div
-								class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+								class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 								<li class="py-1">
-									<div class="flex w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
+									<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
 										<a href="#">
-											<p class="text-slate-700 dark:text-slate-300">
-												<!-- <i class="fa fa-circle fa-xs text-green-700 pr-2"></i> -->
-												<span class="pl-2">Ghina Nur Agsya</span>
-												<span class="pl-2">Admin</span>
-												<span class="pl-2">22 April 2022</span>
-												<span class="pl-2">gnuragsya@gmail.com</span>
+											<p class="w-full text-slate-700 dark:text-slate-300 text-lg">
+												<span class="">Ghina Nur Agsya</span>
 											</p>
+											<span class="">Admin</span>
+										</a>
+										<hr class="w-full mt-4 border-blue-600 border-1">
+									</div>
+								</li>
+
+								<li class="py-1">
+									<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
+										<hr class="w-full">
+										<a href="#">
+											<p class="w-full text-slate-700 dark:text-slate-300 text-lg">
+												<span class="">Raihan Nur Agsya</span>
+											</p>
+											<span class="pl-2">Admin</span>
 										</a>
 									</div>
 								</li>
+
 								<li class="py-1">
-									<div class="flex w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
+									<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
+										<hr class="w-full">
 										<a href="#">
-											<p class="text-slate-700 dark:text-slate-300">
-												<!-- <i class="fa fa-circle fa-xs text-green-700 pr-2"></i> -->
-												<span class="pl-2">Raihan Muhammad Akbar</span>
-												<span class="pl-2">Admin</span>
-												<span class="pl-2">22 April 2022</span>
-												<span class="pl-2">gnuragsya@gmail.com</span>
+											<p class="w-full text-slate-700 dark:text-slate-300 text-lg">
+												<span class="">Ghina Nur Agsya</span>
 											</p>
+											<span class="pl-2">Admin</span>
 										</a>
 									</div>
 								</li>
-								
+
 							</div>
 
 
