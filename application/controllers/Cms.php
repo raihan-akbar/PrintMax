@@ -78,6 +78,8 @@ class Cms extends CI_Controller
 	public function user()
 	{
 		$data['getMenu'] = $this->Mod->getMenu()->result();
+		$where_user_list = "user.role_id=role.role_id";
+		$data['getUserList'] = $this->Mod->get('user,role', $where_user_list)->result();
 
 		$data_session = array('menu_active' => '4');
 		$this->session->set_userdata($data_session);

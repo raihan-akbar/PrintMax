@@ -44,41 +44,36 @@
 
 							<div
 								class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-								<li class="py-1">
-									<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
-										<a href="#">
-											<p class="w-full text-slate-700 dark:text-slate-300 text-lg">
-												<span class="">Ghina Nur Agsya</span>
-											</p>
-											<span class="">Admin</span>
-										</a>
-										<hr class="w-full mt-4 border-blue-600 border-1">
-									</div>
-								</li>
 
+								<?php foreach ($getUserList as $i) {?>
 								<li class="py-1">
 									<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
-										<hr class="w-full">
+										<div class="relative flex py-0 items-center mb-1">
+											<div class="flex-grow border-t border-slate-500"></div>
+											<span class="flex-shrink mx-2 uppercase text-xs font-bold">
+												<code class="text-slate-500">Admin</code>
+												<code class="text-slate-500">-</code>
+												<code class="text-slate-500">Deactive</code>
+											</span>
+											<div class="flex-grow border-t border-slate-500"></div>
+										</div>
 										<a href="#">
-											<p class="w-full text-slate-700 dark:text-slate-300 text-lg">
-												<span class="">Raihan Nur Agsya</span>
+											<p class="w-full text-slate-700 dark:text-slate-300">
+												<span class="font-bold text-lg"><?= $i->user_name; ?></span>
 											</p>
-											<span class="pl-2">Admin</span>
+											<p class="text-slate-700 dark:text-slate-300">
+												<span class="">gnuragsya@gmail.com</span>
+											</p>
+											<p class="text-slate-700 dark:text-slate-300">
+												<span class="">08121561356</span>
+											</p>
 										</a>
+										<div class="relative flex py-0 items-center mb-1 my-2">
+											<div class="flex-grow border-t border-slate-500"></div>
+										</div>
 									</div>
 								</li>
-
-								<li class="py-1">
-									<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
-										<hr class="w-full">
-										<a href="#">
-											<p class="w-full text-slate-700 dark:text-slate-300 text-lg">
-												<span class="">Ghina Nur Agsya</span>
-											</p>
-											<span class="pl-2">Admin</span>
-										</a>
-									</div>
-								</li>
+								<?php }?>
 
 							</div>
 
