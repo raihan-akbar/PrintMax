@@ -4,7 +4,6 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 	<!-- Sources Assets -->
 	<?php $this->load->view('cms/parts/source'); ?>
 </head>
@@ -43,37 +42,67 @@
 						<ul id="myUL" class="py-2 w-full">
 
 							<div
-								class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-
-								<?php foreach ($getUserList as $i) {?>
+								class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 								<li class="py-1">
 									<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
-										<div class="relative flex py-0 items-center mb-1">
-											<div class="flex-grow border-t border-slate-500"></div>
-											<span class="flex-shrink mx-2 uppercase text-xs font-bold">
-												<code class="text-slate-500">Admin</code>
-												<code class="text-slate-500">-</code>
-												<code class="text-slate-500">Deactive</code>
-											</span>
+										<div class="relative flex py-0 items-center mb-1 my-4">
 											<div class="flex-grow border-t border-slate-500"></div>
 										</div>
 										<a href="#">
 											<p class="w-full text-slate-700 dark:text-slate-300">
-												<span class="font-bold text-lg"><?= $i->user_name; ?></span>
+												<span class="font-bold text-lg"><?= "Hello, World!"; ?></span>
 											</p>
 											<p class="text-slate-700 dark:text-slate-300">
-												<span class="">gnuragsya@gmail.com</span>
+												<span class=""><?= "Hello, World!"; ?></span>
 											</p>
 											<p class="text-slate-700 dark:text-slate-300">
-												<span class="">08121561356</span>
+												<span class=""><?= "Hello, World!"; ?></span>
 											</p>
 										</a>
-										<div class="relative flex py-0 items-center mb-1 my-2">
+										<div class="relative flex py-0 items-center mb-1 my-4">
 											<div class="flex-grow border-t border-slate-500"></div>
+										</div>
+										<div class="text-center text-sm">
+											<a href="#>"
+												class="mt-2 text-slate-800 hover:text-blue-950 dark:text-slate-200 dark:hover:text-blue-200 inline-flex items-center">User
+												Details <i class="fa-solid fa-chevron-right text-xs fa-fw pl-1"></i></a>
 										</div>
 									</div>
 								</li>
-								<?php }?>
+								<?php foreach ($getUserList as $i) { ?>
+									<li class="py-1">
+										<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
+											<div class="relative flex py-0 items-center mb-1">
+												<div class="flex-grow border-t border-slate-500"></div>
+												<span class="flex-shrink mx-2 uppercase text-xs font-bold">
+													<code class="text-slate-500"><?= $i->role_name; ?></code>
+													<code class="text-slate-500">-</code>
+													<code class="text-slate-500"><?= $i->user_status; ?></code>
+												</span>
+												<div class="flex-grow border-t border-slate-500"></div>
+											</div>
+											<a href="#">
+												<p class="w-full text-slate-700 dark:text-slate-300">
+													<span class="font-bold text-lg"><?= $i->user_name; ?></span>
+												</p>
+												<p class="text-slate-700 dark:text-slate-300">
+													<span class=""><?= $i->user_email; ?></span>
+												</p>
+												<p class="text-slate-700 dark:text-slate-300">
+													<span class=""><?= $i->user_phone; ?></span>
+												</p>
+											</a>
+											<div class="relative flex py-0 items-center mb-1 my-4">
+												<div class="flex-grow border-t border-slate-500"></div>
+											</div>
+											<div class="text-center text-sm">
+												<a href="<?= base_url('cms/user/' . $i->user_token) ?>"
+													class="mt-2 text-slate-800 hover:text-blue-950 dark:text-slate-200 dark:hover:text-blue-200 inline-flex items-center">User
+													Details <i class="fa-solid fa-chevron-right text-xs fa-fw pl-1"></i></a>
+											</div>
+										</div>
+									</li>
+								<?php } ?>
 
 							</div>
 
