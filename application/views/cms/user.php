@@ -19,6 +19,9 @@
 				<h3 class="text-2xl font-bold text-slate-900 dark:text-slate-100">PrintMax Users.</h3>
 				<p class="font-base text-slate-800 dark:text-slate-200">
 					Page for Managing all PrintMax User Account.
+					<?php
+					
+					?>
 				</p>
 			</div>
 			<div class="w-full">
@@ -43,29 +46,121 @@
 
 							<div
 								class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-								<li class="py-1">
-									<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
-										<div class="relative flex py-0 items-center mb-1 my-4">
-											<div class="flex-grow border-t border-slate-500"></div>
+								<li class="py-1 h-full">
+									<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-3">
+										<div class="relative flex py-0 items-center mb-1">
+											<!-- <div class="flex-grow border-t border-slate-500"></div> -->
+											<span class="flex-shrink mx-0 mt-4 uppercase text-xs font-bold">
+												<!-- <code class="text-slate-500"><?= 'a'; ?></code> -->
+											</span>
+											<!-- <div class="flex-grow border-t border-slate-500"></div> -->
 										</div>
-										<a href="#">
-											<p class="w-full text-slate-700 dark:text-slate-300">
-												<span class="font-bold text-lg"><?= "Hello, World!"; ?></span>
-											</p>
-											<p class="text-slate-700 dark:text-slate-300">
-												<span class=""><?= "Hello, World!"; ?></span>
-											</p>
-											<p class="text-slate-700 dark:text-slate-300">
-												<span class=""><?= "Hello, World!"; ?></span>
-											</p>
+										<a data-modal-target="add-user-modal" data-modal-toggle="add-user-modal"
+											class="text-center text-slate-700 dark:text-slate-300 dark:hover:text-slate-500 hover:text-slate-600 cursor-pointer">
+											<h1 class="mt-8"><i class="fa-solid fa-user-plus"></i></h1>
+											<p class="text-lg font-bold">Add New User</p>
 										</a>
-										<div class="relative flex py-0 items-center mb-1 my-4">
-											<div class="flex-grow border-t border-slate-500"></div>
+										<!-- Add User Modal -->
+										<div id="add-user-modal" tabindex="-1" aria-hidden="true"
+											class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+											<div class="relative p-4 w-full max-w-2xl max-h-full">
+												<!-- Modal content -->
+												<div class="relative bg-slate-100 dark:bg-slate-900 rounded-lg shadow">
+													<!-- Modal header -->
+													<div
+														class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+														<img src="<?= base_url('_assets/img/sq-logo.png') ?>"
+															class="h-8 me-3" alt="Print-Max Logo" />
+														<h3
+															class="text-lg font-semibold text-slate-900 dark:text-slate-100">
+															New User Form
+														</h3>
+														<button type="button"
+															class="text-slate-400 dark:text-slate-600 bg-transparent hover:bg-slate-200 hover:text-slate-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+															data-modal-toggle="add-user-modal">
+															<svg class="w-3 h-3" aria-hidden="true"
+																xmlns="http://www.w3.org/2000/svg" fill="none"
+																viewBox="0 0 14 14">
+																<path stroke="currentColor" stroke-linecap="round"
+																	stroke-linejoin="round" stroke-width="2"
+																	d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+															</svg>
+															<span class="sr-only">Close modal</span>
+														</button>
+													</div>
+													<!-- Modal body -->
+													<form method="post" action="<?= base_url('sys/add_user') ?>"
+														class="p-4 md:p-5" enctype="multipart/form-data">
+														<div class="grid gap-4 mb-4 grid-cols-2">
+															<div class="col-span-2">
+																<label for="name"
+																	class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Full
+																	Name</label>
+																<input type="text" name="name" id="name"
+																	class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+																	placeholder="User Full Name" required="">
+															</div>
+															<div class="col-span-2 sm:col-span-1">
+																<label for="email"
+																	class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Email
+																	Address</label>
+																<input type="email" name="email" id="email"
+																	class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+																	placeholder="User Email Address" required="">
+															</div>
+															<div class="col-span-2 sm:col-span-1">
+																<label for="phone"
+																	class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Phone
+																	Number</label>
+																<input type="text" name="phone" id="phone"
+																	class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+																	placeholder="User Phone Number" required="">
+															</div>
+															<div class="col-span-2 sm:col-span-1">
+																<label for="rold"
+																	class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Select
+																	Role</label>
+																<select name="role" id="role"
+																	class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+																	required="">
+																	<option selected="select" disabled="disabled">Select
+																		User Role</option>
+																	<option value="2">Admin</option>
+																	<option value="3">Staff</option>
+																</select>
+															</div>
+															<div class="col-span-2 sm:col-span-1">
+																<label for="password"
+																	class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">User
+																	Password</label>
+																<input type="password" name="password" id="password"
+																	class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+																	placeholder="Type product name" required="">
+															</div>
+														</div>
+														<hr class="opacity-30 mb-8">
+														<div class="text-right space-x-2">
+															<button type="button"
+																class="text-slate-700 inline-flex items-center bg-slate-0 hover:text-slate-500 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+																data-modal-toggle="add-user-modal">Cancel</button>
+															<button type="submit"
+																class="text-slate-50 dark:text-slate-950 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center">Add
+																New User
+																<svg class="w-5 h-5" fill="currentColor"
+																	viewBox="0 0 20 20"
+																	xmlns="http://www.w3.org/2000/svg">
+																	<path fill-rule="evenodd"
+																		d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+																		clip-rule="evenodd"></path>
+																</svg>
+															</button>
+														</div>
+													</form>
+												</div>
+											</div>
 										</div>
-										<div class="text-center text-sm">
-											<a href="#>"
-												class="mt-2 text-slate-800 hover:text-blue-950 dark:text-slate-200 dark:hover:text-blue-200 inline-flex items-center">User
-												Details <i class="fa-solid fa-chevron-right text-xs fa-fw pl-1"></i></a>
+										<div class="relative flex py-0 items-center mb-1 my-4 pt-8">
+											<!-- <div class="flex-grow border-t border-slate-500"></div> -->
 										</div>
 									</div>
 								</li>
@@ -97,7 +192,7 @@
 											</div>
 											<div class="text-center text-sm">
 												<a href="<?= base_url('cms/user/' . $i->user_token) ?>"
-													class="mt-2 text-slate-800 hover:text-blue-950 dark:text-slate-200 dark:hover:text-blue-200 inline-flex items-center">User
+													class="mt-2 text-slate-800 hover:text-blue-950 dark:text-slate-200 dark:hover:text-blue-200 inline-flex items-center transparent">User
 													Details <i class="fa-solid fa-chevron-right text-xs fa-fw pl-1"></i></a>
 											</div>
 										</div>
