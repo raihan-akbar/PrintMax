@@ -468,6 +468,35 @@ class Sys extends CI_Controller
 		}
 	}
 
+	public function update_product()
+	{
+		$product_token = $this->input->post('token');
+		$product_name = $this->input->post('name');
+		$product_price = $this->input->post('price');
+		$product_desc = $this->input->post('description');
+
+		$data = array(
+			'product_name' => $product_name,
+			'product_price' => $product_price,
+			'product_desc' => $product_desc,
+		);
+
+
+		$this->Mod->upd(array('product_token' => $product_token), $data, 'product');
+
+		$this->session->set_flashdata(
+			"flash",
+			"<script>
+			window.onload=function(){
+			swal('Success','$product_name'+' data is successful updated','success')};
+			</script>"
+		);
+
+		redirect(base_url('cms/product/'.$product_token));
+	}
+
+
+	// User Set Section
 	public function add_user()
 	{
 		$user_name = $this->input->post('name');
@@ -476,13 +505,11 @@ class Sys extends CI_Controller
 		$raw = $this->input->post('password');
 		$role_id = $this->input->post('role');
 		$user_status = "Active";
-		// $password_reset = date('Y-m-d');
 		$user_token = strtoupper(bin2hex(random_bytes(2))) . date('Ymd') . strtoupper(bin2hex(random_bytes(2)));
 		$option = ['cost' => 8];
 		$hash = password_hash($raw, PASSWORD_BCRYPT, $option);
-		// $key = "$2a$08$8m0oO5TIJlQFED8CklVGtelaUXVBrY4SXLLXdxrxdYT/UThclvcVK";
 		$piece = explode('$', $hash);
-		$piece_1 = array($piece[3]); //Image Token Piece
+		$piece_1 = array($piece[3]);
 		$encrypt = implode('', $piece_1);
 		$password = $encrypt;
 
@@ -503,6 +530,65 @@ class Sys extends CI_Controller
 			"<script>
 			window.onload=function(){
 			swal('Success','$user_name'+' data is successful saved','success')};
+			</script>"
+		);
+
+		redirect(base_url('cms/user/'));
+
+	}
+
+	public function update_user()
+	{
+		$user_token = $this->input->post('token');
+		$user_name = $this->input->post('name');
+		$user_email = $this->input->post('email');
+		$user_phone = $this->input->post('phone');
+		$role_id = $this->input->post('role');
+
+		$data = array(
+			'user_name' => $user_name,
+			'user_email' => $user_email,
+			'user_phone' => $user_phone,
+			'role_id' => $role_id
+		);
+
+
+		$this->Mod->upd(array('user_token' => $user_token), $data, 'user');
+
+		$this->session->set_flashdata(
+			"flash",
+			"<script>
+			window.onload=function(){
+			swal('Success','$user_name'+' data is successful updated','success')};
+			</script>"
+		);
+
+		redirect(base_url('cms/user/'));
+
+	}
+
+	public function update_user_password()
+	{
+		$user_token = $this->input->post('token');
+		$user_name = $this->input->post('name');
+		$raw = $this->input->post('password');
+
+		$option = ['cost' => 8];
+		$hash = password_hash($raw, PASSWORD_BCRYPT, $option);
+		$piece = explode('$', $hash);
+		$piece_1 = array($piece[3]);
+		$encrypt = implode('', $piece_1);
+		$password = $encrypt;
+
+		$data = array('user_password' => $password, );
+
+		$this->Mod->upd(array('user_token' => $user_token), $data, 'user');
+
+		$this->session->set_flashdata(
+			"flash",
+			"<script>
+			window.onload=function(){
+			swal('Success','$user_name'+' Password is successful updated','success')};
 			</script>"
 		);
 

@@ -19,7 +19,8 @@
 				<div id="page-header" class="w-full">
 					<h3 class="text-2xl font-bold text-slate-900 dark:text-slate-100">Product Details</h3>
 					<p class="font-base text-slate-800 dark:text-slate-200">Showing Details Result for
-						<b><?= $i->product_name; ?></b>.</p>
+						<b><?= $i->product_name; ?></b>.
+					</p>
 				</div>
 				<div class="w-full">
 					<hr class="w-full h-px my-4 bg-slate-500 border-0">
@@ -31,42 +32,46 @@
 							<div class="bg-slate-100 dark:bg-slate-900 rounded-lg shadow-lg p-4 space-y-2 h-96">
 								<h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300">Hello, World!</h3>
 								<hr class="w-full h-px my-2 bg-slate-400 border-0">
-								<div class="w-full">
-									<label for="name"
-										class="block text-sm font-medium text-slate-600 dark:text-slate-400">Name
-										of Product</label>
-									<input type="text" name="name" id="name"
-										class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-										placeholder="Type product name" required value="<?= $i->product_name ?>" />
-								</div>
-								<div class="w-full">
-									<label for="price"
-										class="block text-sm font-medium text-slate-600 dark:text-slate-400">Price</label>
-									<div class="relative w-full">
-										<div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-											<p class="text-slate-400">Rp.</p>
-										</div>
-										<input type="text" name="price" id="quantity-input" data-input-counter
-											aria-describedby="helper-text-explanation"
-											class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ps-10"
-											placeholder="Price of Item" required value="<?= $i->product_price ?>" />
+								<form method="post" action="<?= base_url('sys/update_product') ?>">
+									<div class="w-full">
+										<label for="name"
+											class="block text-sm font-medium text-slate-600 dark:text-slate-400">Name
+											of Product</label>
+										<input type="text" name="name" id="name"
+											class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+											placeholder="Type product name" required value="<?= $i->product_name ?>" />
 									</div>
-								</div>
-								<div class="w-full">
-									<label for="description"
-										class="block text-sm font-medium text-slate-600 dark:text-slate-400">Product
-										Description</label>
-									<textarea name="description" id="desc" rows="3"
-										class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 mb-2 h-fixed"
-										style="resize: none;"
-										placeholder="Write product description here"><?= $i->product_desc ?></textarea>
-								</div>
-								<div class="w-full text-right pt-4">
-									<button href="contact.php"
-										class="w-full inline-flex justify-center items-center py-2 px-4 text-base font-medium text-center text-slate-100 dark:text-slate-900 rounded-lg bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300">
-										Update Data
-									</button>
-								</div>
+									<div class="w-full">
+										<label for="price"
+											class="block text-sm font-medium text-slate-600 dark:text-slate-400">Price</label>
+										<div class="relative w-full">
+											<div
+												class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+												<p class="text-slate-400">Rp.</p>
+											</div>
+											<input type="text" name="price" id="quantity-input" data-input-counter
+												aria-describedby="helper-text-explanation"
+												class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ps-10"
+												placeholder="Price of Item" required value="<?= $i->product_price ?>" />
+										</div>
+									</div>
+									<div class="w-full">
+										<label for="description"
+											class="block text-sm font-medium text-slate-600 dark:text-slate-400">Product
+											Description</label>
+										<textarea name="description" id="desc" rows="3"
+											class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 mb-2 h-fixed"
+											style="resize: none;"
+											placeholder="Write product description here"><?= $i->product_desc ?></textarea>
+									</div>
+									<input type="hidden" name="token" value="<?= $i->product_token ?>">
+									<div class="w-full text-right pt-4">
+										<button type="submit"
+											class="w-full inline-flex justify-center items-center py-2 px-4 text-base font-medium text-center text-slate-100 dark:text-slate-900 rounded-lg bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300">
+											Update Data
+										</button>
+									</div>
+								</form>
 							</div>
 						</div>
 						<div class="w-full lg:w-1/3 mb-4 px-2">
