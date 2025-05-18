@@ -492,7 +492,7 @@ class Sys extends CI_Controller
 			</script>"
 		);
 
-		redirect(base_url('cms/product/'.$product_token));
+		redirect(base_url('cms/product/' . $product_token));
 	}
 
 
@@ -594,6 +594,97 @@ class Sys extends CI_Controller
 
 		redirect(base_url('cms/user/'));
 
+	}
+
+	public function add_variant_1()
+	{
+		$variant_name = $this->input->post('variant_name');
+		$variant_price = $this->input->post('variant_price');
+		$product_token = $this->input->post('token');
+		$product_name = $this->input->post('product_name');
+
+		$data = array(
+			'product_token' => $product_token,
+			'product_variant_1_name' => $variant_name,
+			'product_variant_1_price_mark' => $variant_price
+		);
+
+		$this->Mod->add($data, 'product_variant_1');
+		$this->session->set_flashdata(
+			"flash",
+			"<script>
+			window.onload=function(){
+			swal('Success','$product_name'+' variant 1 data is successful saved','success')};
+			</script>"
+		);
+
+		redirect(base_url('cms/product/' . $product_token));
+	}
+
+	public function update_variant_1($variant_id = null)
+	{
+		$variant_name = $this->input->post('variant_name');
+		$variant_price = $this->input->post('variant_price');
+		$product_token = $this->input->post('token');
+
+		$product_token = $this->input->post('token');
+		if ($variant_id == null) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+				window.onload=function(){
+				swal('Error',''Please Try Again, Your Action Had an Issue','success')};
+				</script>"
+			);
+
+			redirect(base_url('cms/product/' . $product_token));
+		} else if ($product_token == null) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+				window.onload=function(){
+				swal('Error',''Please Try Again, Your Action Had an Issue','success')};
+				</script>"
+			);
+
+			redirect(base_url('cms/product/'));
+		} else {
+			$data = array(
+				'product_variant_1_name' => $variant_name,
+				'product_variant_1_price_mark' => $variant_price
+			);
+
+			$this->Mod->upd(array('product_variant_1_id' => $variant_id), $data, 'product_variant_1');
+
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+			window.onload=function(){
+			swal('Success','$variant_name'+' is successful updated','success')};
+			</script>"
+			);
+
+			redirect(base_url('cms/product/' . $product_token));
+		}
+
+	}
+
+	public function remove_variant_1($variant_id = null)
+	{
+
+		if ($variant_id == null) {
+			
+		}
+
+		$this->session->set_flashdata(
+			"flash",
+			"<script>
+			window.onload=function(){
+			swal('Uhuy',''Please Try Again, Your Action Had an Issue','success')};
+			</script>"
+		);
+
+		redirect(base_url('cms/product/'));
 	}
 
 

@@ -7,13 +7,14 @@
 	integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="<?= base_url('_assets/js/sweetalert.min.js') ?>"></script>
 
 <script>
 	tailwind.config = {
-		darkMode: 'class', /* 'class' or 'media', we use 'class' to enable dark mode manually */
+		darkMode: 'class',
 	}
 </script>
-<!-- Load theme on page load -->
+
 <script>
 	if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
 		document.documentElement.classList.add('dark');

@@ -11,7 +11,7 @@ class Cms extends CI_Controller
 				"flash",
 				"<script>
 			window.onload=function(){
-			swal({title: 'Error', text: 'Silahkan Login Untuk Melanjutkan', icon: 'warning', button: 'Close',})};
+			swal({title: 'Security Check', text: 'Silahkan Login Untuk Melanjutkan', icon: 'warning', button: 'Close',})};
 			</script>"
 			);
 
@@ -56,8 +56,13 @@ class Cms extends CI_Controller
 			}
 
 			$data['getProduct'] = $this->Mod->get('product', $where)->result();
-			$data['getVariant1'] = $this->Mod->get('product_variant_1', $where)->result();
-			$data['getVariant2'] = $this->Mod->get('product_variant_2', $where)->result();
+			
+			// $data['getVariant1'] = $this->Mod->get('product_variant_1', $where)->result();
+			// $data['getVariant2'] = $this->Mod->get('product_variant_2', $where)->result();
+			// getVariant1($product_token)
+			$data['getVariant1'] = $this->Mod->getVariant1($product_token)->result();
+			$data['getVariant2'] = $this->Mod->getVariant2($product_token)->result();
+
 			$data['getImage'] = $this->Mod->get('product_image', $where)->result();
 
 			$this->load->view('cms/product[details]', $data);
