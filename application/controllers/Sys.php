@@ -669,23 +669,78 @@ class Sys extends CI_Controller
 
 	}
 
-	public function remove_variant_1($variant_id = null)
+	public function remove_variant_1($key = null)
 	{
+		if ($key == null) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+						window.onload=function(){
+						swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+						</script>"
+			);
 
-		if ($variant_id == null) {
-			
+			redirect(base_url('cms/product/'));
+		} else {
+			if (!preg_match('/-/', $key)) {
+				$this->session->set_flashdata(
+					"flash",
+					"<script>
+					window.onload=function(){
+						swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+						</script>"
+				);
+
+				redirect(base_url('cms/product/'));
+			} else {
+				$piece = explode('-', $key);
+				$piece_0 = array($piece[0]); //Product Token Piece
+				$product_token = implode('', $piece_0);
+				$piece_1 = array($piece[1]); //Image Token Piece
+				$variant_id = implode('', $piece_1);
+
+				$product_check = $this->Mod->get('product', array('product_token' => $product_token))->num_rows();
+				$variant_check = $this->Mod->get('product_variant_1', array('product_variant_1_id' => $variant_id))->num_rows();
+
+				if ($product_check == true && $variant_check == true) {
+					$data = array(
+						'visible' => '0',
+					);
+
+
+					$this->Mod->upd(array('product_variant_1_id' => $variant_id), $data, 'product_variant_1');
+
+					$this->session->set_flashdata(
+						"flash",
+						"<script>
+							window.onload=function(){
+								swal({title: 'Success', text: 'Data Removed from Variant 1.', icon: 'success', button: 'Close',})};
+								</script>"
+					);
+
+					redirect(base_url('cms/product/' . $product_token));
+
+				} else {
+					$this->session->set_flashdata(
+						"flash",
+						"<script>
+						window.onload=function(){
+							swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+							</script>"
+					);
+
+					redirect(base_url('cms/product/'));
+				}
+
+			}
+
+
 		}
 
-		$this->session->set_flashdata(
-			"flash",
-			"<script>
-			window.onload=function(){
-			swal('Uhuy',''Please Try Again, Your Action Had an Issue','success')};
-			</script>"
-		);
 
-		redirect(base_url('cms/product/'));
 	}
+
+
 
 
 }/* End of file Sys.php */

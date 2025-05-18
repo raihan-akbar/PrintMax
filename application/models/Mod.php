@@ -46,7 +46,7 @@ class Mod extends CI_Model
 		$where = "product_token = '$product_token'";
 		$count = $this->Mod->get('product_variant_1', $where)->num_rows();
 		if ($count > 1) {
-			return $this->db->query("SELECT * FROM `product_variant_1` WHERE `product_token` = '$product_token' AND `product_variant_1_name` != 'Default' ");
+			return $this->db->query("SELECT * FROM `product_variant_1` WHERE `product_token` = '$product_token' AND `product_variant_1_name` != 'Default' AND `visible` = '1' ");
 		} else {
 			return $this->Mod->get('product_variant_1', $where);
 

@@ -627,7 +627,9 @@
 				})
 					.then((willDelete) => {
 						if (willDelete) {
-							location.href = "<?php echo base_url() . 'sys/remove_variant_1/' . $var1->product_variant_1_id;?>";
+							location.href = "<?php echo base_url() . 'sys/remove_variant_1/' . $var1->product_token;
+							echo '-';
+							echo $var1->product_variant_1_id; ?>";
 						}
 					});
 
