@@ -113,8 +113,8 @@
 												</button>
 											</div>
 											<!-- Modal body -->
-											<form method="post" action="<?= base_url('sys/add_variant_1') ?>" class="p-4 md:p-5"
-												enctype="multipart/form-data">
+											<form method="post" action="<?= base_url('sys/add_variant_1') ?>"
+												class="p-4 md:p-5" enctype="multipart/form-data">
 												<div class="grid gap-4 mb-4 grid-cols-2">
 													<div class="col-span-2">
 														<label for="name"
@@ -126,13 +126,15 @@
 													</div>
 													<div class="col-span-2">
 														<label for="name"
-															class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Variant Price</label>
+															class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Variant
+															Price</label>
 														<div class="relative w-full">
 															<div
 																class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
 																<p class="text-slate-400">Rp.</p>
 															</div>
-															<input type="text" name="variant_price" id="simple-search" data-input-counter
+															<input type="text" name="variant_price" id="simple-search"
+																data-input-counter
 																class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-bl-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ps-10"
 																placeholder="Insert Variant Price" required />
 														</div>
@@ -147,7 +149,8 @@
 														class="text-slate-700 inline-flex items-center bg-slate-0 hover:text-slate-500 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
 														data-modal-toggle="add-variant-1-modal">Cancel</button>
 													<button type="submit"
-														class="text-slate-50 dark:text-slate-950 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center">Save Variant
+														class="text-slate-50 dark:text-slate-950 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center">Save
+														Variant
 														<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
 															xmlns="http://www.w3.org/2000/svg">
 															<path fill-rule="evenodd"
@@ -169,13 +172,15 @@
 
 								<?php foreach ($getVariant1 as $a) { ?>
 									<!-- Card -->
-									<form method="post" action="<?= base_url('sys/update_variant_1/').$a->product_variant_1_id ?>" class="pb-4"
-									enctype="multipart/form-data">
+									<form method="post"
+										action="<?= base_url('sys/update_variant_1/') . $a->product_variant_1_id ?>" class="pb-4"
+										enctype="multipart/form-data">
 										<div class="flex items-center mx-auto w-full text-right">
 											<div class="relative w-full">
 												<input type="text" name="variant_name"
 													class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-tl-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-													placeholder="Variant Name" value="<?= $a->product_variant_1_name; ?>" required />
+													placeholder="Variant Name" value="<?= $a->product_variant_1_name; ?>"
+													required />
 											</div>
 											<input type="hidden" name="token" value="<?= $i->product_token ?>">
 											<button type="submit"
@@ -191,7 +196,8 @@
 												</div>
 												<input type="text" name="variant_price" id="simple-search" data-input-counter
 													class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-bl-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ps-10"
-													placeholder="Variant Price" value="<?= $a->product_variant_1_price_mark; ?>" required />
+													placeholder="Variant Price" value="<?= $a->product_variant_1_price_mark; ?>"
+													required />
 											</div>
 											<button type="button" onclick="remove_v1_<?= $a->product_variant_1_id ?>()"
 												class="p-2.5 text-sm font-medium text-slate-100 bg-red-500 rounded-br-lg border border-red-400 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300">
@@ -203,6 +209,142 @@
 							</div>
 						</div>
 						<!--  -->
+
+						<div class="w-full lg:w-1/3 mb-4 px-2">
+							<div class="bg-slate-100 dark:bg-slate-900 rounded-lg shadow-lg p-4 h-96 overflow-x-auto">
+								<div class="columns-2 text-right">
+									<h3 class="text-lg font-semibold text-slate-700 text-left dark:text-slate-300">Variant 2
+										Lists</h3>
+									<!-- <p data-modal-target="add-variant-2-modal" data-modal-toggle="add-variant-2-modal"
+										class="text-blue-600` font-semibold text-sm">[ Add <i
+											class="fa-solid fa-plus fa-xs"></i> ]</p> -->
+									<button data-modal-target="add-variant-2-modal" data-modal-toggle="add-variant-2-modal"
+										class="px-2 py-1 rounded-lg text-sm font-medium text-center text-slate-100 dark:text-slate-900 rounded-lg bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300">Add
+										New <i class="fa-solid fa-plus fa-xs"></i></button>
+								</div>
+								<!-- Add Variant 2 Modal -->
+								<div id="add-variant-2-modal" tabindex="-1" aria-hidden="true"
+									class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+									<div class="relative p-4 w-full max-w-2xl max-h-full">
+										<!-- Modal content -->
+										<div class="relative bg-slate-100 dark:bg-slate-900 rounded-lg shadow">
+											<!-- Modal header -->
+											<div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+												<img src="<?= base_url('_assets/img/sq-logo.png') ?>" class="h-8 me-3"
+													alt="Print-Max Logo" />
+												<h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">
+													Add New <?= $i->product_name; ?> Variant 2
+												</h3>
+												<button type="button"
+													class="text-slate-400 dark:text-slate-600 bg-transparent hover:bg-slate-200 hover:text-slate-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+													data-modal-toggle="add-variant-2-modal">
+													<svg class="w-3 h-3" aria-hidden="true"
+														xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+														<path stroke="currentColor" stroke-linecap="round"
+															stroke-linejoin="round" stroke-width="2"
+															d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+													</svg>
+													<span class="sr-only">Close modal</span>
+												</button>
+											</div>
+											<!-- Modal body -->
+											<form method="post" action="<?= base_url('sys/add_variant_2') ?>"
+												class="p-4 md:p-5" enctype="multipart/form-data">
+												<div class="grid gap-4 mb-4 grid-cols-2">
+													<div class="col-span-2">
+														<label for="name"
+															class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Variant
+															Name</label>
+														<input type="text" name="variant_name" id="name"
+															class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+															placeholder="Insert Variant Name" required="">
+													</div>
+													<div class="col-span-2">
+														<label for="name"
+															class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Variant
+															Price</label>
+														<div class="relative w-full">
+															<div
+																class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+																<p class="text-slate-400">Rp.</p>
+															</div>
+															<input type="text" name="variant_price" id="simple-search"
+																data-input-counter
+																class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-bl-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ps-10"
+																placeholder="Insert Variant Price" required />
+														</div>
+													</div>
+												</div>
+
+												<hr class="opacity-30 mb-8">
+												<input type="hidden" name="token" value="<?= $i->product_token ?>">
+												<input type="hidden" name="name" value="<?= $i->product_name ?>">
+												<div class="text-right space-x-2">
+													<button type="button"
+														class="text-slate-700 inline-flex items-center bg-slate-0 hover:text-slate-500 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+														data-modal-toggle="add-variant-2-modal">Cancel</button>
+													<button type="submit"
+														class="text-slate-50 dark:text-slate-950 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center">Save
+														Variant
+														<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+															xmlns="http://www.w3.org/2000/svg">
+															<path fill-rule="evenodd"
+																d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+																clip-rule="evenodd"></path>
+														</svg>
+													</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+								<!-- & -->
+
+								<div class="pb-4">
+									<hr class="w-full h-px my-2 bg-slate-400 border-0">
+								</div>
+
+
+								<?php foreach ($getVariant2 as $a) { ?>
+									<!-- Card -->
+									<form method="post"
+										action="<?= base_url('sys/update_variant_2/') . $a->product_variant_2_id ?>" class="pb-4"
+										enctype="multipart/form-data">
+										<div class="flex items-center mx-auto w-full text-right">
+											<div class="relative w-full">
+												<input type="text" name="variant_name"
+													class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-tl-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+													placeholder="Variant Name" value="<?= $a->product_variant_2_name; ?>"
+													required />
+											</div>
+											<input type="hidden" name="token" value="<?= $i->product_token ?>">
+											<button type="submit"
+												class="p-2.5 text-sm font-medium text-slate-100 bg-blue-500 rounded-tr-lg border border-blue-400 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300">
+												<i class="fa-solid fa-floppy-disk px-2"></i>
+											</button>
+										</div>
+										<div class="flex items-center mx-auto w-full text-right">
+											<div class="relative w-full">
+												<div
+													class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+													<p class="text-slate-400">Rp.</p>
+												</div>
+												<input type="text" name="variant_price" id="simple-search" data-input-counter
+													class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-bl-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ps-10"
+													placeholder="Variant Price" value="<?= $a->product_variant_2_price_mark; ?>"
+													required />
+											</div>
+											<button type="button" onclick="remove_v2_<?= $a->product_variant_2_id ?>()"
+												class="p-2.5 text-sm font-medium text-slate-100 bg-red-500 rounded-br-lg border border-red-400 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300">
+												<i class="fa-solid fa-trash px-2"></i>
+											</button>
+										</div>
+									</form>
+								<?php } ?>
+							</div>
+						</div>
+						<!--  -->
+
 					</div>
 
 					<!-- Gallery -->
@@ -614,7 +756,7 @@
 
 	<?php } ?>
 	<?php foreach ($getVariant1 as $var1) { ?>
-		<!-- Delete Image Confirmation -->
+		<!-- Delete Variant 1 Confirmation -->
 
 		<script>
 			function remove_v1_<?= $var1->product_variant_1_id ?>() {
@@ -630,6 +772,29 @@
 							location.href = "<?php echo base_url() . 'sys/remove_variant_1/' . $var1->product_token;
 							echo '-';
 							echo $var1->product_variant_1_id; ?>";
+						}
+					});
+
+			}
+		</script>
+
+	<?php } ?>
+	<?php foreach ($getVariant2 as $var2) { ?>
+		<!-- Delete Variant 2 Confirmation -->
+		<script>
+			function remove_v2_<?= $var2->product_variant_2_id ?>() {
+				swal({
+					title: "Delete This Variant 2?",
+					text: "Just to make sure, this data will be deleted permanently.",
+					icon: "warning",
+					buttons: true,
+					dangerMode: true,
+				})
+					.then((willDelete) => {
+						if (willDelete) {
+							location.href = "<?php echo base_url() . 'sys/remove_variant_2/' . $var2->product_token;
+							echo '-';
+							echo $var2->product_variant_2_id; ?>";
 						}
 					});
 

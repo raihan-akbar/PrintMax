@@ -36,12 +36,13 @@ class Cms extends CI_Controller
 	public function order()
 	{
 		$data['getMenu'] = $this->Mod->getMenu()->result();
+		$data['getBook'] = $this->Mod->get('book', array('book_id !=' => '0'))->result();
 
 		$data_session = array('menu_active' => '2');
 		$this->session->set_userdata($data_session);
 
 		$this->load->view('cms/order', $data);
-
+		
 	}
 
 	public function product($product_token = null)
@@ -56,7 +57,7 @@ class Cms extends CI_Controller
 			}
 
 			$data['getProduct'] = $this->Mod->get('product', $where)->result();
-			
+
 			// $data['getVariant1'] = $this->Mod->get('product_variant_1', $where)->result();
 			// $data['getVariant2'] = $this->Mod->get('product_variant_2', $where)->result();
 			// getVariant1($product_token)
@@ -91,6 +92,21 @@ class Cms extends CI_Controller
 
 		$this->load->view('cms/user', $data);
 
+	}
+
+	public function make_order()
+	{
+		$data['getMenu'] = $this->Mod->getMenu()->result();
+		$where = "product_id != '0' ORDER BY product_id DESC";
+		$data['getProduct'] = $this->Mod->get('product', $where)->result();
+		$data['getUserCart'] = $this->Mod->getUserCart()->result();
+
+
+
+		$data_session = array('menu_active' => '2');
+		$this->session->set_userdata($data_session);
+
+		$this->load->view('cms/make_order', $data);
 	}
 
 }

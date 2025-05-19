@@ -606,7 +606,8 @@ class Sys extends CI_Controller
 		$data = array(
 			'product_token' => $product_token,
 			'product_variant_1_name' => $variant_name,
-			'product_variant_1_price_mark' => $variant_price
+			'product_variant_1_price_mark' => $variant_price,
+			'visible' => '1'
 		);
 
 		$this->Mod->add($data, 'product_variant_1');
@@ -740,6 +741,293 @@ class Sys extends CI_Controller
 
 	}
 
+	public function add_variant_2()
+	{
+		$variant_name = $this->input->post('variant_name');
+		$variant_price = $this->input->post('variant_price');
+		$product_token = $this->input->post('token');
+		$product_name = $this->input->post('product_name');
+
+		$data = array(
+			'product_token' => $product_token,
+			'product_variant_2_name' => $variant_name,
+			'product_variant_2_price_mark' => $variant_price,
+			'visible' => '1'
+		);
+
+		$this->Mod->add($data, 'product_variant_2');
+		$this->session->set_flashdata(
+			"flash",
+			"<script>
+			window.onload=function(){
+			swal('Success','$product_name'+' variant21 data is successful saved','success')};
+			</script>"
+		);
+
+		redirect(base_url('cms/product/' . $product_token));
+	}
+
+	public function update_variant_2($variant_id = null)
+	{
+		$variant_name = $this->input->post('variant_name');
+		$variant_price = $this->input->post('variant_price');
+		$product_token = $this->input->post('token');
+
+		if ($variant_id == null) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+				window.onload=function(){
+				swal('Error',''Please Try Again, Your Action Had an Issue','success')};
+				</script>"
+			);
+
+			redirect(base_url('cms/product/' . $product_token));
+		} else if ($product_token == null) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+				window.onload=function(){
+				swal('Error',''Please Try Again, Your Action Had an Issue','success')};
+				</script>"
+			);
+
+			redirect(base_url('cms/product/'));
+		} else {
+			$data = array(
+				'product_variant_2_name' => $variant_name,
+				'product_variant_2_price_mark' => $variant_price
+			);
+
+			$this->Mod->upd(array('product_variant_2_id' => $variant_id), $data, 'product_variant_2');
+
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+			window.onload=function(){
+			swal('Success','$variant_name'+' is successful updated','success')};
+			</script>"
+			);
+
+			redirect(base_url('cms/product/' . $product_token));
+		}
+
+	}
+
+	public function remove_variant_2($key = null)
+	{
+		if ($key == null) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+						window.onload=function(){
+						swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+						</script>"
+			);
+
+			redirect(base_url('cms/product/'));
+		} else {
+			if (!preg_match('/-/', $key)) {
+				$this->session->set_flashdata(
+					"flash",
+					"<script>
+					window.onload=function(){
+						swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+						</script>"
+				);
+
+				redirect(base_url('cms/product/'));
+			} else {
+				$piece = explode('-', $key);
+				$piece_0 = array($piece[0]); //Product Token Piece
+				$product_token = implode('', $piece_0);
+				$piece_1 = array($piece[1]); //Image Token Piece
+				$variant_id = implode('', $piece_1);
+
+				$product_check = $this->Mod->get('product', array('product_token' => $product_token))->num_rows();
+				$variant_check = $this->Mod->get('product_variant_2', array('product_variant_2_id' => $variant_id))->num_rows();
+
+				if ($product_check == true && $variant_check == true) {
+					$data = array(
+						'visible' => '0',
+					);
+
+
+					$this->Mod->upd(array('product_variant_2_id' => $variant_id), $data, 'product_variant_2');
+
+					$this->session->set_flashdata(
+						"flash",
+						"<script>
+							window.onload=function(){
+								swal({title: 'Success', text: 'Data Removed from Variant 1.', icon: 'success', button: 'Close',})};
+								</script>"
+					);
+
+					redirect(base_url('cms/product/' . $product_token));
+
+				} else {
+					$this->session->set_flashdata(
+						"flash",
+						"<script>
+						window.onload=function(){
+							swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+							</script>"
+					);
+
+					redirect(base_url('cms/product/'));
+				}
+
+			}
+
+
+		}
+
+
+	}
+
+	public function add_make_order_cart($product_token = null)
+	{
+		$product_name = $this->session->userdata('product_name');
+		$user_token = $this->session->userdata('user_token');
+		$variant_1 = $this->input->post('variant_1');
+		$variant_2 = $this->input->post('variant_2');
+		$qty = $this->input->post('qty');
+
+
+		if ($product_token == null) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+						window.onload=function(){
+							swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+							</script>"
+			);
+
+			redirect(base_url('cms/make_order/'));
+		} else {
+			$data = array(
+				'product_token' => $product_token,
+				'user_token' => $user_token,
+				'product_variant_1_id' => $variant_1,
+				'product_variant_2_id' => $variant_2,
+				'user_cart_qty' => $qty
+			);
+
+			$this->Mod->add($data, 'user_cart');
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+			window.onload=function(){
+			swal('Added to Cart','$product_name'+' Now in your cart','success')};
+			</script>"
+			);
+
+			redirect(base_url('cms/make_order/'));
+
+		}
+	}
+
+	public function remove_user_cart($user_cart_id)
+	{
+		if ($user_cart_id == null) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+						window.onload=function(){
+							swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+							</script>"
+			);
+
+			redirect(base_url('cms/make_order/'));
+		} else {
+			$where = array('user_cart_id' => $user_cart_id);
+			$this->Mod->del($where, 'user_cart');
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+						window.onload=function(){
+							swal({title: 'Success!', text: 'Data Removed from Cart.', icon: 'success', button: 'Close',})};
+							</script>"
+			);
+			redirect(base_url('cms/make_order/'));
+		}
+	}
+
+	public function add_user_book()
+	{
+		$user_token = $this->session->userdata('user_token');
+		$customer_name = $this->input->post('customer_name');
+		$customer_phone = $this->input->post('customer_phone');
+		// $cart_product = $this->db->get_where('user_cart', ['user_token' => $user_token])->result();
+		$cart_product = $this->Mod->getUserCart()->result();
+		$variant_1_price = $this->input->post('variant_1_price_mark');
+		$variant_2_price = $this->input->post('variant_2_price_mark');
+
+		if (empty($cart_product)) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+						window.onload=function(){
+							swal({title: 'Empty Cart!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+							</script>"
+			);
+
+			redirect(base_url('cms/make_order/'));
+		}
+
+		$total_price = 0;
+		$price_of_product = 0;
+		foreach ($cart_product as $item) {
+			$price_of_product = $item->product_price + $variant_1_price + $variant_2_price;
+			$qty = $item->user_cart_qty;
+			$total_price += $price_of_product * $qty;
+		}
+		$book_token = strtoupper(bin2hex(random_bytes(4))) . date('Ymd') . strtoupper(bin2hex(random_bytes(4)));
+		$key = bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2));
+
+		$book_key = strtoupper($key);
+		$data_book = [
+			'book_token' => $book_token,
+			'book_paid' => '0',
+			'customer_name' => $customer_name,
+			'customer_phone' => $customer_phone,
+			'price_total' => $total_price,
+			'book_status' => 'Progress',
+			'user_token' => $user_token,
+			'book_date' => date('Y-m-d H:i:s'),
+			'book_key' => $book_key,
+
+		];
+
+		$this->Mod->add($data_book, 'book');
+
+		foreach ($cart_product as $item) {
+			$data_product = [
+				'book_token' => $book_token,
+				'product_token' => $item->product_token,
+				'product_variant_1_id' => $item->product_variant_1_id,
+				'product_variant_2_id' => $item->product_variant_2_id,
+				'book_product_qty' => $item->user_cart_qty,
+				'product_variant_1_price_mark' => $item->product_variant_1_price_mark,
+				'product_variant_2_price_mark' => $item->product_variant_2_price_mark,
+				'book_product_price' => $item->product_price
+			];
+
+			$this->Mod->add($data_product, 'book_product');
+		}
+		$this->Mod->del(array('user_token' => $user_token), 'user_cart');
+
+		$this->session->set_flashdata(
+				"flash",
+				"<script>
+						window.onload=function(){
+							swal({title: 'Your Order Booked!', text: 'Now The Product Moving to Order Section.', icon: 'success', button: 'Close',})};
+							</script>"
+			);
+
+			redirect(base_url('cms/order/'));
+
+	}
 
 
 

@@ -52,7 +52,7 @@
 											</span>
 											<!-- <div class="flex-grow border-t border-slate-500"></div> -->
 										</div>
-										<a data-modal-target="add-user-modal" data-modal-toggle="add-user-modal"
+										<a href="<?= base_url('cms/make_order'); ?>"
 											class="text-center text-slate-700 dark:text-slate-300 dark:hover:text-slate-500 hover:text-slate-600 cursor-pointer">
 											<h1 class="mt-8"><i class="fa-solid fa-boxes"></i></h1>
 											<p class="text-lg font-bold">Create Customer Order</p>
@@ -63,19 +63,19 @@
 										</div>
 									</div>
 								</li>
-								<?php for ($i = 0; $i < 8; $i++) { ?>
+								<?php foreach ($getBook as $b) { ?>
 									<li class="py-1">
 										<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
 											<a href="#">
 												<p class="w-full text-slate-700 dark:text-slate-300">
 													<span class="font-bold text-lg"><i
 															class="fa-solid fa-circle fa-xs fa-fw text-green-600 animate-pulse"></i>
-														<?= "Order on Progress"; ?></span>
+														<?= "Order is Progress"; ?></span>
 												</p>
 												<hr class="my-2 opacity-45">
 												<p class="text-slate-700 dark:text-slate-300">
-													<span class="font-bold"><?= "Dejan Soekri Stankovic"; ?> - <span
-															class=""><?= "08111220130"; ?></span></span>
+													<span class="font-bold"><?=$b->customer_name; ?> - <span
+															class=""><?=$b->customer_phone;?></span></span>
 
 												</p>
 												<p class="text-slate-700 dark:text-slate-300">

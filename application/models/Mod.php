@@ -34,19 +34,14 @@ class Mod extends CI_Model
 
 	}
 
-	public function getProduct()
-	{
-		$where = "menu_access LIKE '%$role_id%'";
-		return $this->Mod->get('product', $where);
-
-	}
+	
 
 	public function getVariant1($product_token)
 	{
 		$where = "product_token = '$product_token'";
 		$count = $this->Mod->get('product_variant_1', $where)->num_rows();
 		if ($count > 1) {
-			return $this->db->query("SELECT * FROM `product_variant_1` WHERE `product_token` = '$product_token' AND `product_variant_1_name` != 'Default' AND `visible` = '1' ");
+			return $this->db->query("SELECT * FROM `product_variant_1` WHERE `product_token` = '$product_token' AND `visible` = '1' ");
 		} else {
 			return $this->Mod->get('product_variant_1', $where);
 
@@ -58,11 +53,19 @@ class Mod extends CI_Model
 		$where = "product_token = '$product_token'";
 		$count = $this->Mod->get('product_variant_2', $where)->num_rows();
 		if ($count > 1) {
-			return $this->db->query("SELECT * FROM `product_variant_2` WHERE `product_token` = '$product_token' AND `product_variant_2_name` != 'Default' ");
+			return $this->db->query("SELECT * FROM `product_variant_2` WHERE `product_token` = '$product_token' AND `visible` = '1' ");
 		} else {
 			return $this->Mod->get('product_variant_2', $where);
 
 		}
+	}
+
+	public function getUserCart()
+	{
+		$user_token = $this->session->userdata('user_token');
+
+		return $this->db->query(" SELECT * FROM user_cart,product,product_variant_1,product_variant_2 WHERE user_cart.product_token = product.product_token AND user_cart.user_token = '$user_token' AND user_cart.product_variant_1_id = product_variant_1.product_variant_1_id AND user_cart.product_variant_2_id = product_variant_2.product_variant_2_id");
+
 	}
 }
 
