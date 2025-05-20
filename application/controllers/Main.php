@@ -9,7 +9,6 @@ class Main extends CI_Controller
 		$this->load->model('Mod');
 		$this->load->library('user_agent');
 		date_default_timezone_set("Asia/Jakarta");
-
 	}
 
 	public function xxx()
@@ -56,7 +55,6 @@ class Main extends CI_Controller
 				);
 				$this->Mod->add($data, 'agent');
 			}
-
 		}
 
 		if ($this->session->userdata('agent_token') != null) {
@@ -64,7 +62,7 @@ class Main extends CI_Controller
 			if ($cart_check != 0) {
 				$data_session = array('cart_ping' => true);
 				$this->session->set_userdata($data_session);
-			}else{
+			} else {
 				$data_session = array('cart_ping' => false);
 				$this->session->set_userdata($data_session);
 			}
@@ -119,7 +117,6 @@ class Main extends CI_Controller
 	{
 		$this->session->sess_destroy();
 		redirect(base_url('signin'));
-
 	}
 
 	public function missing()
@@ -141,13 +138,11 @@ class Main extends CI_Controller
 		} else if ($item_check == 0) {
 			redirect(base_url('/'));
 		} else {
-			$data['product_img'] = $this->Mod->get('product_image', $where)->result();
-			;
+			$data['product_img'] = $this->Mod->get('product_image', $where)->result();;
 			$data['product'] = $this->Mod->get('product', $where)->result();
 			$this->load->view('public/item', $data);
 		}
 	}
-
 }
 
 /* End of file Main.php */

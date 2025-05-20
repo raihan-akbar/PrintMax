@@ -42,7 +42,7 @@ class Cms extends CI_Controller
 		$this->session->set_userdata($data_session);
 
 		$this->load->view('cms/order', $data);
-		
+
 	}
 
 	public function product($product_token = null)
@@ -107,6 +107,17 @@ class Cms extends CI_Controller
 		$this->session->set_userdata($data_session);
 
 		$this->load->view('cms/make_order', $data);
+	}
+
+	public function invoice()
+	{
+		$data['getMenu'] = $this->Mod->getMenu()->result();
+		$data['getBookDetails'] = $this->Mod->getBookDetails()->result();
+
+		$data_session = array('menu_active' => '6');
+		$this->session->set_userdata($data_session);
+
+		$this->load->view('cms/invoice', $data);
 	}
 
 }

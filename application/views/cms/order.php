@@ -44,7 +44,7 @@
 							<div
 								class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
 								<li class="py-1 h-full">
-									<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-6">
+									<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-9">
 										<div class="relative flex py-0 items-center mb-1">
 											<!-- <div class="flex-grow border-t border-slate-500"></div> -->
 											<span class="flex-shrink mx-0 mt-4 uppercase text-xs font-bold">
@@ -74,20 +74,41 @@
 												</p>
 												<hr class="my-2 opacity-45">
 												<p class="text-slate-700 dark:text-slate-300">
-													<span class="font-bold"><?=$b->customer_name; ?> - <span
-															class=""><?=$b->customer_phone;?></span></span>
+													<span class="font-bold"><?= $b->customer_name; ?> - <span
+															class=""><?= $b->customer_phone; ?></span></span>
 
 												</p>
 												<p class="text-slate-700 dark:text-slate-300">
-													<span class="">Order Date : <?= "12, May 2025"; ?></span>
+													<?php
+													$dateRaw = new DateTime($b->book_date);
+													$dateString = date_format($dateRaw, 'd, F Y | H:i') . ' WIB';
+													?>
+													<span class=""><?= $dateString; ?></span>
 												</p>
-												<p class="text-slate-700 dark:text-slate-300 text-sm mt-2">
-													<span
-														class=""><?= strtoupper(bin2hex(random_bytes(1))) . date('Ymd') . strtoupper(bin2hex(random_bytes(1))); ?></span>
+												<p class="text-slate-700 dark:text-slate-300">
+													<?php
+													if ($b->book_paid == 1) {
+														$paidTxt = "Paid";
+														$paidClr = "text-green-600";
+													} else {
+														$paidTxt = "Unpaid";
+														$paidClr = "text-red-600";
+													}
+													?>
+													<span class="">Total : Rp. <?= $b->price_total; ?></span>
+													-
+													<span class="<?= $paidClr; ?> font-medium"><?= $paidTxt; ?></span>
+												</p>
+												<p class="text-slate-700 dark:text-slate-300">
+
+												</p>
+												<p class="text-slate-700 dark:text-slate-300 text-sm mt-1">
+													<span class="text-xs"><code><?= $b->book_key ?></code></span>
 												</p>
 											</a>
 											<hr class="mt-4 mb-2 opacity-45">
-											<p class="text-slate-800 hover:text-blue-950 dark:text-slate-200 dark:hover:text-blue-200 text-center">
+											<p
+												class="text-slate-800 hover:text-blue-950 dark:text-slate-200 dark:hover:text-blue-200 text-center cursor-pointer">
 												Order Overview
 											</p>
 										</div>
@@ -118,7 +139,6 @@
 			.catch(error => {
 				console.error(error);
 			});
-
 	</script>
 	<script>
 		function myFunction() {

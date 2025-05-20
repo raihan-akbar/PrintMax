@@ -57,8 +57,8 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <form method="post" action="<?= base_url('sys/add_user_book/') ?>"
-                                    class="p-4 md:p-5" enctype="multipart/form-data">
+                                <form method="post" action="<?= base_url('sys/add_user_book/') ?>" class="p-4 md:p-5"
+                                    enctype="multipart/form-data">
                                     <div class="grid gap-4 mb-4 grid-cols-2">
 
                                         <div class="col-span-1">
@@ -94,23 +94,26 @@
                                             $total_of_price += $total_product_price;
 
                                             ?>
-                                            <div class="col-span-1">
-                                                <label for="name"
-                                                    class="block text-md font-light dark:text-slate-100 text-slate-900"><span class="pr-1 text-sm font-bold text-red-500 cursor-pointer"><a href="<?= base_url('sys/remove_user_cart/'.$u->user_cart_id) ?>">X</a></span>
-                                                    <?= $u->product_name ?>    <?= $var_1_name ?>    <?= $var_2_name ?></label>
+                                        <div class="col-span-1">
+                                            <label for="name"
+                                                class="block text-md font-light dark:text-slate-100 text-slate-900"><span
+                                                    class="pr-1 text-sm font-bold text-red-500 cursor-pointer"><a
+                                                        href="<?= base_url('sys/remove_user_cart/'.$u->user_cart_id) ?>">X</a></span>
+                                                <?= $u->product_name ?> <?= $var_1_name ?> <?= $var_2_name ?></label>
 
-                                            </div>
-                                            <div class="col-span-1">
-                                                <label class="block text-md font-light dark:text-slate-100 text-slate-900">
-                                                    Rp<?= number_format($product_price, 0, ',', '.') ?> (x<?= $qty ?>)
-                                                    =
-                                                    <strong>Rp<?= number_format($total_product_price, 0, ',', '.') ?></strong>
-                                                </label>
-                                            </div>
-                                            
+                                        </div>
+                                        <div class="col-span-1">
+                                            <label class="block text-md font-light dark:text-slate-100 text-slate-900">
+                                                Rp<?= number_format($product_price, 0, ',', '.') ?> (x<?= $qty ?>)
+                                                =
+                                                <strong>Rp<?= number_format($total_product_price, 0, ',', '.') ?></strong>
+                                            </label>
+                                        </div>
+
                                         <?php } ?>
                                         <div class="col-span-2 mt-4">
-                                            <label class="block text-lg font-semibold text-right dark:text-slate-100 text-slate-900">
+                                            <label
+                                                class="block text-lg font-semibold text-right dark:text-slate-100 text-slate-900">
                                                 Total: Rp<?= number_format($total_of_price, 0, ',', '.') ?>
                                             </label>
                                         </div>
@@ -119,19 +122,27 @@
                                     <hr class="opacity-30 mb-2">
                                     <div class="grid gap-4 mb-4 grid-cols-2">
                                         <div class="col-span-1">
-                                            <label for="name" class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Customer Name</label>
-                                            <input type="text" name="customer_name" id="name" class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Insert Customer Name" required="">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Customer
+                                                Name</label>
+                                            <input type="text" name="customer_name" id="name"
+                                                class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                placeholder="Insert Customer Name" required="">
                                         </div>
                                         <div class="col-span-1">
-                                            <label for="name" class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Customer Phone</label>
-                                            <input type="text" name="customer_phone" id="name" class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Insert Customer Phone Number" required="">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Customer
+                                                Phone</label>
+                                            <input type="text" name="customer_phone" id="name"
+                                                class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                placeholder="Insert Customer Phone Number" required="">
                                         </div>
                                     </div>
                                     <hr class="opacity-30 mb-4">
                                     <div class="text-right space-x-2">
                                         <button type="button"
                                             class="text-slate-700 inline-flex items-center bg-slate-0 hover:text-slate-500 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                            data-modal-toggle="add-product-<?= '' ?>">Cancel</button>
+                                            data-modal-toggle="view-cart">Cancel</button>
                                         <button type="submit"
                                             class="text-slate-50 dark:text-slate-950 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center">Move
                                             to Order
@@ -165,140 +176,140 @@
                                 class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 
                                 <?php foreach ($getProduct as $a) { ?>
-                                    <li class="py-1">
-                                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
-                                            <a href="#">
-                                                <p class="w-full text-slate-700 dark:text-slate-300">
-                                                    <span class="font-bold text-lg">
-                                                        <?= $a->product_name; ?></span>
-                                                </p>
-                                                <p class="w-full text-slate-700 dark:text-slate-300">
-                                                    <span class="font-medium text-md">
-                                                        Rp. <?= $a->product_price; ?></span>
-                                                </p>
-                                                <p class="w-full text-slate-700 dark:text-slate-300">
-                                                    <span class="font-medium text-md">
-                                                        Sold: <?= $a->product_sold; ?></span>
-                                                </p>
-
-                                            </a>
-                                            <hr class="mt-4 mb-2 opacity-45">
-                                            <p data-modal-target="add-product-<?= $a->product_token ?>"
-                                                data-modal-toggle="add-product-<?= $a->product_token ?>"
-                                                class="text-slate-800 hover:text-blue-950 dark:text-slate-200 dark:hover:text-blue-200 text-center">
-                                                Select Product
+                                <li class="py-1">
+                                    <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
+                                        <a href="#">
+                                            <p class="w-full text-slate-700 dark:text-slate-300">
+                                                <span class="font-bold text-lg">
+                                                    <?= $a->product_name; ?></span>
                                             </p>
-                                            <!-- Select Product Modal -->
-                                            <div id="add-product-<?= $a->product_token ?>" tabindex="-1" aria-hidden="true"
-                                                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                <div class="relative p-4 w-full max-w-2xl max-h-full">
-                                                    <!-- Modal content -->
-                                                    <div class="relative bg-slate-100 dark:bg-slate-900 rounded-lg shadow">
-                                                        <!-- Modal header -->
-                                                        <div
-                                                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-                                                            <img src="<?= base_url('_assets/img/sq-logo.png') ?>"
-                                                                class="h-8 me-3" alt="Print-Max Logo" />
-                                                            <h3
-                                                                class="text-lg font-semibold text-slate-900 dark:text-slate-100">
-                                                                <?= $a->product_name; ?>
-                                                            </h3>
-                                                            <button type="button"
-                                                                class="text-slate-400 dark:text-slate-600 bg-transparent hover:bg-slate-200 hover:text-slate-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                                                                data-modal-toggle="add-product-<?= $a->product_token ?>">
-                                                                <svg class="w-3 h-3" aria-hidden="true"
-                                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                    viewBox="0 0 14 14">
-                                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                                        stroke-linejoin="round" stroke-width="2"
-                                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                                </svg>
-                                                                <span class="sr-only">Close modal</span>
-                                                            </button>
-                                                        </div>
-                                                        <!-- Modal body -->
-                                                        <form method="post"
-                                                            action="<?= base_url('sys/add_make_order_cart/' . $a->product_token) ?>"
-                                                            class="p-4 md:p-5" enctype="multipart/form-data">
-                                                            <div class="grid gap-4 mb-4 grid-cols-2">
-                                                                <div class="col-span-2">
-                                                                    <label for="name"
-                                                                        class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Select
-                                                                        Variant 1</label>
-                                                                    <select name="variant_1" id=""
-                                                                        class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                                                                        <?php
+                                            <p class="w-full text-slate-700 dark:text-slate-300">
+                                                <span class="font-medium text-md">
+                                                    Rp. <?= $a->product_price; ?></span>
+                                            </p>
+                                            <p class="w-full text-slate-700 dark:text-slate-300">
+                                                <span class="font-medium text-md">
+                                                    Sold: <?= $a->product_sold; ?></span>
+                                            </p>
+
+                                        </a>
+                                        <hr class="mt-4 mb-2 opacity-45">
+                                        <p data-modal-target="add-product-<?= $a->product_token ?>"
+                                            data-modal-toggle="add-product-<?= $a->product_token ?>"
+                                            class="text-slate-800 hover:text-blue-950 dark:text-slate-200 dark:hover:text-blue-200 text-center">
+                                            Select Product
+                                        </p>
+                                        <!-- Select Product Modal -->
+                                        <div id="add-product-<?= $a->product_token ?>" tabindex="-1" aria-hidden="true"
+                                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                            <div class="relative p-4 w-full max-w-2xl max-h-full">
+                                                <!-- Modal content -->
+                                                <div class="relative bg-slate-100 dark:bg-slate-900 rounded-lg shadow">
+                                                    <!-- Modal header -->
+                                                    <div
+                                                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                                        <img src="<?= base_url('_assets/img/sq-logo.png') ?>"
+                                                            class="h-8 me-3" alt="Print-Max Logo" />
+                                                        <h3
+                                                            class="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                                                            <?= $a->product_name; ?>
+                                                        </h3>
+                                                        <button type="button"
+                                                            class="text-slate-400 dark:text-slate-600 bg-transparent hover:bg-slate-200 hover:text-slate-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                                                            data-modal-toggle="add-product-<?= $a->product_token ?>">
+                                                            <svg class="w-3 h-3" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 14 14">
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                            </svg>
+                                                            <span class="sr-only">Close modal</span>
+                                                        </button>
+                                                    </div>
+                                                    <!-- Modal body -->
+                                                    <form method="post"
+                                                        action="<?= base_url('sys/add_make_order_cart/' . $a->product_token) ?>"
+                                                        class="p-4 md:p-5" enctype="multipart/form-data">
+                                                        <div class="grid gap-4 mb-4 grid-cols-2">
+                                                            <div class="col-span-2">
+                                                                <label for="name"
+                                                                    class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Select
+                                                                    Variant 1</label>
+                                                                <select name="variant_1" id=""
+                                                                    class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                                                    <?php
                                                                         $this->load->model('Mod');
                                                                         $where_v1 = "product_token = '$a->product_token'";
                                                                         $getVariant1 = $this->Mod->get('product_variant_1', $where_v1)->result();
                                                                         ?>
-                                                                        <?php
+                                                                    <?php
                                                                         foreach ($getVariant1 as $v1) { ?>
-                                                                            <option value="<?= $v1->product_variant_1_id; ?>">
-                                                                                <?= $v1->product_variant_1_name; ?>
-                                                                                (Rp.<?= $v1->product_variant_1_price_mark; ?>)
-                                                                            </option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-span-2">
-                                                                    <label for="name"
-                                                                        class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Select
-                                                                        Variant 2</label>
-                                                                    <select name="variant_2" id=""
-                                                                        class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                                                                        <?php
+                                                                    <option value="<?= $v1->product_variant_1_id; ?>">
+                                                                        <?= $v1->product_variant_1_name; ?>
+                                                                        (Rp.<?= $v1->product_variant_1_price_mark; ?>)
+                                                                    </option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-span-2">
+                                                                <label for="name"
+                                                                    class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Select
+                                                                    Variant 2</label>
+                                                                <select name="variant_2" id=""
+                                                                    class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                                                    <?php
                                                                         $this->load->model('Mod');
                                                                         $where_v2 = "product_token = '$a->product_token'";
                                                                         $getVariant2 = $this->Mod->get('product_variant_2', $where_v2)->result();
                                                                         ?>
-                                                                        <?php
+                                                                    <?php
                                                                         foreach ($getVariant2 as $v2) { ?>
-                                                                            <option value="<?= $v2->product_variant_2_id; ?>">
-                                                                                <?= $v2->product_variant_2_name; ?>
-                                                                                (Rp.<?= $v2->product_variant_2_price_mark; ?>)
-                                                                            </option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-span-2">
-                                                                    <label for="name"
-                                                                        class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Variant
-                                                                        Name</label>
-                                                                    <input name="qty" type="number" min="1"
-                                                                        name="variant_name" id="name"
-                                                                        class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                                                        placeholder="Quantity of Product" required="">
-                                                                </div>
-
+                                                                    <option value="<?= $v2->product_variant_2_id; ?>">
+                                                                        <?= $v2->product_variant_2_name; ?>
+                                                                        (Rp.<?= $v2->product_variant_2_price_mark; ?>)
+                                                                    </option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-span-2">
+                                                                <label for="name"
+                                                                    class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Variant
+                                                                    Name</label>
+                                                                <input name="qty" type="number" min="1"
+                                                                    name="variant_name" id="name"
+                                                                    class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                                    placeholder="Quantity of Product" required="">
                                                             </div>
 
-                                                            <hr class="opacity-30 mb-8">
-                                                            <input type="hidden" name="product_name"
-                                                                value="<?= $a->product_name ?>">
-                                                            <div class="text-right space-x-2">
-                                                                <button type="button"
-                                                                    class="text-slate-700 inline-flex items-center bg-slate-0 hover:text-slate-500 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                                                    data-modal-toggle="add-product-<?= $a->product_token ?>">Cancel</button>
-                                                                <button type="submit"
-                                                                    class="text-slate-50 dark:text-slate-950 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center">Add
-                                                                    to Cart
-                                                                    <svg class="w-5 h-5" fill="currentColor"
-                                                                        viewBox="0 0 20 20"
-                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                        <path fill-rule="evenodd"
-                                                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                                                            clip-rule="evenodd"></path>
-                                                                    </svg>
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
+                                                        </div>
+
+                                                        <hr class="opacity-30 mb-8">
+                                                        <input type="hidden" name="product_name"
+                                                            value="<?= $a->product_name ?>">
+                                                        <div class="text-right space-x-2">
+                                                            <button type="button"
+                                                                class="text-slate-700 inline-flex items-center bg-slate-0 hover:text-slate-500 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                                                data-modal-toggle="add-product-<?= $a->product_token ?>">Cancel</button>
+                                                            <button type="submit"
+                                                                class="text-slate-50 dark:text-slate-950 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center">Add
+                                                                to Cart
+                                                                <svg class="w-5 h-5" fill="currentColor"
+                                                                    viewBox="0 0 20 20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                                        clip-rule="evenodd"></path>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
-                                            <!-- & -->
                                         </div>
-                                    </li>
+                                        <!-- & -->
+                                    </div>
+                                </li>
                                 <?php } ?>
 
 
@@ -320,33 +331,32 @@
     <?= $this->session->flashdata('flash'); ?>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
     <script>
-        ClassicEditor
-            .create(document.querySelector('#ckdesc'))
-            .catch(error => {
-                console.error(error);
-            });
-
+    ClassicEditor
+        .create(document.querySelector('#ckdesc'))
+        .catch(error => {
+            console.error(error);
+        });
     </script>
     <script>
-        function myFunction() {
-            // Declare variables
-            var input, filter, ul, li, a, i, txtValue;
-            input = document.getElementById('myInput');
-            filter = input.value.toUpperCase();
-            ul = document.getElementById("myUL");
-            li = ul.getElementsByTagName('li');
+    function myFunction() {
+        // Declare variables
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('myInput');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName('li');
 
-            // Loop through all list items, and hide those who don't match the search query
-            for (i = 0; i < li.length; i++) {
-                a = li[i].getElementsByTagName("a")[0];
-                txtValue = a.textContent || a.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
             }
         }
+    }
     </script>
 </body>
 

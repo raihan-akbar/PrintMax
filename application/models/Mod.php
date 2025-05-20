@@ -67,6 +67,10 @@ class Mod extends CI_Model
 		return $this->db->query(" SELECT * FROM user_cart,product,product_variant_1,product_variant_2 WHERE user_cart.product_token = product.product_token AND user_cart.user_token = '$user_token' AND user_cart.product_variant_1_id = product_variant_1.product_variant_1_id AND user_cart.product_variant_2_id = product_variant_2.product_variant_2_id");
 
 	}
+
+	public function getBookDetails(){
+		return $this->db->query("SELECT * FROM book,book_product,product,product_variant_1,product_variant_2,user  ");
+	}
 }
 
 /* End of file Mod.php */

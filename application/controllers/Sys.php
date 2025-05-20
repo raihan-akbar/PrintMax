@@ -55,12 +55,10 @@ class Sys extends CI_Controller
 					redirect(base_url('signin/'));
 				}
 			}
-
 		} else {
 			$this->session->set_flashdata('flash', 'Akun Tidak Terdaftar');
 			redirect(base_url('signin/'));
 		}
-
 	}
 
 	public function unauth()
@@ -102,11 +100,9 @@ class Sys extends CI_Controller
 			if (empty($_FILES['thumbnails']['name'])) {
 				$thumbnails = $this->add_product_thumbnails($product_token);
 				$data['product_thumbnails'] = "default.jpg";
-
 			} else if (!empty($_FILES['thumbnails']['name'])) {
 				$thumbnails = $this->add_product_thumbnails($product_token);
 				$data['product_thumbnails'] = $thumbnails;
-
 			}
 
 			$this->Mod->add($data, 'product');
@@ -121,7 +117,6 @@ class Sys extends CI_Controller
 
 			redirect(base_url('cms/product/'));
 		}
-
 	}
 
 	private function add_product_thumbnails($product_token)
@@ -144,7 +139,6 @@ class Sys extends CI_Controller
 		} else {
 			return $this->upload->data('file_name');
 		}
-
 	}
 
 	private function add_product_null_variant($product_token)
@@ -166,7 +160,6 @@ class Sys extends CI_Controller
 
 		$this->Mod->add($variant1, 'product_variant_1');
 		$this->Mod->add($variant2, 'product_variant_2');
-
 	}
 
 	public function add_product_image($product_token = null)
@@ -209,7 +202,6 @@ class Sys extends CI_Controller
 			);
 
 			redirect(base_url('cms/product/' . $product_token));
-
 		} else if (!empty($_FILES['image']['name'])) {
 			$data['product_image'] = $image;
 			$config['upload_path'] = './src/item';
@@ -235,7 +227,6 @@ class Sys extends CI_Controller
 				);
 
 				redirect(base_url('cms/product/' . $product_token));
-
 			} else {
 				$product_image_name = $this->upload->data('file_name');
 				$data = array(
@@ -256,9 +247,7 @@ class Sys extends CI_Controller
 				redirect(base_url('cms/product/' . $product_token));
 
 				return $this->upload->data('file_name');
-
 			}
-
 		}
 	}
 
@@ -310,9 +299,7 @@ class Sys extends CI_Controller
 						);
 
 						redirect(base_url('cms/product/' . $product_token));
-
 					}
-
 				} else {
 					$this->session->set_flashdata(
 						"flash",
@@ -324,13 +311,8 @@ class Sys extends CI_Controller
 
 					redirect(base_url('cms/product/'));
 				}
-
 			}
-
-
 		}
-
-
 	}
 
 	public function remove_product_thumbnails($product_token = null)
@@ -358,7 +340,6 @@ class Sys extends CI_Controller
 				);
 
 				redirect(base_url('cms/product/' . $product_token));
-
 			} else {
 				$product_data = $this->Mod->get('product', array('product_token' => $product_token))->result();
 				foreach ($product_data as $i) {
@@ -372,7 +353,6 @@ class Sys extends CI_Controller
 						);
 
 						redirect(base_url('cms/product/' . $product_token));
-
 					} else {
 						unlink('./src/item/_thumbnails/' . $i->product_thumbnails);
 						$this->Mod->upd(array('product_token' => $product_token), array('product_thumbnails' => 'default.jpg'), 'product');
@@ -385,13 +365,9 @@ class Sys extends CI_Controller
 						);
 
 						redirect(base_url('cms/product/' . $product_token));
-
-
 					}
 				}
-
 			}
-
 		}
 	}
 
@@ -420,7 +396,6 @@ class Sys extends CI_Controller
 				);
 
 				redirect(base_url('cms/product/'));
-
 			} else {
 				$config['upload_path'] = './src/item/_thumbnails';
 				$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -460,11 +435,8 @@ class Sys extends CI_Controller
 					);
 
 					redirect(base_url('cms/product/' . $product_token));
-
 				}
-
 			}
-
 		}
 	}
 
@@ -534,7 +506,6 @@ class Sys extends CI_Controller
 		);
 
 		redirect(base_url('cms/user/'));
-
 	}
 
 	public function update_user()
@@ -564,7 +535,6 @@ class Sys extends CI_Controller
 		);
 
 		redirect(base_url('cms/user/'));
-
 	}
 
 	public function update_user_password()
@@ -580,7 +550,7 @@ class Sys extends CI_Controller
 		$encrypt = implode('', $piece_1);
 		$password = $encrypt;
 
-		$data = array('user_password' => $password, );
+		$data = array('user_password' => $password,);
 
 		$this->Mod->upd(array('user_token' => $user_token), $data, 'user');
 
@@ -593,7 +563,6 @@ class Sys extends CI_Controller
 		);
 
 		redirect(base_url('cms/user/'));
-
 	}
 
 	public function add_variant_1()
@@ -667,7 +636,6 @@ class Sys extends CI_Controller
 
 			redirect(base_url('cms/product/' . $product_token));
 		}
-
 	}
 
 	public function remove_variant_1($key = null)
@@ -720,7 +688,6 @@ class Sys extends CI_Controller
 					);
 
 					redirect(base_url('cms/product/' . $product_token));
-
 				} else {
 					$this->session->set_flashdata(
 						"flash",
@@ -732,13 +699,8 @@ class Sys extends CI_Controller
 
 					redirect(base_url('cms/product/'));
 				}
-
 			}
-
-
 		}
-
-
 	}
 
 	public function add_variant_2()
@@ -811,7 +773,6 @@ class Sys extends CI_Controller
 
 			redirect(base_url('cms/product/' . $product_token));
 		}
-
 	}
 
 	public function remove_variant_2($key = null)
@@ -864,7 +825,6 @@ class Sys extends CI_Controller
 					);
 
 					redirect(base_url('cms/product/' . $product_token));
-
 				} else {
 					$this->session->set_flashdata(
 						"flash",
@@ -876,13 +836,8 @@ class Sys extends CI_Controller
 
 					redirect(base_url('cms/product/'));
 				}
-
 			}
-
-
 		}
-
-
 	}
 
 	public function add_make_order_cart($product_token = null)
@@ -923,7 +878,6 @@ class Sys extends CI_Controller
 			);
 
 			redirect(base_url('cms/make_order/'));
-
 		}
 	}
 
@@ -1018,17 +972,13 @@ class Sys extends CI_Controller
 		$this->Mod->del(array('user_token' => $user_token), 'user_cart');
 
 		$this->session->set_flashdata(
-				"flash",
-				"<script>
+			"flash",
+			"<script>
 						window.onload=function(){
-							swal({title: 'Your Order Booked!', text: 'Now The Product Moving to Order Section.', icon: 'success', button: 'Close',})};
+							swal('Your Order Booked','Book ID: '+'$book_key','success')};
 							</script>"
-			);
+		);
 
-			redirect(base_url('cms/order/'));
-
+		redirect(base_url('cms/order/'));
 	}
-
-
-
 }/* End of file Sys.php */
