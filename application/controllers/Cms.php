@@ -10,9 +10,9 @@ class Cms extends CI_Controller
 			$this->session->set_flashdata(
 				"flash",
 				"<script>
-			window.onload=function(){
-			swal({title: 'Security Check', text: 'Silahkan Login Untuk Melanjutkan', icon: 'warning', button: 'Close',})};
-			</script>"
+				window.onload=function(){
+				swal({title: 'Security Check', text: 'Silahkan Login Untuk Melanjutkan', icon: 'warning', button: 'Close',})};
+				</script>"
 			);
 
 			redirect(base_url('/signin/'));
@@ -30,7 +30,6 @@ class Cms extends CI_Controller
 		$this->session->set_userdata($data_session);
 
 		$this->load->view('cms/index', $data);
-
 	}
 
 	public function order()
@@ -42,7 +41,6 @@ class Cms extends CI_Controller
 		$this->session->set_userdata($data_session);
 
 		$this->load->view('cms/order', $data);
-
 	}
 
 	public function product($product_token = null)
@@ -78,7 +76,6 @@ class Cms extends CI_Controller
 
 			$this->load->view('cms/product', $data);
 		}
-
 	}
 
 	public function user()
@@ -91,7 +88,6 @@ class Cms extends CI_Controller
 		$this->session->set_userdata($data_session);
 
 		$this->load->view('cms/user', $data);
-
 	}
 
 	public function make_order()
@@ -119,7 +115,6 @@ class Cms extends CI_Controller
 
 		$this->load->view('cms/invoice', $data);
 	}
-
 }
 
 /* End of file Cms.php */
