@@ -68,7 +68,8 @@ class Main extends CI_Controller
 			}
 		}
 
-		$this->load->view('public/home');
+		// $this->load->view('public/home');
+		$this->load->view('public/coming_soon');
 	}
 
 	public function home()
