@@ -108,12 +108,160 @@
 												</p>
 											</a>
 											<hr class="mt-4 mb-2 opacity-45">
-											<p
+											<p data-modal-target="view-order-<?= $b->book_key ?>"
+												data-modal-toggle="view-order-<?= $b->book_key ?>"
 												class="text-slate-800 hover:text-blue-950 dark:text-slate-200 dark:hover:text-blue-200 text-center cursor-pointer">
 												Order Overview
 											</p>
 										</div>
 									</li>
+
+									<!-- View Order Modal -->
+									<div id="view-order-<?= $b->book_key ?>" tabindex="-1" aria-hidden="true"
+										class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+										<div class="relative p-4 w-full max-w-2xl max-h-full">
+											<!-- Modal content -->
+											<div class="relative bg-slate-100 dark:bg-slate-900 rounded-lg shadow">
+												<!-- Modal header -->
+												<div
+													class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+													<img src="<?= base_url('_assets/img/sq-logo.png') ?>"
+														class="h-8 me-3" alt="Print-Max Logo" />
+													<h3
+														class="text-lg font-semibold text-slate-900 dark:text-slate-100">
+														Order Overview
+													</h3>
+													<button type="button"
+														class="text-slate-400 dark:text-slate-600 bg-transparent hover:bg-slate-200 hover:text-slate-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+														data-modal-toggle="view-order-<?= $b->book_key ?>">
+														<svg class="w-3 h-3" aria-hidden="true"
+															xmlns="http://www.w3.org/2000/svg" fill="none"
+															viewBox="0 0 14 14">
+															<path stroke="currentColor" stroke-linecap="round"
+																stroke-linejoin="round" stroke-width="2"
+																d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+														</svg>
+														<span class="sr-only">Close modal</span>
+													</button>
+												</div>
+												<!-- Modal body -->
+												<form method="post"
+													action="<?= base_url('sys/order/add_to_cart') ?>"
+													class="p-4 md:p-5" enctype="multipart/form-data">
+													<div class="grid gap-4 mb-4 grid-cols-2">
+														<div class="col-span-2">
+															<p
+																class="block mb-1 text-md font-medium dark:text-slate-100 text-slate-900"><?= $b->customer_name ?></p>
+															<p
+																class="block mb-0 text-md font-medium dark:text-slate-100 text-slate-900"><?= $b->customer_phone ?> <i class="fa-solid fa-file fa-xs fa-fw cursor-pointer"></i></p>
+														</div>
+														<hr class="opacity-30 mb-2 col-span-2">
+														<?php
+														$this->load->model('Mod');
+														// $where_token = "book_token = '$b->book_token'";
+														$getBookDetails = $this->db->query(" SELECT * FROM book,book_product,product,product_variant_1,product_variant_2 WHERE book.book_token=book_product.book_token AND book_product.product_token=product.product_token AND book_product.product_variant_1_id=product_variant_1.product_variant_1_id AND book_product.product_variant_2_id=product_variant_2.product_variant_2_id AND book_product.book_token='$b->book_token' ")->result();
+														?>
+														<div class="col-span-1">
+															<p class="font-bold text-lg dark:text-neutral-200 text-neutral-800">Product's Name </p>
+														</div>
+														<div class="col-span-1">
+															<p class="font-bold text-lg dark:text-neutral-200 text-neutral-800">Price </p>
+														</div>
+														<?php
+														$total_product_price = 0;
+														$total_of_price = 0;
+														foreach ($getBookDetails as $bd) {
+															if ($bd->product_variant_1_name == 'Default') {
+																$var_1_name = "";
+															} else {
+																$var_1_name = " - " . $bd->product_variant_1_name;
+															}
+															if ($bd->product_variant_2_name == 'Default') {
+																$var_2_name = "";
+															} else {
+																$var_2_name = " - " . $bd->product_variant_2_name;
+															}
+
+															$product_price = $bd->product_price + $bd->product_variant_1_price_mark + $bd->product_variant_2_price_mark;
+															$qty = $bd->book_product_qty;
+															// The Math
+															$total_product_price = $product_price * $qty;
+															$total_of_price += $total_product_price;
+														?>
+
+															<div class="col-span-1">
+																<label for="name"
+																	class="block text-md font-light dark:text-slate-100 text-slate-900">
+																	<?= $bd->product_name ?> <?= $var_1_name ?> <?= $var_2_name ?></label>
+
+															</div>
+															<div class="col-span-1">
+																<label class="block text-md font-light dark:text-slate-100 text-slate-900">
+																	Rp<?= number_format($product_price, 0, ',', '.') ?> (x<?= $qty ?>)
+																	=
+																	<strong>Rp<?= number_format($total_product_price, 0, ',', '.') ?></strong>
+																</label>
+															</div>
+														<?php } ?>
+														<div class="grid gap-4 mb-4 grid-cols-2">
+															<div class="col-span-1">
+																<label class="block text-md font-light dark:text-slate-100 text-slate-900">
+																	<p class="font-bold text-lg dark:text-neutral-200 text-neutral-800">Total Price: </p>
+																</label>
+															</div>
+															<div class="col-span-1">
+																<label class="block text-md font-light dark:text-slate-100 text-slate-900">
+																	<p class="font-bold text-lg dark:text-neutral-200 text-neutral-800">Rp<?= number_format($total_of_price, 0, ',', '.') ?></p>
+																</label>
+															</div>
+														</div>
+
+													</div>
+
+													<hr class="opacity-30 mb-3">
+													<div class="w-full flex flex-wrap justify-between items-center">
+														<div class="w-full">
+															<h3
+																class="text-sm font-semibold text-slate-900 dark:text-slate-100 text-center mb-2">
+																Set Order Status
+															</h3>
+														</div>
+														<div class="flex w-1/4">
+															<a class="w-full text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Cancel</a>
+														</div>
+														<div class="flex w-1/4">
+															<a class="w-full text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Accept</a>
+														</div>
+														<div class="flex w-1/4">
+															<a class="w-full text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Progress</a>
+														</div>
+														<div class="flex w-1/4">
+															<a class="w-full text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Finish</a>
+														</div>
+													</div>
+													<div class="text-right space-x-2">
+														<button type="button"
+															class="text-slate-700 inline-flex items-center bg-slate-0 hover:text-slate-500 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+															data-modal-toggle="view-order-<?= $b->book_key ?>">Close View</button>
+														<!-- <button type="submit"
+															class="text-slate-50 dark:text-slate-950 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center">Add
+															to Cart
+															<svg class="w-5 h-5" fill="currentColor"
+																viewBox="0 0 20 20"
+																xmlns="http://www.w3.org/2000/svg">
+																<path fill-rule="evenodd"
+																	d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+																	clip-rule="evenodd"></path>
+															</svg>
+														</button> -->
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+									<!-- & -->
+
+
 								<?php } ?>
 
 

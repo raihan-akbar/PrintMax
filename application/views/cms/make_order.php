@@ -168,7 +168,7 @@
                             </div>
                             <input type="text" id="myInput" onkeyup="myFunction()"
                                 class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ps-10"
-                                placeholder="Search Active Order..." required />
+                                placeholder="Search Account..." required />
                         </div>
                         <ul id="myUL" class="py-2 w-full">
 
@@ -178,7 +178,7 @@
                                     <li class="py-1 ">
                                         <div class="w-full">
                                             <div
-                                                class="flex rounded-lg h-full bg-slate-50 dark:bg-slate-900 flex-col shadow-lg">
+                                                class="flex rounded-lg h-full bg-slate-50 dark:bg-slate-800 flex-col shadow-lg">
                                                 <div class="w-full h-auto">
                                                     <a href="#">
                                                         <img class="rounded-t-lg shadow-lg"
@@ -195,7 +195,8 @@
                                                         </p>
                                                         <hr class="bg-blue-700 rounded border-1 border-blue-700">
                                                         <div class="text-center">
-                                                            <a 
+                                                            <a data-modal-target="add-product-<?= $a->product_token ?>"
+                                                                data-modal-toggle="add-product-<?= $a->product_token ?>"
                                                                 class="mt-5 text-slate-800 hover:text-blue-950 dark:text-slate-200 dark:hover:text-blue-200 inline-flex items-center cursor-pointer">Select Product
                                                                 <i class="fa-solid fa-plus text-xs ml-1"></i></a>
                                                         </div>
@@ -204,6 +205,115 @@
                                             </div>
                                         </div>
                                     </li>
+                                    <!-- Select Product Modal -->
+                                    <div id="add-product-<?= $a->product_token ?>" tabindex="-1" aria-hidden="true"
+                                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                        <div class="relative p-4 w-full max-w-2xl max-h-full">
+                                            <!-- Modal content -->
+                                            <div class="relative bg-slate-100 dark:bg-slate-900 rounded-lg shadow">
+                                                <!-- Modal header -->
+                                                <div
+                                                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                                    <img src="<?= base_url('_assets/img/sq-logo.png') ?>"
+                                                        class="h-8 me-3" alt="Print-Max Logo" />
+                                                    <h3
+                                                        class="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                                                        <?= $a->product_name; ?>
+                                                    </h3>
+                                                    <button type="button"
+                                                        class="text-slate-400 dark:text-slate-600 bg-transparent hover:bg-slate-200 hover:text-slate-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                                                        data-modal-toggle="add-product-<?= $a->product_token ?>">
+                                                        <svg class="w-3 h-3" aria-hidden="true"
+                                                            xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 14 14">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                        </svg>
+                                                        <span class="sr-only">Close modal</span>
+                                                    </button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <form method="post"
+                                                    action="<?= base_url('sys/add_make_order_cart/' . $a->product_token) ?>"
+                                                    class="p-4 md:p-5" enctype="multipart/form-data">
+                                                    <div class="grid gap-4 mb-4 grid-cols-2">
+                                                        <div class="col-span-2">
+                                                            <label for="name"
+                                                                class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Select
+                                                                Variant 1</label>
+                                                            <select name="variant_1" id=""
+                                                                class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                                                <?php
+                                                                $this->load->model('Mod');
+                                                                $where_v1 = "product_token = '$a->product_token'";
+                                                                $getVariant1 = $this->Mod->get('product_variant_1', $where_v1)->result();
+                                                                ?>
+                                                                <?php
+                                                                foreach ($getVariant1 as $v1) { ?>
+                                                                    <option value="<?= $v1->product_variant_1_id; ?>">
+                                                                        <?= $v1->product_variant_1_name; ?>
+                                                                        (Rp.<?= $v1->product_variant_1_price_mark; ?>)
+                                                                    </option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-span-2">
+                                                            <label for="name"
+                                                                class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Select
+                                                                Variant 2</label>
+                                                            <select name="variant_2" id=""
+                                                                class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                                                <?php
+                                                                $this->load->model('Mod');
+                                                                $where_v2 = "product_token = '$a->product_token'";
+                                                                $getVariant2 = $this->Mod->get('product_variant_2', $where_v2)->result();
+                                                                ?>
+                                                                <?php
+                                                                foreach ($getVariant2 as $v2) { ?>
+                                                                    <option value="<?= $v2->product_variant_2_id; ?>">
+                                                                        <?= $v2->product_variant_2_name; ?>
+                                                                        (Rp.<?= $v2->product_variant_2_price_mark; ?>)
+                                                                    </option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-span-2">
+                                                            <label for="name"
+                                                                class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Variant
+                                                                Name</label>
+                                                            <input name="qty" type="number" min="1"
+                                                                name="variant_name" id="name"
+                                                                class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                                placeholder="Quantity of Product" required="">
+                                                        </div>
+
+                                                    </div>
+
+                                                    <hr class="opacity-30 mb-8">
+                                                    <input type="hidden" name="product_name"
+                                                        value="<?= $a->product_name ?>">
+                                                    <div class="text-right space-x-2">
+                                                        <button type="button"
+                                                            class="text-slate-700 inline-flex items-center bg-slate-0 hover:text-slate-500 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                                            data-modal-toggle="add-product-<?= $a->product_token ?>">Cancel</button>
+                                                        <button type="submit"
+                                                            class="text-slate-50 dark:text-slate-950 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center">Add
+                                                            to Cart
+                                                            <svg class="w-5 h-5" fill="currentColor"
+                                                                viewBox="0 0 20 20"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                                    clip-rule="evenodd"></path>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- & -->
                                 <?php } ?>
 
                                 <!-- Here -->

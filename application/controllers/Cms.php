@@ -36,6 +36,8 @@ class Cms extends CI_Controller
 	{
 		$data['getMenu'] = $this->Mod->getMenu()->result();
 		$data['getBook'] = $this->Mod->get('book', array('book_id !=' => '0'))->result();
+		$data['getBookDetails'] = $this->Mod->getBookDetails()->result();
+
 
 		$data_session = array('menu_active' => '2');
 		$this->session->set_userdata($data_session);
@@ -98,7 +100,6 @@ class Cms extends CI_Controller
 		$data['getUserCart'] = $this->Mod->getUserCart()->result();
 
 
-
 		$data_session = array('menu_active' => '2');
 		$this->session->set_userdata($data_session);
 
@@ -108,12 +109,54 @@ class Cms extends CI_Controller
 	public function invoice()
 	{
 		$data['getMenu'] = $this->Mod->getMenu()->result();
+		$data['getBook'] = $this->Mod->get('book', array('book_id !=' => '0'))->result();
 		$data['getBookDetails'] = $this->Mod->getBookDetails()->result();
 
 		$data_session = array('menu_active' => '6');
 		$this->session->set_userdata($data_session);
 
 		$this->load->view('cms/invoice', $data);
+	}
+
+	public function catch_invoice($book_token = null){
+		if ($book_token == null) {
+			redirect(base_url('cms/invoice/'));
+		}
+		else {
+			$data_session = array(
+				'invoice_token' => $book_token
+			);
+
+			$this->session->set_userdata($data_session);
+			redirect(base_url('cms/generate_invoice/'));
+		}
+	}
+
+	public function generate_invoice()
+	{
+		$invoice_token = $this->session->userdata('invoice_token');
+		if ($invoice_token == null) {
+			redirect(base_url('cms/invoice/'));
+		}
+		
+		$this->load->library('pdfgenerator');
+		$data['title'] = "PrintMax - ".$invoice_token;
+		$file_pdf = $data['title'];
+		$paper = 'A4';
+		$orientation = "potrait";
+		
+		$html = $this->load->view('cms/parts/invoice_frame', $data, true);
+		$this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+	}
+
+	public function invoice_frame()
+	{
+		// $data['getBook'] = $this->Mod->get('book', array('book_id !=' => '0'))->result();
+		// $data['getBookDetails'] = $this->Mod->getBookDetails()->result();
+		$book_token = $this->session->userdata('invoice_token');
+		// $data['getInvoice'] = $this->Mod->getInvoice($book_token)->result();
+
+		$this->load->view('cms/parts/invoice_frame');
 	}
 }
 
