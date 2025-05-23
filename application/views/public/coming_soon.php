@@ -29,7 +29,7 @@
                     </div>
                     <div class="w-full">
                         <h1 class="text-4xl font-bold text-neutral-200 casc animate-typing mt-12"> Coming Soon :)</h1>
-                        <p class="text-neutral-200 font-regular p-2">Please be Patient Wating our Web App for Your Best Experience ~ Best Regards, Ghina Nur Agsya</p>
+                        <p class="text-neutral-200 font-regular p-2">Please be Patient Waiting our Web App for Your Best Experience<br>Best Regards, Ghina Nur Agsya</p>
                     </div>
                     <div class="w-screen max-w-xl px-2 space-y-2 my-6  opacity-0">
                         <div class="pb-36">
