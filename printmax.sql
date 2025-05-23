@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2025 at 09:21 PM
+-- Generation Time: May 23, 2025 at 06:07 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.26
 
@@ -101,7 +101,8 @@ INSERT INTO `book` (`book_id`, `book_token`, `book_paid`, `customer_name`, `cust
 (2, '907108C0202505190D23B9BA', '1', 'Ghina Nur Agsya', '081215616512', 150000, 'Progress', 870000000, '2025-05-19 09:51:49', 'CE36-8850-82C7-F215'),
 (3, '660C955E2025051976716A3B', '0', 'Reza Faisal Ramadhan', '083218472971', 440000, 'Progress', 870000000, '2025-05-19 09:53:35', 'B725-D7FB-00EB-66D1'),
 (4, '348A2DA120250519D70A3C79', '0', 'Alwan Maulana', '081183793728', 90000, 'Progress', 870000000, '2025-05-19 09:55:08', '29AD-4323-C692-7834'),
-(5, 'C9C3EC41202505192B0BA677', '0', 'Mikasa Nara', '08572021293', 80000, 'Progress', 870000000, '2025-05-19 09:57:40', 'FD31-5862-ABF9-648B');
+(5, 'C9C3EC41202505192B0BA677', '0', 'Mikasa Nara', '08572021293', 80000, 'Progress', 870000000, '2025-05-19 09:57:40', 'FD31-5862-ABF9-648B'),
+(6, '7D7EB78A20250523F37F1BF6', '0', 'Eren Kruger', '08111221030', 900000, 'Progress', 870000000, '2025-05-23 06:39:48', 'AE11-7531-DA51-4B9B');
 
 -- --------------------------------------------------------
 
@@ -132,7 +133,8 @@ INSERT INTO `book_product` (`book_product_id`, `book_token`, `product_token`, `p
 (4, '660C955E2025051976716A3B', '9df15f027aa71add', 1, 1, 8, 0, 0, 50000),
 (5, '660C955E2025051976716A3B', 'a0bc0af2476900bd', 3, 3, 4, 0, 0, 10000),
 (6, '348A2DA120250519D70A3C79', 'd6a07450f860209e', 2, 2, 3, 0, 0, 30000),
-(7, 'C9C3EC41202505192B0BA677', 'a0bc0af2476900bd', 3, 3, 8, 0, 0, 10000);
+(7, 'C9C3EC41202505192B0BA677', 'a0bc0af2476900bd', 3, 3, 8, 0, 0, 10000),
+(8, '7D7EB78A20250523F37F1BF6', 'f1ea470a3e44e978', 10, 10, 3, 0, 0, 300000);
 
 -- --------------------------------------------------------
 
@@ -183,7 +185,8 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`product_id`, `product_name`, `product_desc`, `product_thumbnails`, `product_price`, `product_sold`, `product_token`) VALUES
 (1, 'Sticker Craft', 'Stiker yang terbuat dari kertas craft dan dicetak menggunakan mesin digital printing. Setelah dicetak, sticker craft dapat dipotong sesuai dengan pola yang diinginkan.\r\n\r\nKertas stiker vinyl\r\nKertas stiker HVS\r\nKertas stiker one way\r\nKertas stiker sandblast\r\nKertas stiker carbon kevlar\r\nKertas stiker chromo\r\nKertas stiker oracal\r\nKertas stiker foil', '39646631356630323761613731616464.png', 50000, 0, '9df15f027aa71add'),
 (2, 'Sticker', 'Bla Bla BLaaa', '64366130373435306638363032303965.png', 30000, 0, 'd6a07450f860209e'),
-(3, 'Poster', 'Product Description', 'default.jpg', 10000, 0, 'a0bc0af2476900bd');
+(3, 'Poster', 'Product Description', 'default.jpg', 10000, 0, 'a0bc0af2476900bd'),
+(4, 'Deskmate', 'Hello', '66316561343730613365343465393738.jpg', 300000, 0, 'f1ea470a3e44e978');
 
 -- --------------------------------------------------------
 
@@ -236,7 +239,8 @@ INSERT INTO `product_variant_1` (`product_variant_1_id`, `product_token`, `produ
 (6, 'd6a07450f860209e', 'Vinyls', 200, '1'),
 (7, 'd6a07450f860209e', 'Lminating', 1000, '1'),
 (8, 'd6a07450f860209e', 'Test', 1, '0'),
-(9, 'd6a07450f860209e', '2', 2, '');
+(9, 'd6a07450f860209e', '2', 2, ''),
+(10, 'f1ea470a3e44e978', 'Default', 0, '');
 
 -- --------------------------------------------------------
 
@@ -265,7 +269,8 @@ INSERT INTO `product_variant_2` (`product_variant_2_id`, `product_token`, `produ
 (6, 'd6a07450f860209e', 'Not', 1000, ''),
 (7, 'a0bc0af2476900bd', 'Abcd', 121, ''),
 (8, 'a0bc0af2476900bd', 'Vinyls', 123123, ''),
-(9, 'a0bc0af2476900bd', 'Vinyls', 500, '1');
+(9, 'a0bc0af2476900bd', 'Vinyls', 500, '1'),
+(10, 'f1ea470a3e44e978', 'Defaults', 0, '');
 
 -- --------------------------------------------------------
 
@@ -427,13 +432,13 @@ ALTER TABLE `agent_cart`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `book_product`
 --
 ALTER TABLE `book_product`
-  MODIFY `book_product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `book_product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `menu`
@@ -445,7 +450,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `product_image`
@@ -457,13 +462,13 @@ ALTER TABLE `product_image`
 -- AUTO_INCREMENT for table `product_variant_1`
 --
 ALTER TABLE `product_variant_1`
-  MODIFY `product_variant_1_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `product_variant_1_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `product_variant_2`
 --
 ALTER TABLE `product_variant_2`
-  MODIFY `product_variant_2_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `product_variant_2_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -481,7 +486,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_cart`
 --
 ALTER TABLE `user_cart`
-  MODIFY `user_cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `user_cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
