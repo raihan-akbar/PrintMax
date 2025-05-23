@@ -198,9 +198,6 @@ foreach ($getBook as $b) {
                 </tr>
             </table>
         </div>
-        <div style="text-align: center; padding-top: 10px;">
-            <p style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; opacity: 65%;"><code>PrintMax Sukabumi</code><br><code><?= $b->book_token ?></code></p>
-        </div>
     </body>
 <?php } ?>
 
