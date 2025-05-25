@@ -75,6 +75,13 @@ class Mod extends CI_Model
 	public function getInvoice($book_token){
 		return $this->db->query(" SELECT * FROM book,book_product,product,product_variant_1,product_variant_2 WHERE book.book_token=book_product.book_token AND book_product.product_token=product.product_token AND book_product.product_variant_1_id=product_variant_1.product_variant_1_id AND book_product.product_variant_2_id=product_variant_2.product_variant_2_id AND book_product.book_token='$book_token' ");
 	}
+
+	public function getAgentCart()
+	{
+		$agent_token = $this->session->userdata('agent_token');
+
+		return $this->db->query(" SELECT * FROM agent_cart,product,product_variant_1,product_variant_2 WHERE agent_cart.product_token = product.product_token AND agent_cart.agent_token = '$agent_token' AND agent_cart.product_variant_1_id = product_variant_1.product_variant_1_id AND agent_cart.product_variant_2_id = product_variant_2.product_variant_2_id");
+	}
 }
 
 /* End of file Mod.php */

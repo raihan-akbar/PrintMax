@@ -18,6 +18,7 @@ class Main extends CI_Controller
 
 	public function index()
 	{
+		
 		if ($this->session->userdata('agent_token') != null) {
 			$agent_token = $this->session->userdata('agent_token');
 			// Get App of User
@@ -68,8 +69,10 @@ class Main extends CI_Controller
 			}
 		}
 
-		// $this->load->view('public/home');
-		$this->load->view('public/coming_soon');
+		$data['getProduct'] = $this->Mod->get('product', array('product_id !=' => '0'))->result();
+		$data['getAgentCart'] = $this->Mod->getAgentCart()->result();
+
+		$this->load->view('public/home', $data);
 	}
 
 	public function home()
@@ -126,22 +129,6 @@ class Main extends CI_Controller
 			redirect(base_url('cms/'));
 		} else {
 			$this->load->view('public/0xmissing');
-		}
-	}
-
-	public function item($product_id = null)
-	{
-		$where = array('product_id' => $product_id);
-		$item_check = $this->Mod->get('product', $where)->num_rows();
-
-		if ($product_id == null) {
-			redirect(base_url('/'));
-		} else if ($item_check == 0) {
-			redirect(base_url('/'));
-		} else {
-			$data['product_img'] = $this->Mod->get('product_image', $where)->result();;
-			$data['product'] = $this->Mod->get('product', $where)->result();
-			$this->load->view('public/item', $data);
 		}
 	}
 }
