@@ -110,7 +110,7 @@
 			</div>
 
 			<!-- Modal body -->
-			<form method="post" action="<?= base_url('sys/add_user_book/') ?>"
+			<form method="post" action="<?= base_url('cust/make_order/') ?>"
 				class="p-5 space-y-4" enctype="multipart/form-data">
 				<div class="grid grid-cols-2 gap-4">
 					<div><label class="text-sm font-medium dark:text-white">Product(s)</label></div>
@@ -118,7 +118,7 @@
 
 					<?php
 					$total_of_price = 0;
-					foreach ($getAgentCart as $u):
+					foreach ($getAgentCart as $u){
 						$var_1_name = ($u->product_variant_1_name != 'Default') ? " - " . $u->product_variant_1_name : "";
 						$var_2_name = ($u->product_variant_2_name != 'Default') ? " - " . $u->product_variant_2_name : "";
 						$product_price = $u->product_price + $u->product_variant_1_price_mark + $u->product_variant_2_price_mark;
@@ -139,7 +139,7 @@
 								<strong>Rp<?= number_format($total_product_price, 0, ',', '.') ?></strong>
 							</label>
 						</div>
-					<?php endforeach; ?>
+					<?php } ?>
 				</div>
 
 				<hr class="opacity-30 my-2">

@@ -202,10 +202,19 @@
             <!-- Search -->
 
             <!-- Card Section -->
-            <div>
+            <div class="w-full px-12">
+                <div class="relative w-full md:w-full lg:w-full xl:w-full pb-4">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <p class="text-slate-700 dark:text-slate-300"><i
+                                class="fa-solid fa-magnifying-glass fa-xs"></i></p>
+                    </div>
+                    <input type="text" id="myInput" onkeyup="myFunction()"
+                        class="bg-slate-50 border border-slate-300 text-slate-900text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ps-10"
+                        placeholder="Search Products..." required />
+                </div>
                 <ul id="myUL" class="py-2 w-full pb-24">
                     <div
-                        class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 px-8">
+                        class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
                         <?php foreach ($getProduct as $a) { ?>
                             <li class="py-1s">
                                 <div class="w-full">
@@ -242,7 +251,7 @@
                                 </div>
                             </li>
                         <?php } ?>
-
+                        
                         <!-- Here -->
 
                     </div>
