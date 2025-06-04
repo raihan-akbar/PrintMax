@@ -143,10 +143,10 @@ class Cust extends CI_Controller
             'book_token' => $book_token,
             'book_paid' => '0',
             'customer_name' => $customer_name,
-            'customer_phone' => '62'.$customer_phone,
+            'customer_phone' => '62' . $customer_phone,
             'price_total' => $total_price,
             'book_status' => 'Pending',
-            'user_token' => "Customer",
+            'user_token' => "XXXXXXXXXXXXXX",
             'book_date' => date('Y-m-d H:i:s'),
             'book_key' => $book_key,
 
@@ -186,24 +186,69 @@ class Cust extends CI_Controller
     public function track($book_key = null)
     {
         if ($book_key == null) {
-            $data['book'] = $this->Mod->get('book', array('book_key' => $book_key))->result();
-            $data['getAgentBook'] = $this->Mod->getAgentBook($book_key)->result();
-            $data['getAgentBookProduct'] = $this->Mod->getAgentBook($book_key)->result();
-
-            $data['getAgentCart'] = $this->Mod->getAgentCart()->result();
-
-            $this->load->view('public/track[finder]', $data);
+            $this->session->set_flashdata(
+                "flash",
+                "<script>
+						window.onload=function(){
+							swal({title: 'Empty Order!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+							</script>"
+            );
+            redirect(base_url('/'));
         }
+
 
         $data['book'] = $this->Mod->get('book', array('book_key' => $book_key))->result();
         $data['getAgentBook'] = $this->Mod->getAgentBook($book_key)->result();
         $data['getAgentBookProduct'] = $this->Mod->getAgentBook($book_key)->result();
-
         $data['getAgentCart'] = $this->Mod->getAgentCart()->result();
+
+        if (empty($data['book'])) {
+            $this->session->set_flashdata(
+                "flash",
+                "<script>
+						window.onload=function(){
+							swal({title: 'Empty Order!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+							</script>"
+            );
+            redirect(base_url('/'));
+        }
+
+        foreach ($data['book'] as $b) {
+            if ($b->book_status == "Cancel") {
+                $this->session->set_flashdata(
+                    "flash",
+                    "<script>
+                            window.onload=function(){
+                                swal({title: 'Order is Cancelled', text: 'This Order is Cancelled, Please do re-order.', icon: 'error', button: 'Close',})};
+                                </script>"
+                );
+            }
+        }
+
+        $this->output->enable_profiler(TRUE);
+
         $this->load->view('public/track', $data);
     }
 
-    public function send_confirm($book_key = null){
+    public function find_order(){
+        $book_key = $this->input->post('book_key');
+        $data['book'] = $this->Mod->get('book', array('book_key' => $book_key))->num_rows();
+        if ($data['book'] != 1) {
+            $this->session->set_flashdata(
+                "flash",
+                "<script>
+						window.onload=function(){
+							swal({title: 'Order Not Found', text: 'Check Again Your ID and Try Again.', icon: 'error', button: 'Close',})};
+							</script>"
+            );
+            redirect(base_url('/'));
+        } else {
+            redirect(base_url('cust/track/').$book_key);
+        }
+    }
+
+    public function send_confirm($book_key = null)
+    {
         if ($book_key == null) {
             $this->session->set_flashdata(
                 "flash",
@@ -215,16 +260,55 @@ class Cust extends CI_Controller
             redirect(base_url('/'));
         }
 
-		$getBook = $this->db->where(['book_key' => $book_key])->get('book')->result();
+        $getBook = $this->db->where(['book_key' => $book_key])->get('book')->result();
         foreach ($getBook as $gb) {
             $customer_name = $gb->customer_name;
             $book_key = $gb->book_key;
             $track_link = base_url('cust/track/') . $book_key;
             $date = date('d, F Y');
             $link = "https://wa.me/" . "6281215616512" . "?text=PrintMax%20Order%20Confirmation%0AOrder%20ID%20%3A%20" . $book_key . "%0AAtas%20Nama%20%3A%20" . $customer_name . "%0ATanggal%20Order%20%3A%20" . $date . "%0A%0AOrder%20Track%20%3A%0A" . $track_link . "";
-
         }
         redirect($link);
+    }
 
+    public function catch_invoice($book_token = null)
+    {
+        if ($book_token == null) {
+            redirect(base_url('/'));
+        } else {
+            $data_session = array(
+                'invoice_token' => $book_token
+            );
+
+            $this->session->set_userdata($data_session);
+            redirect(base_url('cust/generate_invoice/'));
+        }
+    }
+
+    public function generate_invoice()
+    {
+        $invoice_token = $this->session->userdata('invoice_token');
+        if ($invoice_token == null) {
+            redirect(base_url('/'));
+        }
+
+        $this->load->library('pdfgenerator');
+        $data['title'] = "PrintMax - " . $invoice_token;
+        $file_pdf = $data['title'];
+        $paper = 'A4';
+        $orientation = "potrait";
+
+        $html = $this->load->view('cms/parts/invoice_frame', $data, true);
+        $this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+    }
+
+    public function invoice_frame()
+    {
+        // $data['getBook'] = $this->Mod->get('book', array('book_id !=' => '0'))->result();
+        // $data['getBookDetails'] = $this->Mod->getBookDetails()->result();
+        $book_token = $this->session->userdata('invoice_token');
+        // $data['getInvoice'] = $this->Mod->getInvoice($book_token)->result();
+
+        $this->load->view('cms/parts/invoice_frame');
     }
 }

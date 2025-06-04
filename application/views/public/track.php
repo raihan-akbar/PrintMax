@@ -38,21 +38,36 @@
                             <div class="w-full lg:w-1/2 px-5">
                                 <ul>
                                     <?php
-                                    if ($b->book_status == 'Pending') {
+                                    if ($b->book_status == "Pending") {
                                         $statusPending = "bg-blue-50 text-blue-600";
-                                        $statusProgress = "bg-neutral-50 text-neutral-600";
-                                        $statusFinish = "bg-neutral-50 text-neutral-600";
-                                        $statusCancel = "bg-neutral-50 text-neutral-600";
-                                    } else if ($b->book_status == 'Progress') {
-                                        $statusPending = "bg-blue-50 text-blue-600";
-                                        $statusProgress = "bg-blue-50 text-neutral-600";
-                                        $statusFinish = "bg-blue-50 text-neutral-600";
-                                        $statusCancel = "bg-blue-50 text-neutral-600";
+                                        $statusProgress = "bg-neutral-300 text-neutral-600";
+                                        $statusFinish = "bg-neutral-300 text-neutral-600";
+                                        $statusCancel = "bg-neutral-300 text-neutral-600";
+                                    } else if ($b->book_status == "Progress") {
+                                        $statusPending = "bg-blue-300 text-blue-600";
+                                        $statusProgress = "bg-blue-300 text-blue-600";
+                                        $statusFinish = "bg-neutral-300 text-neutral-600";
+                                        $statusCancel = "bg-neutral-300 text-neutral-600";
+                                    } else if ($b->book_status == "Finish") {
+                                        $statusPending = "bg-blue-300 text-blue-600";
+                                        $statusProgress = "bg-blue-300 text-blue-600";
+                                        $statusFinish = "bg-blue-300 text-blue-600";
+                                        $statusCancel = "bg-neutral-300 text-neutral-600";
+                                    } else if ($b->book_status == "Finish") {
+                                        $statusPending = "bg-blue-300 text-blue-600";
+                                        $statusProgress = "bg-blue-300 text-blue-600";
+                                        $statusFinish = "bg-green-300 text-green-600";
+                                        $statusCancel = "bg-blue-300 text-blue-600";
+                                    } else {
+                                        $statusPending = "bg-orange-300 text-red-600";
+                                        $statusProgress = "bg-orange-300 text-red-600";
+                                        $statusFinish = "bg-orange-300 text-red-600";
+                                        $statusCancel = "bg-orange-300 text-red-600";
                                     }
                                     ?>
                                     <li class="flex pb-4 mb-2 border-b border-neutral-200">
                                         <div class="mr-8">
-                                            <span class="flex justify-center items-center w-14 h-14 <?= $statusCancel;?> text-lg font-bold rounded-full"><i class="fa-solid fa-check"></i></span>
+                                            <span class="flex justify-center items-center w-14 h-14 <?= $statusPending; ?> text-lg font-bold rounded-full"><i class="fa-solid fa-check"></i></span>
                                         </div>
                                         <div class="max-w-xs">
                                             <h3 class="mb-2 text-lg font-bold text-neutral-700">Order Created</h3>
@@ -61,7 +76,7 @@
                                     </li>
                                     <li class="flex pb-4 mb-2 border-b border-neutral-200">
                                         <div class="mr-8">
-                                            <span class="flex justify-center items-center w-14 h-14 <?= $statusProgress;?> text-lg font-bold rounded-full"><i class="fa-solid fa-handshake"></i></span>
+                                            <span class="flex justify-center items-center w-14 h-14 <?= $statusProgress; ?> text-lg font-bold rounded-full"><i class="fa-solid fa-handshake"></i></span>
                                         </div>
                                         <div class="max-w-xs">
                                             <h3 class="mb-2 text-lg font-bold text-neutral-700">Order Accepted by Admin</h3>
@@ -70,7 +85,7 @@
                                     </li>
                                     <li class="flex pb-4 mb-2 border-b border-neutral-200">
                                         <div class="mr-8">
-                                            <span class="flex justify-center items-center w-14 h-14 <?= $statusProgress;?> text-lg font-bold rounded-full"><i class="fa-solid fa-gear"></i></span>
+                                            <span class="flex justify-center items-center w-14 h-14 <?= $statusProgress; ?> text-lg font-bold rounded-full"><i class="fa-solid fa-gear"></i></span>
                                         </div>
                                         <div class="max-w-xs">
                                             <h3 class="mb-2 text-lg font-bold text-neutral-700">On Progress</h3>
@@ -79,7 +94,7 @@
                                     </li>
                                     <li class="flex pb-4 mb-2 border-b border-neutral-200">
                                         <div class="mr-8">
-                                            <span class="flex justify-center items-center w-14 h-14 <?= $statusFinish;?> text-lg font-bold rounded-full"><i class="fa-solid fa-flag-checkered"></i></span>
+                                            <span class="flex justify-center items-center w-14 h-14 <?= $statusFinish; ?> text-lg font-bold rounded-full"><i class="fa-solid fa-flag-checkered"></i></span>
                                         </div>
                                         <div class="max-w-xs">
                                             <h3 class="mb-2 text-lg font-bold text-neutral-700">Your Order is Ready</h3>
@@ -92,7 +107,16 @@
                                 <div class="max-w-md">
                                     <div class="columns-2">
                                         <p class="text-lg font-extrabold text-neutral-800">Order Overview</p>
-                                        <p class="text-red-600 text-right font-bold">Unpaid</p>
+                                        <?php
+                                        if ($b->book_paid == 1) {
+                                            $paidTxt = "Paid";
+                                            $paidClr = "text-green-600";
+                                        } else {
+                                            $paidTxt = "Unpaid";
+                                            $paidClr = "text-red-600";
+                                        }
+                                        ?>
+                                        <p class="<?= $paidClr ?> text-right font-bold"><?= $paidTxt ?></p>
                                     </div>
                                     <hr class="h-px my-1 bg-neutral-600 border-0">
                                     <p><?= $b->customer_name; ?> (<?= $b->customer_phone; ?>)</p>
@@ -155,7 +179,17 @@
                                         </div>
                                     </div>
                                     <hr class="h-px mt-1 bg-neutral-600 border-0">
-                                    <div class="columns-1 py-2 ">
+                                    <?php
+                                    if ($bd->book_status == "Pending") {
+                                        $chatBtn = "";
+                                    } else {
+                                        $chatBtn = "hidden";
+                                    }
+                                    ?>
+                                    <div class="w-full">
+                                        <p class="text-sm text-blue-600 hover:text-blue-600 font-medium pt-2"><a <a href="<?= base_url('cust/catch_invoice/' . $b->book_token); ?> " target="_blank"><i class="fa-solid fa-download  fa-xs fa-fw"></i> Download Order Invoice</a></p>
+                                    </div>
+                                    <div class="columns-1 py-2 <?= $chatBtn ?>">
                                         <div class="w-full text-left">
                                             <p class="text-sm text-neutral-9500 font-base"><i class="fa-solid fa-chevron-right text-red-600 fa-xs fa-fw"></i> You should message to Our Whats'app so PrintMax Admin can Notice Your Order. Click This Button Below</p>
                                         </div>

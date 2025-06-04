@@ -227,13 +227,13 @@
 			</div>
 
 			<!-- Modal body -->
-			<form method="post" action="<?= base_url('cust/make_order/') ?>"
+			<form method="post" action="<?= base_url('cust/find_order/') ?>"
 				class="p-5 space-y-4" enctype="multipart/form-data">
 
 				<!-- Booking Code input -->
 				<div>
 					<label for="booking_code" class="block text-sm font-medium dark:text-white mb-1">Order ID</label>
-					<input type="text" name="booking_code" id="booking_code"
+					<input type="text" name="book_key" id="booking_code"
 						class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white p-2.5 text-sm uppercase"
 						placeholder="( XXXXX-XXXXX )" maxlength="11" oninput="formatBookingCode(this)" required>
 				</div>

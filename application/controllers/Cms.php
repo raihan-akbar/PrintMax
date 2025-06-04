@@ -36,8 +36,10 @@ class Cms extends CI_Controller
 	{
 		$data['getMenu'] = $this->Mod->getMenu()->result();
 		$data['getBook'] = $this->db->where(['book_status !=' => 'Pending'])->where(['book_status !=' => 'Pending'])->order_by('book_id', 'DESC')->get('book')->result();
-		$data['getBookDetails'] = $this->Mod->getBookDetails()->result();
-		
+		// $data['getBookDetails'] = $this->Mod->getBookDetails()->result();
+		$data['dataRaw'] = $this->Mod->getBookWithDetails();
+        // $this->output->enable_profiler(TRUE);
+
 
 		$data_session = array('menu_active' => '2');
 		$this->session->set_userdata($data_session);
@@ -75,6 +77,7 @@ class Cms extends CI_Controller
 
 			$data_session = array('menu_active' => '3');
 			$this->session->set_userdata($data_session);
+			// $this->output->enable_profiler(TRUE);
 
 			$this->load->view('cms/product', $data);
 		}
@@ -110,7 +113,9 @@ class Cms extends CI_Controller
 	{
 		$data['getMenu'] = $this->Mod->getMenu()->result();
 		$data['getBook'] = $this->Mod->get('book', array('book_id !=' => '0'))->result();
-		$data['getBookDetails'] = $this->Mod->getBookDetails()->result();
+		// $data['getBookDetails'] = $this->Mod->getBookDetails()->result();
+		$data['getBookDetails'] = $this->Mod->getBookWithDetails();
+
 
 		$data_session = array('menu_active' => '6');
 		$this->session->set_userdata($data_session);

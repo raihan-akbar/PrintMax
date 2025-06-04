@@ -241,86 +241,6 @@
 														data-modal-toggle="<?= $paidViewModal ?>" class="text-blue-500 hover:text-blue-700 cursor-pointer"><?= $paidTxtModal ?></a>
 												</p> -->
 
-												<!-- Add Payment Modal -->
-												<div id="add-payment-modal" tabindex="-1" aria-hidden="true"
-													class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-													<div class="relative p-4 w-full max-w-4xl max-h-full rounded-lg">
-														<!-- Modal content -->
-														<div class="relative bg-slate-100 dark:bg-slate-900 rounded-lg shadow">
-															<!-- Modal header -->
-															<div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-																<img src="<?= base_url('_assets/img/sq-logo.png') ?>" class="h-8 me-3"
-																	alt="Print-Max Logo" />
-																<h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">
-																	Add <?= $b->customer_name; ?> Payment Receipt
-																</h3>
-																<button type="button"
-																	class="text-slate-400 dark:text-slate-600 bg-transparent hover:bg-slate-500 hover:text-slate-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-																	data-modal-toggle="add-payment-modal">
-																	<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-																		fill="none" viewBox="0 0 14 14">
-																		<path stroke="currentColor" stroke-linecap="round"
-																			stroke-linejoin="round" stroke-width="2"
-																			d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-																	</svg>
-																	<span class="sr-only">Close modal</span>
-																</button>
-															</div>
-															<!-- Modal body -->
-															<form method="post"
-																action="<?= base_url('sys/add_product_image/' . $b->book_token) ?>"
-																class="p-4 md:p-5" enctype="multipart/form-data">
-																<div class="grid gap-4 mb-4">
-																	<div class="w-full">
-																		<label for="name"
-																			class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Payment Method</label>
-																		<select name="variant_1" id=""
-																			class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
-																			<option class="" selected disabled>-- Select Payment Method</option>
-																			<option value="QR">QR Code</option>
-																			<option value="Bank Transfer">Bank Transfer</option>
-																			<option value="Cash">Cash</option>
-																		</select>
-																	</div>
-																	<div class="w-full bg-slate-200 dark:bg-slate-800 relative border-2 border-slate-300 border-slate-700 border-dashed rounded-lg p-2 py-8 lg:py-8"
-																		id="dropzone">
-
-																		<img src="" class="mt-4 mx-auto max-h-96 hidden shadow-lg rounded-md"
-																			id="preview">
-
-																		<input type="file" name="image" id="file-upload"
-																			class="absolute inset-0 w-full h-full opacity-0 z-50" required>
-
-																		<div class="text-center">
-																			<h3
-																				class="mt-2 text-sm font-medium text-slate-900 dark:text-slate-100">
-																				<i class="text-center fa-regular fa-image text-6xl w-full text-slate-800 dark:text-slate-200 pb-4"
-																					id="ph"></i>
-																				<label for="file-upload"
-																					class="relative cursor-pointer text-md">
-																					<span>Drag and drop</span>
-																					<span class="text-blue-600 font-semibold"> or browse</span>
-																					<span>to upload</span>
-																				</label>
-																			</h3>
-																			<p class="mt-1 text-xs text-slate-500 ">PNG, JPG, JPEG |
-																				Recommendations is 1:1 Resolution</p>
-																		</div>
-																	</div>
-
-																</div>
-																<div class="text-center space-x-2 w-full">
-																	<button type="submit"
-																		class="w-full text-slate-100 dark:text-slate-900 items-center bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center">
-																		Add Payment
-																	</button>
-																</div>
-															</form>
-														</div>
-													</div>
-												</div>
-												<!-- /Images -->
-
 												<p class="text-slate-700 dark:text-slate-300">
 
 												</p>
@@ -381,7 +301,7 @@
 														<hr class="opacity-30 mb-2 col-span-2">
 														<?php
 														$this->load->model('Mod');
-														// $where_token = "book_token = '$b->book_token'";
+														$where_token = "book_token = '$b->book_token'";
 														$getBookDetails = $this->db->query(" SELECT * FROM book,book_product,product,product_variant_1,product_variant_2 WHERE book.book_token=book_product.book_token AND book_product.product_token=product.product_token AND book_product.product_variant_1_id=product_variant_1.product_variant_1_id AND book_product.product_variant_2_id=product_variant_2.product_variant_2_id AND book_product.book_token='$b->book_token' ")->result();
 														?>
 														<div class="col-span-1">
@@ -612,11 +532,3 @@
 </body>
 
 </html>
-
-
-
-<!-- Order Status
-Customer Name
-Phone Number
-Product Name
-Order ID -->

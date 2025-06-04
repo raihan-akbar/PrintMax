@@ -1082,8 +1082,12 @@ class Sys extends CI_Controller
 			'book_product_status' => "Pending",
 		);
 
-		$this->Mod->upd(array('book_key' => $book_key), $data_product, 'book_product');
+		$data_user = array(
+			'user_token' => $this->session->userdata('user_token'),
+		);
 
+		$this->Mod->upd(array('book_key' => $book_key), $data_product, 'book_product');
+		$this->Mod->upd(array('book_key' => $book_key), $data_user, 'book');
 		$this->session->set_flashdata(
 			"flash",
 			"<script>

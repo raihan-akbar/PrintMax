@@ -105,7 +105,7 @@ $this->load->model('Mod');
 $invoice_token = $this->session->userdata('invoice_token');
 // $getBook = $this->Mod->get('book', array('book_token' => $invoice_token))->result();
 $getBook = $this->db->query(" SELECT * FROM book WHERE book_token='$invoice_token'")->result();
-$getInvoice = $this->db->query(" SELECT * FROM book,book_product,product,product_variant_1,product_variant_2 WHERE book.book_token=book_product.book_token AND book_product.product_token=product.product_token AND book_product.product_variant_1_id=product_variant_1.product_variant_1_id AND book_product.product_variant_2_id=product_variant_2.product_variant_2_id AND book_product.book_token='$invoice_token' ")->result();
+$getInvoice = $this->db->query(" SELECT * FROM book,book_product,product,product_variant_1,product_variant_2,user WHERE book.book_token=book_product.book_token AND book_product.product_token=product.product_token AND book_product.product_variant_1_id=product_variant_1.product_variant_1_id AND book_product.product_variant_2_id=product_variant_2.product_variant_2_id AND book_product.book_token='$invoice_token' AND book.user_token=user.user_token ")->result();
 ?>
 <?php
 foreach ($getBook as $b) {
@@ -123,11 +123,15 @@ foreach ($getBook as $b) {
                                         src="<?= base_url('_assets/img/sq-logo.png') ?>"
                                         style="width: 100%; max-width: 80px" />
                                 </td>
-
+                                <?php
+                                $dateRaw = new DateTime($b->book_date);
+                                $dateString = date_format($dateRaw, 'd, F Y | H:i') . ' WIB';
+                                ?>
                                 <td>
-                                    PrintMax Payment Invoice<br />
-                                    Order Date: <?= $b->book_date; ?><br />
-                                    To: <?= $b->customer_name; ?><br />
+                                    Order ID : <?= $b->book_key ?> <br />
+                                    Order Date: <?= $dateString; ?><br />
+                                    Invoice Created : <?= date('d, F Y | H:i') . ' WIB'; ?><br />
+
                                 </td>
                             </tr>
                         </table>
@@ -140,7 +144,8 @@ foreach ($getBook as $b) {
                             <tr>
                                 <td>
                                     PrintMax<br />
-                                    Sukabumi 43111
+                                    Sukabumi 43111<br />
+                                    PrintMax Payment Invoice
                                 </td>
                                 <?php
                                 if ($b->book_paid == 1) {
@@ -152,8 +157,11 @@ foreach ($getBook as $b) {
                                 }
                                 ?>
                                 <td>
-                                    <?= $paidTxt ?><br />
-                                    Rp<?= number_format($b->price_total, 0, ',', '.') ?>
+                                    To: <?= $b->customer_name; ?>
+                                    <br />
+                                    Total : Rp<?= number_format($b->price_total, 0, ',', '.') ?>
+                                    <br />
+                                    Payment : <?= $paidTxt ?>
                                 </td>
                             </tr>
                         </table>
@@ -196,7 +204,15 @@ foreach ($getBook as $b) {
                     <td><strong>Total Price</strong></td>
                     <td><strong>Rp<?= number_format($total_of_price, 0, ',', '.') ?></strong></td>
                 </tr>
+
+                <tr class="item">
+                    <td>
+                        <p>Best Regards,<br> <?= $bd->user_name ?> </p>
+                    </td>
+                </tr>
+
             </table>
+            <hr>
         </div>
     </body>
 <?php } ?>
