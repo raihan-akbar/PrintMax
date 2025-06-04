@@ -27,7 +27,97 @@
 			<!-- Content After HR -->
 			<div class="w-full mb-4">
 				<div class="bg-slate-100 dark:bg-slate-900 rounded-lg shadow-lg p-4 space-y-2 h-full">
-					<h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300">Active Order List</h3>
+					<div class="columns-2 w-fukk">
+						<div class="w-full">
+							<h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300">Active Order List</h3>
+						</div>
+						<div class="w-full text-right">
+							<button data-modal-target="pending-order-modal" data-modal-toggle="pending-order-modal" type="button" class="relative inline-flex items-center p-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+								Pending Order
+								<?php
+								$bookCheck = $this->db->where(['book_status' => 'Pending'])->order_by('book_id', 'DESC')->get('book')->num_rows();
+								$bookPending = $this->db->where(['book_status' => 'Pending'])->order_by('book_id', 'DESC')->get('book')->result();
+								?>
+								<div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-slate-900"><?= $bookCheck ?></div>
+							</button>
+						</div>
+					</div>
+
+
+					<!-- Pending Order Modal -->
+					<div id="pending-order-modal" tabindex="-1" aria-hidden="true"
+						class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+						<div class="relative p-4 w-full max-w-2xl max-h-full">
+							<!-- Modal content -->
+							<div class="relative bg-slate-100 dark:bg-slate-900 rounded-lg shadow">
+								<!-- Modal header -->
+								<div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+									<img src="<?= base_url('_assets/img/sq-logo.png') ?>" class="h-8 me-3"
+										alt="Print-Max Logo" />
+									<h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">
+										Pending Order <span class="font-regular text-md">(<?= $bookCheck; ?>)</span>
+									</h3>
+									<button type="button"
+										class="text-slate-400 dark:text-slate-600 bg-transparent hover:bg-slate-200 hover:text-slate-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+										data-modal-toggle="pending-order-modal">
+										<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+											fill="none" viewBox="0 0 14 14">
+											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+												stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+										</svg>
+										<span class="sr-only">Close modal</span>
+									</button>
+								</div>
+								<!-- Modal body -->
+								<form method="post" action="" class="p-4 md:p-5"
+									enctype="multipart/form-data">
+									<div class="w-full">
+										<ul class="max-w-full divide-y divide-slate-200 dark:divide-slate-700 max-h-2xl">
+											<div class="h-96 overflow-x-auto">
+												<?php foreach ($bookPending as $bp) {
+													$PendingDateRaw = new DateTime($bp->book_date);
+													$PendingDateString = date_format($PendingDateRaw, 'd, F Y | H:i') . ' WIB';
+												?>
+													<li class="pb-3 sm:pb-4">
+														<div class="flex items-center space-x-4 rtl:space-x-reverse">
+															<div class="flex-1 min-w-0 pt-2">
+																<p class="text-sm font-medium text-slate-900 truncate dark:text-white">
+																	<?= $bp->customer_name ?>
+																</p>
+																<p class="text-sm text-slate-500 truncate dark:text-slate-400">
+																	<?= $PendingDateString ?>
+																</p>
+															</div>
+															<div class="inline-flex items-center text-base font-semibold text-slate-900 dark:text-white">
+																<button type="button" onclick="cancel_<?= $bp->book_token ?>()" class="bg-red-100 hover:bg-red-200 text-red-800 text-sm font-medium px-1.5 py-0.5 rounded-sm dark:bg-slate-700 dark:text-red-400 border border-red-400 inline-flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+															</div>
+															<div class="inline-flex items-center text-base font-semibold text-slate-900 dark:text-white">
+																<a href="<?= base_url('sys/accept_order/') . $bp->book_key; ?>" class="bg-green-100 hover:bg-green-200 text-green-800 text-sm font-medium px-1.5 py-0.5 rounded-sm dark:bg-slate-700 dark:text-green-400 border border-green-400 inline-flex items-center justify-center"><i class="fa-solid fa-check"></i></a>
+															</div>
+															<div class="inline-flex items-center text-base font-semibold text-slate-900 dark:text-white">
+																<a href="<?= base_url('cust/track/') . $bp->book_key; ?>" target="_blank" class="bg-blue-100 hover:bg-blue-200 text-blue-800 text-sm font-medium px-1.5 py-0.5 rounded-sm dark:bg-slate-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center">Details <i class="fa-solid fa-external-link pl-1"></i></a>
+															</div>
+														</div>
+														<hr class="opacity-50">
+													</li>
+												<?php } ?>
+											</div>
+										</ul>
+									</div>
+
+									<hr class="opacity-30 mb-2">
+
+									<hr class="opacity-30 mb-4">
+									<div class="text-right space-x-2">
+										<button type="button"
+											class="text-slate-700 inline-flex items-center bg-slate-0 hover:text-slate-500 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+											data-modal-toggle="pending-order-modal">Close View</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!-- & -->
 					<hr class="w-full h-px my-2 bg-slate-400 border-0">
 					<div class="w-full py-2">
 						<div class="relative w-full md:w-full lg:w-1/3 xl:w-1/4">
@@ -65,13 +155,56 @@
 								</li>
 
 								<?php foreach ($getBook as $b) { ?>
+									<?php
+									if ($b->book_paid == 1) {
+										$paidTxt = "Paid";
+										$paidClr = "text-green-600";
+									} else {
+										$paidTxt = "Unpaid";
+										$paidClr = "text-red-600";
+									}
+
+									if ($b->book_status == "Pending") {
+										$statusTxt = "is Pending";
+										$statusClr = "text-purple-800";
+										$statusIcon = "fa-solid fa-hourglass-start";
+										$statusAnimate = "animate-pulse";
+										$statusBg = "bg-purple-300";
+									} else if ($b->book_status == "Progress") {
+										$statusTxt = "Now on Progress";
+										$statusClr = "text-blue-800";
+										$statusIcon = "fa-solid fa-gear";
+										$statusAnimate = "animate-spin";
+										$statusBg = "bg-blue-300";
+									} else if ($b->book_status == "Finish") {
+										$statusTxt = "is Finished";
+										$statusClr = "text-green-800";
+										$statusIcon = "fa-solid fa-circle-check";
+										$statusAnimate = "animate-none";
+										$statusBg = "bg-green-300";
+									} else if ($b->book_status == "Cancel") {
+										$statusTxt = "Canceled";
+										$statusClr = "text-orange-800";
+										$statusIcon = "fa-solid fa-circle-xmark";
+										$statusAnimate = "animate-none";
+										$statusBg = "bg-orange-300";
+									} else {
+										$statusTxt = "Error";
+										$statusClr = "text-red-800";
+										$statusIcon = "fa-solid fa-ban";
+										$statusAnimate = "animate-none";
+										$statusBg = "bg-purple-300";
+									}
+									?>
 									<li class="py-1">
 										<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
 											<a href="#">
 												<p class="w-full text-slate-700 dark:text-slate-300">
-													<span class="font-bold text-lg"><i
-															class="fa-solid fa-circle fa-xs fa-fw text-green-600 animate-pulse"></i>
-														<?= "Order is Progress"; ?></span>
+													<span type="button" class="<?= $statusBg ?> font-medium rounded-full text-sm p-0.5 text-center inline-flex items-center me-0.5">
+														<i
+															class="<?= $statusIcon; ?> <?= $statusClr; ?> <?= $statusAnimate; ?>"></i>
+													</span>
+													<span><?= "Order " . $statusTxt; ?></span>
 												</p>
 												<hr class="my-2 opacity-45">
 												<p class="text-slate-700 dark:text-slate-300">
@@ -87,19 +220,107 @@
 													<span class=""><?= $dateString; ?></span>
 												</p>
 												<p class="text-slate-700 dark:text-slate-300">
-													<?php
-													if ($b->book_paid == 1) {
-														$paidTxt = "Paid";
-														$paidClr = "text-green-600";
-													} else {
-														$paidTxt = "Unpaid";
-														$paidClr = "text-red-600";
-													}
-													?>
-													<span class="">Total : Rp. <?= $b->price_total; ?></span>
+
+													<span class="">Total : Rp<?= number_format($b->price_total, 0, ',', '.') ?></span>
+
 													-
 													<span class="<?= $paidClr; ?> font-medium"><?= $paidTxt; ?></span>
 												</p>
+												<?php
+												if ($b->book_paid == "1") {
+													$paidTxtModal = "View Payment";
+													$paidViewModal = "paid-modal";
+												} else { {
+														$paidTxtModal = "Add Payment";
+														$paidViewModal = "add-payment-modal";
+													}
+												}
+												?>
+												<!-- <p class="text-slate-700 dark:text-slate-300">
+													<a data-modal-target="<?= $paidViewModal ?>"
+														data-modal-toggle="<?= $paidViewModal ?>" class="text-blue-500 hover:text-blue-700 cursor-pointer"><?= $paidTxtModal ?></a>
+												</p> -->
+
+												<!-- Add Payment Modal -->
+												<div id="add-payment-modal" tabindex="-1" aria-hidden="true"
+													class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+													<div class="relative p-4 w-full max-w-4xl max-h-full rounded-lg">
+														<!-- Modal content -->
+														<div class="relative bg-slate-100 dark:bg-slate-900 rounded-lg shadow">
+															<!-- Modal header -->
+															<div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+																<img src="<?= base_url('_assets/img/sq-logo.png') ?>" class="h-8 me-3"
+																	alt="Print-Max Logo" />
+																<h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">
+																	Add <?= $b->customer_name; ?> Payment Receipt
+																</h3>
+																<button type="button"
+																	class="text-slate-400 dark:text-slate-600 bg-transparent hover:bg-slate-500 hover:text-slate-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+																	data-modal-toggle="add-payment-modal">
+																	<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+																		fill="none" viewBox="0 0 14 14">
+																		<path stroke="currentColor" stroke-linecap="round"
+																			stroke-linejoin="round" stroke-width="2"
+																			d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+																	</svg>
+																	<span class="sr-only">Close modal</span>
+																</button>
+															</div>
+															<!-- Modal body -->
+															<form method="post"
+																action="<?= base_url('sys/add_product_image/' . $b->book_token) ?>"
+																class="p-4 md:p-5" enctype="multipart/form-data">
+																<div class="grid gap-4 mb-4">
+																	<div class="w-full">
+																		<label for="name"
+																			class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Payment Method</label>
+																		<select name="variant_1" id=""
+																			class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+																			<option class="" selected disabled>-- Select Payment Method</option>
+																			<option value="QR">QR Code</option>
+																			<option value="Bank Transfer">Bank Transfer</option>
+																			<option value="Cash">Cash</option>
+																		</select>
+																	</div>
+																	<div class="w-full bg-slate-200 dark:bg-slate-800 relative border-2 border-slate-300 border-slate-700 border-dashed rounded-lg p-2 py-8 lg:py-8"
+																		id="dropzone">
+
+																		<img src="" class="mt-4 mx-auto max-h-96 hidden shadow-lg rounded-md"
+																			id="preview">
+
+																		<input type="file" name="image" id="file-upload"
+																			class="absolute inset-0 w-full h-full opacity-0 z-50" required>
+
+																		<div class="text-center">
+																			<h3
+																				class="mt-2 text-sm font-medium text-slate-900 dark:text-slate-100">
+																				<i class="text-center fa-regular fa-image text-6xl w-full text-slate-800 dark:text-slate-200 pb-4"
+																					id="ph"></i>
+																				<label for="file-upload"
+																					class="relative cursor-pointer text-md">
+																					<span>Drag and drop</span>
+																					<span class="text-blue-600 font-semibold"> or browse</span>
+																					<span>to upload</span>
+																				</label>
+																			</h3>
+																			<p class="mt-1 text-xs text-slate-500 ">PNG, JPG, JPEG |
+																				Recommendations is 1:1 Resolution</p>
+																		</div>
+																	</div>
+
+																</div>
+																<div class="text-center space-x-2 w-full">
+																	<button type="submit"
+																		class="w-full text-slate-100 dark:text-slate-900 items-center bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center">
+																		Add Payment
+																	</button>
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
+												<!-- /Images -->
+
 												<p class="text-slate-700 dark:text-slate-300">
 
 												</p>
@@ -151,9 +372,11 @@
 													<div class="grid gap-4 mb-4 grid-cols-2">
 														<div class="col-span-2">
 															<p
-																class="block mb-1 text-md font-medium dark:text-slate-100 text-slate-900"><?= $b->customer_name ?></p>
+																class="block mb-1 text-md font-medium dark:text-slate-100 text-slate-900"><?= $b->customer_name ?> - <span class="<?= $statusClr ?>"><?= $statusTxt ?></span> - <span class="<?= $paidClr ?>"><?= $paidTxt ?></span></p>
 															<p
 																class="block mb-0 text-md font-medium dark:text-slate-100 text-slate-900"><?= $b->customer_phone ?> <i class="fa-solid fa-file fa-xs fa-fw cursor-pointer"></i></p>
+															<p
+																class="block mb-0 text-md font-regular dark:text-blue-500 text-blue-500"><a href="<?= base_url('sys/cust_chat/') . $b->book_token ?>" target="_blank">Chat Customer on Whatsapp <i class="fa-solid fa-external-link fa-xs fa-fw cursor-pointer"></i></a></p>
 														</div>
 														<hr class="opacity-30 mb-2 col-span-2">
 														<?php
@@ -187,6 +410,13 @@
 															// The Math
 															$total_product_price = $product_price * $qty;
 															$total_of_price += $total_product_price;
+															if ($b->book_paid == "1") {
+																$paidTxt = "Paid";
+																$paidClr = "green-600";
+															} else {
+																$paidTxt = "Unpaid";
+																$paidClr = "red-600";
+															}
 														?>
 
 															<div class="col-span-1">
@@ -203,40 +433,40 @@
 																</label>
 															</div>
 														<?php } ?>
-														<div class="grid gap-4 mb-4 grid-cols-2">
-															<div class="col-span-1">
-																<label class="block text-md font-light dark:text-slate-100 text-slate-900">
-																	<p class="font-bold text-lg dark:text-neutral-200 text-neutral-800">Total Price: </p>
-																</label>
-															</div>
-															<div class="col-span-1">
-																<label class="block text-md font-light dark:text-slate-100 text-slate-900">
-																	<p class="font-bold text-lg dark:text-neutral-200 text-neutral-800">Rp<?= number_format($total_of_price, 0, ',', '.') ?></p>
-																</label>
-															</div>
-														</div>
+														<div class="col-span-2">
+															<hr class="opacity-30">
 
+														</div>
+														<div class="col-span-1">
+															<label for="name"
+																class="block text-lg font-semibold dark:text-slate-100 text-slate-900">
+																Total Price:
+															</label>
+														</div>
+														<div class="col-span-1">
+															<label class="block text-lg font-bold dark:text-slate-100 text-slate-900">
+																<strong>Rp<?= number_format($total_of_price, 0, ',', '.') ?></strong>
+															</label>
+														</div>
 													</div>
 
 													<hr class="opacity-30 mb-3">
-													<div class="w-full flex flex-wrap justify-between items-center">
+													<div class="w-full flex flex-wrap justify-between items-center cursor-pointer">
 														<div class="w-full">
 															<h3
 																class="text-sm font-semibold text-slate-900 dark:text-slate-100 text-center mb-2">
 																Set Order Status
 															</h3>
 														</div>
-														<div class="flex w-1/4">
-															<a class="w-full text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Cancel</a>
+
+														<div class="flex w-1/3">
+															<a onclick="cancel_<?= $bd->book_token ?>()"class="w-full text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 cursor-pointer">Cancel</a>
 														</div>
-														<div class="flex w-1/4">
-															<a class="w-full text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Accept</a>
+														<div class="flex w-1/3">
+															<a href="<?= base_url('sys/pending_order/') . $bd->book_key; ?>" class="w-full text-white bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-orange-300 dark:focus:ring-orange-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Pending</a>
 														</div>
-														<div class="flex w-1/4">
-															<a class="w-full text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Progress</a>
-														</div>
-														<div class="flex w-1/4">
-															<a class="w-full text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Finish</a>
+														<div class="flex w-1/3">
+															<a href="<?= base_url('sys/finish_order/') . $bd->book_key; ?>" class="w-full text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Finish</a>
 														</div>
 													</div>
 													<div class="text-right space-x-2">
@@ -310,6 +540,75 @@
 			}
 		}
 	</script>
+	<script>
+		const dropzone = document.getElementById('dropzone');
+		const fileInput = document.getElementById('file-upload');
+		const preview = document.getElementById('preview');
+		const ph = document.getElementById('ph');
+
+		function displayPreview(file) {
+			const reader = new FileReader();
+			reader.onload = () => {
+				preview.src = reader.result;
+				preview.classList.remove('hidden');
+				ph.classList.add('hidden');
+			};
+			reader.readAsDataURL(file);
+		}
+
+		dropzone.addEventListener('dragover', e => {
+			e.preventDefault();
+			dropzone.classList.add('border-blue-600');
+		});
+
+		dropzone.addEventListener('dragleave', e => {
+			e.preventDefault();
+			dropzone.classList.remove('border-blue-600');
+		});
+
+		dropzone.addEventListener('drop', e => {
+			e.preventDefault();
+			dropzone.classList.remove('border-blue-600');
+
+			const file = e.dataTransfer.files[0];
+			if (file) {
+				displayPreview(file);
+				const dataTransfer = new DataTransfer();
+				dataTransfer.items.add(file);
+				fileInput.files = dataTransfer.files;
+			}
+		});
+
+		fileInput.addEventListener('change', e => {
+			const file = e.target.files[0];
+			if (file) {
+				displayPreview(file);
+			}
+		});
+	</script>
+	<?php
+	$getAllBook = $this->db->where(['book_status !=' => 'Cancel'])->order_by('book_id', 'DESC')->get('book')->result();
+	foreach ($getAllBook as $b) { ?>
+		<!-- Cancel Order Confirmation -->
+		<script>
+			function cancel_<?= $b->book_token ?>() {
+				swal({
+						title: "Are Your Sure Cancel This Order?",
+						text: "Just to make sure, you can't turn back the data.",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					})
+					.then((willDelete) => {
+						if (willDelete) {
+							location.href = " <?php echo base_url() . 'sys/cancel_order/' . $b->book_key; ?> ";
+						}
+					});
+
+			}
+		</script>
+
+	<?php } ?>
 </body>
 
 </html>

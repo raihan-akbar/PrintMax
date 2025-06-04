@@ -40,8 +40,8 @@
                                 class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ps-10"
                                 placeholder="Search Active Order..." required />
                         </div>
-                        <ul id="myUL" class="py-2 w-full">
-                            <div
+                        <ul class="py-2 w-full">
+                            <div id="myUL"
                                 class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                                 <li class="py-1">
                                     <div
@@ -52,7 +52,7 @@
                                                     <button data-modal-target="add-item-modal" data-modal-toggle="add-item-modal"
                                                         class="py-8  md:my-36 text-slate-200 hover:text-slate-400 m-4">
                                                         <i class="fa-solid fa-plus text-2xl py-4"></i>
-                                                        <h3 class="text-center text-xl font-bold">Add New Product</h3>
+                                                        <p><a class="text-center text-xl font-bold">Add New Product</a></p>
                                                     </button>
                                                 </div>
                                             </div>
@@ -153,10 +153,10 @@
                                                 <div class="flex items-center">
                                                     <div
                                                         class="flex flex-col justify-between flex-grow p-4 text-slate-800 dark:text-slate-200">
-                                                        <h4 class="text-2xl font-semibold"><?= $a->product_name; ?></h4>
-                                                        <p class="text-base text-sm py-2 font-regular">
+                                                        <a class="text-2xl font-semibold"><?= $a->product_name; ?></a>
+                                                        <a class="text-base text-sm py-2 font-regular">
                                                             <?= $a->product_token; ?>
-                                                        </p>
+                                                        </a>
                                                         <hr class="bg-blue-700 rounded border-1 border-blue-700">
                                                         <div class="text-center">
                                                             <a href="<?= base_url('cms/product/' . $a->product_token) ?>"

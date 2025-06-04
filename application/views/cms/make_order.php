@@ -130,12 +130,18 @@
                                                 placeholder="Insert Customer Name" required="">
                                         </div>
                                         <div class="col-span-1">
-                                            <label for="name"
-                                                class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">Customer
-                                                Phone</label>
-                                            <input type="text" name="customer_phone" id="name"
-                                                class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                                placeholder="Insert Customer Phone Number" required="">
+                                            <label for="customer_phone" class="block mb-2 text-sm font-medium dark:text-slate-100 text-slate-900">
+                                                Customer Phone
+                                            </label>
+                                            <div class="flex">
+                                                <span class="inline-flex items-center px-3 text-sm text-slate-900 bg-slate-200 dark:bg-slate-800 dark:text-slate-100 rounded-l-md border border-r-0 border-slate-300 dark:border-slate-700">
+                                                    +62
+                                                </span>
+                                                <input type="text" id="customer_phone" name="customer_phone"
+                                                    class="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-r-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                    placeholder="81234567890" required pattern="^[1-9][0-9]{7,14}$"
+                                                    inputmode="numeric" oninput="validatePhone(this)">
+                                            </div>
                                         </div>
                                     </div>
                                     <hr class="opacity-30 mb-4">
@@ -361,6 +367,19 @@
                 } else {
                     li[i].style.display = "none";
                 }
+            }
+        }
+    </script>
+    <script>
+        function validatePhone(input) {
+            // Hanya angka, hapus karakter non-numeric
+            input.value = input.value.replace(/\D/g, '');
+
+            // Hapus awalan 0 atau 62 jika ada
+            if (input.value.startsWith('0')) {
+                input.value = input.value.slice(1);
+            } else if (input.value.startsWith('62')) {
+                input.value = input.value.slice(2);
             }
         }
     </script>

@@ -202,16 +202,8 @@
             <!-- Search -->
 
             <!-- Card Section -->
+             
             <div class="w-full px-12">
-                <div class="relative w-full md:w-full lg:w-full xl:w-full pb-4">
-                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <p class="text-slate-700 dark:text-slate-300"><i
-                                class="fa-solid fa-magnifying-glass fa-xs"></i></p>
-                    </div>
-                    <input type="text" id="myInput" onkeyup="myFunction()"
-                        class="bg-slate-50 border border-slate-300 text-slate-900text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ps-10"
-                        placeholder="Search Products..." required />
-                </div>
                 <ul id="myUL" class="py-2 w-full pb-24">
                     <div
                         class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
@@ -230,7 +222,7 @@
                                         <div class="flex items-center">
                                             <div
                                                 class="flex flex-col justify-between flex-grow p-4 text-slate-800 dark:text-slate-200">
-                                                <h4 class="text-2xl font-semibold"><?= $a->product_name; ?></h4>
+                                                <a class="text-2xl font-semibold"><?= $a->product_name; ?></a>
                                                 <div class="columns-2">
                                                     <p class="text-2xl text-sm py-2 font-regular">
                                                         Rp<?= number_format($a->product_price, 0, ',', '.') ?>
@@ -251,7 +243,7 @@
                                 </div>
                             </li>
                         <?php } ?>
-                        
+
                         <!-- Here -->
 
                     </div>
@@ -285,6 +277,27 @@
     </script>
     <?php $this->load->view('cms/parts/addon'); ?>
     <?= $this->session->flashdata('flash'); ?>
+    <script>
+        function myFunction() {
+            // Declare variables
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('myInput');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName('li');
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>

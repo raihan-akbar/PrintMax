@@ -35,8 +35,9 @@ class Cms extends CI_Controller
 	public function order()
 	{
 		$data['getMenu'] = $this->Mod->getMenu()->result();
-		$data['getBook'] = $this->Mod->get('book', array('book_id !=' => '0'))->result();
+		$data['getBook'] = $this->db->where(['book_status !=' => 'Pending'])->where(['book_status !=' => 'Pending'])->order_by('book_id', 'DESC')->get('book')->result();
 		$data['getBookDetails'] = $this->Mod->getBookDetails()->result();
+		$this->output->enable_profiler(TRUE);
 
 
 		$data_session = array('menu_active' => '2');

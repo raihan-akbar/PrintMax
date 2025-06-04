@@ -37,9 +37,22 @@
                         <div class="flex flex-wrap items-center -mx-5">
                             <div class="w-full lg:w-1/2 px-5">
                                 <ul>
+                                    <?php
+                                    if ($b->book_status == 'Pending') {
+                                        $statusPending = "bg-blue-50 text-blue-600";
+                                        $statusProgress = "bg-neutral-50 text-neutral-600";
+                                        $statusFinish = "bg-neutral-50 text-neutral-600";
+                                        $statusCancel = "bg-neutral-50 text-neutral-600";
+                                    } else if ($b->book_status == 'Progress') {
+                                        $statusPending = "bg-blue-50 text-blue-600";
+                                        $statusProgress = "bg-blue-50 text-neutral-600";
+                                        $statusFinish = "bg-blue-50 text-neutral-600";
+                                        $statusCancel = "bg-blue-50 text-neutral-600";
+                                    }
+                                    ?>
                                     <li class="flex pb-4 mb-2 border-b border-neutral-200">
                                         <div class="mr-8">
-                                            <span class="flex justify-center items-center w-14 h-14 bg-blue-200 text-lg font-bold rounded-full text-blue-600"><i class="fa-solid fa-check"></i></span>
+                                            <span class="flex justify-center items-center w-14 h-14 <?= $statusCancel;?> text-lg font-bold rounded-full"><i class="fa-solid fa-check"></i></span>
                                         </div>
                                         <div class="max-w-xs">
                                             <h3 class="mb-2 text-lg font-bold text-neutral-700">Order Created</h3>
@@ -48,7 +61,7 @@
                                     </li>
                                     <li class="flex pb-4 mb-2 border-b border-neutral-200">
                                         <div class="mr-8">
-                                            <span class="flex justify-center items-center w-14 h-14 bg-blue-50 text-lg font-bold rounded-full text-neutral-600"><i class="fa-solid fa-handshake"></i></span>
+                                            <span class="flex justify-center items-center w-14 h-14 <?= $statusProgress;?> text-lg font-bold rounded-full"><i class="fa-solid fa-handshake"></i></span>
                                         </div>
                                         <div class="max-w-xs">
                                             <h3 class="mb-2 text-lg font-bold text-neutral-700">Order Accepted by Admin</h3>
@@ -57,7 +70,7 @@
                                     </li>
                                     <li class="flex pb-4 mb-2 border-b border-neutral-200">
                                         <div class="mr-8">
-                                            <span class="flex justify-center items-center w-14 h-14 bg-blue-50 text-lg font-bold rounded-full text-neutral-600"><i class="fa-solid fa-flag-checkered"></i></span>
+                                            <span class="flex justify-center items-center w-14 h-14 <?= $statusProgress;?> text-lg font-bold rounded-full"><i class="fa-solid fa-gear"></i></span>
                                         </div>
                                         <div class="max-w-xs">
                                             <h3 class="mb-2 text-lg font-bold text-neutral-700">On Progress</h3>
@@ -66,7 +79,7 @@
                                     </li>
                                     <li class="flex pb-4 mb-2 border-b border-neutral-200">
                                         <div class="mr-8">
-                                            <span class="flex justify-center items-center w-14 h-14 bg-blue-50 text-lg font-bold rounded-full text-neutral-600"><i class="fa-solid fa-flag-checkered"></i></span>
+                                            <span class="flex justify-center items-center w-14 h-14 <?= $statusFinish;?> text-lg font-bold rounded-full"><i class="fa-solid fa-flag-checkered"></i></span>
                                         </div>
                                         <div class="max-w-xs">
                                             <h3 class="mb-2 text-lg font-bold text-neutral-700">Your Order is Ready</h3>
@@ -84,6 +97,8 @@
                                     <hr class="h-px my-1 bg-neutral-600 border-0">
                                     <p><?= $b->customer_name; ?> (<?= $b->customer_phone; ?>)</p>
                                     <p>Created on <?= date('l d, F Y') ?></p>
+                                    <p>Order ID : <?= $b->book_key; ?></p>
+
                                     <hr class="h-px my-1 bg-neutral-600 border-0">
                                     <div class="columns-2 pt-2">
                                         <div class="w-full text-left">
@@ -140,7 +155,16 @@
                                         </div>
                                     </div>
                                     <hr class="h-px mt-1 bg-neutral-600 border-0">
-
+                                    <div class="columns-1 py-2 ">
+                                        <div class="w-full text-left">
+                                            <p class="text-sm text-neutral-9500 font-base"><i class="fa-solid fa-chevron-right text-red-600 fa-xs fa-fw"></i> You should message to Our Whats'app so PrintMax Admin can Notice Your Order. Click This Button Below</p>
+                                        </div>
+                                        <div class="flex w-full text-center pt-2">
+                                            <a href="<?= base_url('cust/send_confirm/') . $bd->book_key ?>" target="_blank" class="w-full p-2 bg-green-700 hover:bg-green-900 text-neutral-50 rounded-lg cursor-pointer">
+                                                Send Order Confirmation <i class="fab fa-whatsapp fa-lg"></i>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

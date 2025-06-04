@@ -135,16 +135,17 @@ class Cust extends CI_Controller
             $total_price += $price_of_product * $qty;
         }
         $book_token = strtoupper(bin2hex(random_bytes(4))) . date('Ymd') . strtoupper(bin2hex(random_bytes(4)));
-        $key = bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2));
+        // $key = bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2));
+        $key = random_int(000, 999) . date('y') . "-" . random_int(0, 9) . date('md');
         $book_key = strtoupper($key);
 
         $data_book = [
             'book_token' => $book_token,
             'book_paid' => '0',
             'customer_name' => $customer_name,
-            'customer_phone' => $customer_phone,
+            'customer_phone' => '62'.$customer_phone,
             'price_total' => $total_price,
-            'book_status' => 'Progress',
+            'book_status' => 'Pending',
             'user_token' => "Customer",
             'book_date' => date('Y-m-d H:i:s'),
             'book_key' => $book_key,
@@ -162,7 +163,9 @@ class Cust extends CI_Controller
                 'book_product_qty' => $item->agent_cart_qty,
                 'product_variant_1_price_mark' => $item->product_variant_1_price_mark,
                 'product_variant_2_price_mark' => $item->product_variant_2_price_mark,
-                'book_product_price' => $item->product_price
+                'book_product_price' => $item->product_price,
+                'book_product_status' => "Pending",
+                'book_key' => $book_key,
             ];
 
             $this->Mod->add($data_product, 'book_product');
@@ -183,13 +186,45 @@ class Cust extends CI_Controller
     public function track($book_key = null)
     {
         if ($book_key == null) {
-            redirect(base_url('/'));
+            $data['book'] = $this->Mod->get('book', array('book_key' => $book_key))->result();
+            $data['getAgentBook'] = $this->Mod->getAgentBook($book_key)->result();
+            $data['getAgentBookProduct'] = $this->Mod->getAgentBook($book_key)->result();
+
+            $data['getAgentCart'] = $this->Mod->getAgentCart()->result();
+
+            $this->load->view('public/track[finder]', $data);
         }
 
         $data['book'] = $this->Mod->get('book', array('book_key' => $book_key))->result();
         $data['getAgentBook'] = $this->Mod->getAgentBook($book_key)->result();
         $data['getAgentBookProduct'] = $this->Mod->getAgentBook($book_key)->result();
 
+        $data['getAgentCart'] = $this->Mod->getAgentCart()->result();
         $this->load->view('public/track', $data);
+    }
+
+    public function send_confirm($book_key = null){
+        if ($book_key == null) {
+            $this->session->set_flashdata(
+                "flash",
+                "<script>
+						window.onload=function(){
+							swal({title: 'Empty Cart!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+							</script>"
+            );
+            redirect(base_url('/'));
+        }
+
+		$getBook = $this->db->where(['book_key' => $book_key])->get('book')->result();
+        foreach ($getBook as $gb) {
+            $customer_name = $gb->customer_name;
+            $book_key = $gb->book_key;
+            $track_link = base_url('cust/track/') . $book_key;
+            $date = date('d, F Y');
+            $link = "https://wa.me/" . "6281215616512" . "?text=PrintMax%20Order%20Confirmation%0AOrder%20ID%20%3A%20" . $book_key . "%0AAtas%20Nama%20%3A%20" . $customer_name . "%0ATanggal%20Order%20%3A%20" . $date . "%0A%0AOrder%20Track%20%3A%0A" . $track_link . "";
+
+        }
+        redirect($link);
+
     }
 }

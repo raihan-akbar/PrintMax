@@ -937,14 +937,15 @@ class Sys extends CI_Controller
 			$total_price += $price_of_product * $qty;
 		}
 		$book_token = strtoupper(bin2hex(random_bytes(4))) . date('Ymd') . strtoupper(bin2hex(random_bytes(4)));
-		$key = bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2));
+		// $key = bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2));
+		$key = random_int(000, 999) . date('y') . "-" . random_int(0, 9) . date('md');
 
 		$book_key = strtoupper($key);
 		$data_book = [
 			'book_token' => $book_token,
-			'book_paid' => '0',
+			'book_paid' => '1',
 			'customer_name' => $customer_name,
-			'customer_phone' => $customer_phone,
+			'customer_phone' => '62' . $customer_phone,
 			'price_total' => $total_price,
 			'book_status' => 'Progress',
 			'user_token' => $user_token,
@@ -964,12 +965,16 @@ class Sys extends CI_Controller
 				'book_product_qty' => $item->user_cart_qty,
 				'product_variant_1_price_mark' => $item->product_variant_1_price_mark,
 				'product_variant_2_price_mark' => $item->product_variant_2_price_mark,
-				'book_product_price' => $item->product_price
+				'book_product_price' => $item->product_price,
+				'book_product_status' => "Pending",
+				'book_key' => $key,
 			];
 
 			$this->Mod->add($data_product, 'book_product');
 		}
 		$this->Mod->del(array('user_token' => $user_token), 'user_cart');
+
+
 
 		$this->session->set_flashdata(
 			"flash",
@@ -982,5 +987,200 @@ class Sys extends CI_Controller
 		redirect(base_url('cms/order/'));
 	}
 
-	
+	public function cust_chat($book_token = null)
+	{
+		if ($book_token == null) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+						window.onload=function(){
+							swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+							</script>"
+			);
+
+			redirect(base_url('cms/order/'));
+		}
+
+		$book = $this->Mod->get('book', array('book_token' => $book_token))->result();
+
+		if (empty($book)) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+						window.onload=function(){
+							swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+							</script>"
+			);
+
+			redirect(base_url('cms/order/'));
+		}
+
+		foreach ($book as $b) {
+			$track_link = base_url('cust/track/') . $b->book_key;
+			$customer_name = $b->customer_name;
+			$customer_phone = $b->customer_phone;
+			$book_key = $b->book_key;
+			$total_price = number_format($b->price_total, 0, ',', '.');
+			$book_paid = null;
+			$link = null;
+			if ($b->book_paid == 1) {
+				$book_paid = "Paid";
+			} else {
+				$book_paid = "Unpaid";
+			}
+
+			$user_name = $this->session->userdata('user_name');
+
+			$book_status = $b->book_status;
+
+			if ($book_status == "Pending") {
+				$link = "https://wa.me/" . $customer_phone . "?text=PrintMax%20Order%0ANama%20%3A%20" . $customer_name . "%0AHarga%20%3A%20" . $total_price . "%0APembayaran%20%3A%20" . $book_paid . "%0AID%20%3A%20" . $book_key . "%0A%0ACek%20Link%20Berikut%20Untuk%20Detail%20Pembelian%3A%0A" . $track_link . "%0A%0A-- " . $user_name . "";
+				redirect($link);
+			} else if ($book_status == "Progress") {
+				$link = "https://wa.me/" . $customer_phone . "?text=PrintMax%20Order%0ANama%20%3A%20" . $customer_name . "%0AHarga%20%3A%20" . $total_price . "%0APembayaran%20%3A%20" . $book_paid . "%0AID%20%3A%20" . $book_key . "%0A%0ACek%20Link%20Berikut%20Untuk%20Detail%20Pembelian%3A%0A" . $track_link . "%0A%0A-- " . $user_name . "";
+				redirect($link);
+			} else if ($book_status == "Finish") {
+				$link = "https://wa.me/" . $customer_phone . "?text=PrintMax%20Order%0AOrder%20ID%20%3A%20" . $book_key . "%0APembayaran%20%3A%20" . $book_paid . "%0A" . $customer_name . "%20Pesanan%20Anda%20Telah%20Selesai%0A%0ACek%20Link%20Berikut%20Untuk%20Detail%20Pembelian%3A%0A" . $track_link . "%0A%0A--%20" . $user_name . "";
+				redirect($link);
+			}
+			else {
+				$this->session->set_flashdata(
+					"flash",
+					"<script>
+							window.onload=function(){
+								swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+								</script>"
+				);
+
+				redirect(base_url('cms/order/'));
+			}
+		}
+	}
+
+	public function accept_order($book_key = null)
+	{
+		if ($book_key == null) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+						window.onload=function(){
+							swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+							</script>"
+			);
+
+			redirect(base_url('cms/order/'));
+		}
+
+		$data = array(
+			'book_status' => "Progress",
+			'book_paid' => "1",
+		);
+
+		$this->Mod->upd(array('book_key' => $book_key), $data, 'book');
+
+		$data_product = array(
+			'book_product_status' => "Pending",
+		);
+
+		$this->Mod->upd(array('book_key' => $book_key), $data_product, 'book_product');
+
+		$this->session->set_flashdata(
+			"flash",
+			"<script>
+					window.onload=function(){
+						swal({title: 'Success!', text: 'Data Move to Order and Set to On Progress!', icon: 'success', button: 'Close',})};
+						</script>"
+		);
+		redirect(base_url('cms/order/'));
+	}
+
+	public function cancel_order($book_key = null)
+	{
+		if ($book_key == null) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+						window.onload=function(){
+							swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+							</script>"
+			);
+
+			redirect(base_url('cms/order/'));
+		}
+
+		$data = array(
+			'book_status' => "Cancel",
+		);
+
+		$this->Mod->upd(array('book_key' => $book_key), $data, 'book');
+
+		$this->session->set_flashdata(
+			"flash",
+			"<script>
+					window.onload=function(){
+						swal({title: 'Success!', text: 'Data Cancelled and Status Set to Cancel', icon: 'success', button: 'Close',})};
+						</script>"
+		);
+		redirect(base_url('cms/order/'));
+	}
+
+	public function pending_order($book_key = null)
+	{
+		if ($book_key == null) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+						window.onload=function(){
+							swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+							</script>"
+			);
+
+			redirect(base_url('cms/order/'));
+		}
+
+		$data = array(
+			'book_status' => "Pending",
+		);
+
+		$this->Mod->upd(array('book_key' => $book_key), $data, 'book');
+
+		$this->session->set_flashdata(
+			"flash",
+			"<script>
+					window.onload=function(){
+						swal({title: 'Success!', text: 'Data Move to Pending Status', icon: 'success', button: 'Close',})};
+						</script>"
+		);
+		redirect(base_url('cms/order/'));
+	}
+
+	public function finish_order($book_key = null)
+	{
+		if ($book_key == null) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+						window.onload=function(){
+							swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+							</script>"
+			);
+
+			redirect(base_url('cms/order/'));
+		}
+
+		$data = array(
+			'book_status' => "Finish",
+		);
+
+		$this->Mod->upd(array('book_key' => $book_key), $data, 'book');
+
+		$this->session->set_flashdata(
+			"flash",
+			"<script>
+					window.onload=function(){
+						swal({title: 'Success!', text: 'Order Data Status Now Set to Finish', icon: 'success', button: 'Close',})};
+						</script>"
+		);
+		redirect(base_url('cms/order/'));
+	}
 }/* End of file Sys.php */

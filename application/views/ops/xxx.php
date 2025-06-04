@@ -27,20 +27,24 @@
 	$cut = explode('$', $bcrypt);
 	$pieces = array($cut[3],);
 	$save = implode('', $pieces);
-	$full_password = "$2y$08$".$save;
+	$full_password = "$2y$08$" . $save;
 
+	$key = bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2)) . "-" . bin2hex(random_bytes(4 / 2));
+	$key2 = random_int(000, 999).date('y') . "-" . random_int(0,9).date('md');
 	if (password_verify($string, $full_password)) {
 		$bcrypt_verify = "[OK]";
 	} else {
 		$bcrypt_verify = "[FAIl]";
 	}
-	
+
 	?>
 
 	<p><code class="text-neutral-300">String : <?= $password ?></code></p>
 	<p><code class="text-neutral-300">BCrypt : <?= $bcrypt ?></code></p>
 	<p><code class="text-neutral-300">BCrypt : <?= $save ?></code></p>
 	<p><code class="text-neutral-300">BCrypt Verify : <?= $bcrypt_verify ?></code></p>
+	<p><code class="text-neutral-300">Key : <?= strtoupper($key); ?></code></p>
+	<p><code class="text-neutral-300">Key : <?= strtoupper($key2); ?></code></p>
 
 </body>
 
