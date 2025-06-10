@@ -13,6 +13,8 @@ class Cust extends CI_Controller
 
     public function item($product_token = null)
     {
+
+		
         $where = array('product_token' => $product_token);
         $item_check = $this->Mod->get('product', $where)->num_rows();
 

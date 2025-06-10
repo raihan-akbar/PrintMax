@@ -23,18 +23,24 @@
 	<?php $this->load->view('public/parts/navbar'); ?>
 	<!-- Page Script Here -->
 	<?php foreach ($item as $i) { ?>
-		<form method="post" action="<?= base_url('cust/add_cart/' . $i->product_token) ?>"
-			enctype="multipart/form-data">
+		<form method="post" action="<?= base_url('cust/add_cart/' . $i->product_token) ?>" enctype="multipart/form-data">
 			<section id="item" class="my-24">
 				<div class="w-full">
+					<div class="text-center">
+						<h2 class="font-bold text-2xl md:text-3xl text-blue-950 mb-1">Product Details
+						</h2>
+						<div class="inline-flex items-center justify-center w-full mb-8">
+							<hr class="w-24 h-1 my-2  border-0 rounded-sm bg-blue-950">
+						</div>
+					</div>
 					<div class="bg-neutral-200">
 						<div class="container mx-auto px-4">
 							<div class="flex flex-wrap -mx-4">
 								<!-- Product Images -->
 								<div class="w-full md:w-1/2 px-4 mb-8">
-									<div class="flex h-xl min-h-md bg-blue-950 justify-center items-center rounded-xl">
-										<img src="<?= base_url('src/item/_thumbnails/' . $i->product_thumbnails) ?>" alt="Product"
-											class="w-md max-h-sm rounded-xl shadow-md mb-4" id="mainImage">
+									<div class="flex h-xl min-h-md bg-transparent justify-center items-center rounded-xl">
+										<img src="<?= base_url('src/item/_thumbnails/' . $i->product_thumbnails) ?>"
+											alt="Product" class="w-md max-h-sm rounded-xl shadow-md mb-4" id="mainImage">
 									</div>
 									<div class="flex gap-4 py-4 justify-center overflow-x-auto">
 										<img src="<?= base_url('src/item/_thumbnails/' . $i->product_thumbnails) ?>"
@@ -51,8 +57,7 @@
 										<?php
 
 										foreach ($getImage as $gi) { ?>
-											<img src="<?= base_url('src/item/' . $gi->product_image_name) ?>"
-												alt=""
+											<img src="<?= base_url('src/item/' . $gi->product_image_name) ?>" alt=""
 												class="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
 												onclick="changeImage(this.src)">
 										<?php } ?>
@@ -80,8 +85,11 @@
 															<?php
 															foreach ($getVariant1 as $v1) {
 
-															?>
-																<option value="<?= $v1->product_variant_1_id ?>"><?= $v1->product_variant_1_name ?> (+Rp<?= number_format($v1->product_variant_1_price_mark, 0, ',', '.') ?>)</option>
+																?>
+																<option value="<?= $v1->product_variant_1_id ?>">
+																	<?= $v1->product_variant_1_name ?>
+																	(+Rp<?= number_format($v1->product_variant_1_price_mark, 0, ',', '.') ?>)
+																</option>
 
 															<?php } ?>
 														</select>
@@ -101,8 +109,11 @@
 															<?php
 															foreach ($getVariant2 as $v2) {
 
-															?>
-																<option value="<?= $v2->product_variant_2_id ?>"><?= $v2->product_variant_2_name ?> (+Rp<?= number_format($v2->product_variant_2_price_mark, 0, ',', '.') ?>)</option>
+																?>
+																<option value="<?= $v2->product_variant_2_id ?>">
+																	<?= $v2->product_variant_2_name ?>
+																	(+Rp<?= number_format($v2->product_variant_2_price_mark, 0, ',', '.') ?>)
+																</option>
 
 															<?php } ?>
 														</select>
@@ -146,7 +157,7 @@
 			</section>
 		</form>
 	<?php } ?>
-	<div class="text-center">
+	<div class="text-center mb-12">
 		<a href="<?= base_url('/') ?>" type="button"
 			class="text-neutral-200 bg-blue-600 hover:bg-blue-950 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 border-neutral-200 border-2">
 			<i class="fa-solid fa-chevron-left px-2 text-lg"></i>
