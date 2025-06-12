@@ -198,7 +198,7 @@
 									?>
 									<li class="py-1">
 										<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4">
-											<a href="#">
+											<a>
 												<p class="w-full text-slate-700 dark:text-slate-300">
 													<span type="button" class="<?= $statusBg ?> font-medium rounded-full text-sm p-0.5 text-center inline-flex items-center me-0.5">
 														<i

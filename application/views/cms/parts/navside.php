@@ -50,6 +50,13 @@
 								</a>
 							</li>
 							<li>
+								<a href="<?= base_url('/sys/unauth/') ?>"
+									class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-neural-100">
+									<i class="fa-solid fa-envelope fa-fw"></i>
+									Customer Message
+								</a>
+							</li>
+							<li>
 								<a href="#"
 									class="block w-full hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-neural-100">
 									<button id="theme-toggle" class="w-full h-full px-4 py-2">

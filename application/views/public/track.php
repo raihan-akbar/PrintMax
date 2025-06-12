@@ -33,13 +33,13 @@
                     </div>
                 </div>
                 <div class="container px-4 mx-auto">
-                    <div class="max-w-5xl mx-auto">
+                    <div class="max-w-5xl mx-auto bg-neutral-100 p-8 rounded-lg shadow-xl">
                         <div class="flex flex-wrap items-center -mx-5">
                             <div class="w-full lg:w-1/2 px-5">
                                 <ul>
                                     <?php
                                     if ($b->book_status == "Pending") {
-                                        $statusPending = "bg-blue-50 text-blue-600";
+                                        $statusPending = "bg-blue-300 text-blue-600";
                                         $statusProgress = "bg-neutral-300 text-neutral-600";
                                         $statusFinish = "bg-neutral-300 text-neutral-600";
                                         $statusCancel = "bg-neutral-300 text-neutral-600";
