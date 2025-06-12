@@ -8,28 +8,46 @@
 	<!-- Sources Assets -->
 	<link rel="icon" type="image/png" href="<?= base_url('_assets/img/sq-logo.png'); ?>">
 	<meta name="theme-color" content="#ffffff">
+
 	<script src="https://cdn.tailwindcss.com"></script>
 	<link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="<?= base_url('_assets/js/sweetalert.min.js') ?>"></script>
+
 	<link href="<?= base_url('_assets/css/custom.css') ?>" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 		integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<!-- <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script> -->
+	<script>
+		tailwind.config = {
+			darkMode: 'class',
+		}
+	</script>
+
+	<script>
+		if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+			document.documentElement.classList.add('dark');
+		} else {
+			document.documentElement.classList.remove('dark')
+		}
+	</script>
+
+
 	<title>PrintMax</title>
 </head>
 
-<body class="bg-neutral-200">
+<body class="bg-neutral-200 dark:bg-slate-800">
 	<?php $this->load->view('public/parts/navbar'); ?>
 	<!-- Page Script Here -->
 
 	<section id="item" class="my-24">
 		<div class="w-full">
 			<div class="text-center">
-				<h2 class="font-bold text-2xl md:text-3xl text-blue-950 mb-1">PrintMax Contact
+				<h2 class="font-bold text-2xl md:text-3xl text-blue-950 dark:text-blue-50 mb-1">PrintMax Contact
 				</h2>
 				<div class="inline-flex items-center justify-center w-full mb-8">
-					<hr class="w-24 h-1 my-2  border-0 rounded-sm bg-blue-950">
+					<hr class="w-24 h-1 my-2  border-0 rounded-sm bg-blue-950 dark:bg-blue-50">
 				</div>
 			</div>
 			<div class="px-16 md:px-36">
@@ -52,12 +70,12 @@
 						<div class="w-full pt-4 space-y-2">
 							<h3 class="text-xl font-extrabold text-blue-50">Message Us</h3>
 							<input type="text" name="name"
-								class="w-full rounded-lg shadow-lg bg-neutral-100 border-neutral-800 shadow-lg"
+								class="w-full rounded-lg shadow-lg bg-neutral-100 border-neutral-800 shadow-lg dark:bg-slate-700 dark:border-slate-600 dark:text-neutral-200"
 								placeholder="Your Full Name">
 							<input type="email" name="email"
-								class="w-full rounded-lg shadow-lg bg-neutral-100 border-neutral-800 shadow-lg"
+								class="w-full rounded-lg shadow-lg bg-neutral-100 border-neutral-800 shadow-lg dark:bg-slate-700 dark:border-slate-600 dark:text-neutral-200"
 								placeholder="Your Email Address">
-							<textarea name="" id="" class="w-full rounded-lg shadow-lg bg-neutral-100 border-neutral-800 shadow-lg p-2" placeholder="Your Message" rows="4"></textarea>
+							<textarea name="" id="" class="w-full rounded-lg shadow-lg bg-neutral-100 border-neutral-800 shadow-lg p-2  dark:bg-slate-700 dark:border-slate-600 dark:text-neutral-200" placeholder="Your Message" rows="4"></textarea>
 							<button type="submit" class="w-full bg-blue-700 hover:bg-blue-800 py-2.5 rounded-lg text-blue-50">Submit</button>
 						</div>
 					</div>

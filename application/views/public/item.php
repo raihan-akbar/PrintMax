@@ -8,18 +8,37 @@
 	<!-- Sources Assets -->
 	<link rel="icon" type="image/png" href="<?= base_url('_assets/img/sq-logo.png'); ?>">
 	<meta name="theme-color" content="#ffffff">
+
 	<script src="https://cdn.tailwindcss.com"></script>
 	<link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="<?= base_url('_assets/js/sweetalert.min.js') ?>"></script>
+
 	<link href="<?= base_url('_assets/css/custom.css') ?>" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 		integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<!-- <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script> -->
+	<script>
+		tailwind.config = {
+			darkMode: 'class',
+		}
+	</script>
+
+	<script>
+		if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+			document.documentElement.classList.add('dark');
+		} else {
+			document.documentElement.classList.remove('dark')
+		}
+	</script>
+
+
 	<title>PrintMax</title>
 </head>
 
-<body class="bg-neutral-200">
+<body class="bg-slate-200 dark:bg-slate-950">
+
 	<?php $this->load->view('public/parts/navbar'); ?>
 	<!-- Page Script Here -->
 	<?php foreach ($item as $i) { ?>
@@ -27,13 +46,13 @@
 			<section id="item" class="my-24">
 				<div class="w-full">
 					<div class="text-center">
-						<h2 class="font-bold text-2xl md:text-3xl text-blue-950 mb-1">Product Details
+						<h2 class="font-bold text-2xl md:text-3xl text-blue-950 dark:text-blue-50 mb-1">Product Details
 						</h2>
 						<div class="inline-flex items-center justify-center w-full mb-8">
-							<hr class="w-24 h-1 my-2  border-0 rounded-sm bg-blue-950">
+							<hr class="w-24 h-1 my-2  border-0 rounded-sm bg-blue-950 dark:bg-blue-50">
 						</div>
 					</div>
-					<div class="bg-neutral-200">
+					<div class="bg-slate-200 dark:bg-slate-950">
 						<div class="container mx-auto px-4">
 							<div class="flex flex-wrap -mx-4">
 								<!-- Product Images -->
@@ -66,26 +85,26 @@
 
 								<!-- Product Details -->
 								<div class="w-full md:w-1/2 px-4">
-									<h2 class="text-3xl font-bold mb-2"><?= $i->product_name ?></h2>
+									<h2 class="text-3xl font-bold mb-2 text-neutral-800 dark:text-neutral-200"><?= $i->product_name ?></h2>
 									<div class="mb-4">
-										<span class="text-2xl font-bold mr-2">Rp <span
+										<span class="text-2xl font-bold mr-2 text-neutral-800 dark:text-neutral-200">Rp <span
 												class="rp"><?= $i->product_price ?></span></span>
 										<span class="text-neutral-500">Base Price</span>
 									</div>
 									<div class="mb-6">
-										<h3 class="text-lg font-semibold mb-2">Select Variant :</h3>
+										<h3 class="text-lg font-semibold mb-2 text-neutral-800 dark:text-neutral-200">Select Variant :</h3>
 									</div>
 									<div class="mb-6">
 										<div class="flex space-x-2">
 											<ul class="grid w-full gap-6 md:grid-cols-2">
 												<li>
 													<label for="hosting-small"
-														class="inline-flex items-center justify-between p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+														class="inline-flex items-center justify-between p-2 text-gray-500 bg-neutral-100 border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
 														<select name="variant_1" id="" class="border-0">
 															<?php
 															foreach ($getVariant1 as $v1) {
 
-																?>
+															?>
 																<option value="<?= $v1->product_variant_1_id ?>">
 																	<?= $v1->product_variant_1_name ?>
 																	(+Rp<?= number_format($v1->product_variant_1_price_mark, 0, ',', '.') ?>)
@@ -109,7 +128,7 @@
 															<?php
 															foreach ($getVariant2 as $v2) {
 
-																?>
+															?>
 																<option value="<?= $v2->product_variant_2_id ?>">
 																	<?= $v2->product_variant_2_name ?>
 																	(+Rp<?= number_format($v2->product_variant_2_price_mark, 0, ',', '.') ?>)
@@ -126,7 +145,7 @@
 
 									<div class="mb-6">
 										<label for="quantity"
-											class="block text-sm font-medium text-neutral-700 mb-2">Quantity:</label>
+											class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">Quantity:</label>
 										<input type="number" id="qty" name="qty" min="1" value="1"
 											class="w-16 text-center rounded-md border-neutral-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
 									</div>
@@ -144,8 +163,8 @@
 									</div>
 
 									<div>
-										<h3 class="text-lg font-semibold mb-2">About Item:</h3>
-										<ul class="list-disc list-inside text-neutral-700">
+										<h3 class="text-lg font-semibold mb-2 text-neutral-700 dark:text-neutral-300">About Item:</h3>
+										<ul class="list-disc list-inside text-neutral-700 dark:text-neutral-300">
 											<p><?= $i->product_desc ?></p>
 										</ul>
 									</div>

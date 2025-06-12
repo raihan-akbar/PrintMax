@@ -76,6 +76,16 @@
 							class="fa-solid fa-dolly block px-4 text-slate-300 rounded md:p-0 hover:text-slate-100 decoration-2 underline-offset-8 text-base fa-fw"></i>
 					</a>
 				</li>
+				<li>
+					<button id="theme-toggle" class="relative cursor-pointer">
+						<span id="theme-toggle-dark-icon" class="hidden">
+							<i class="fa-solid fa-moon block px-4 text-slate-300 rounded md:p-0 hover:text-slate-100 decoration-2 underline-offset-8 text-base fa-fw"></i>
+						</span>
+						<span id="theme-toggle-light-icon" class="hidden">
+							<i class="fa-solid fa-sun block px-4 text-slate-300 rounded md:p-0 hover:text-slate-100 decoration-2 underline-offset-8 text-base fa-fw"></i>
+						</span>
+					</button>
+				</li>
 				<!-- <li>
 					<a href="<?= base_url('/' . $url . '/') ?>">
 						<i
