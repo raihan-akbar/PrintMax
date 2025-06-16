@@ -42,6 +42,7 @@
 	<!-- Page Script Here -->
 
 	<section id="guide-id" class="my-24">
+		<!--  -->
 		<div class="w-full">
 			<div class="text-center">
 				<h2 class="font-bold text-2xl md:text-3xl text-blue-950 dark:text-blue-50 mb-1">How to Order
@@ -49,9 +50,64 @@
 				<div class="inline-flex items-center justify-center w-full mb-8">
 					<hr class="w-24 h-1 my-2  border-0 rounded-sm bg-blue-950 dark:bg-blue-50">
 				</div>
-
 			</div>
-			<div
+			<!-- New -->
+			<div class="container px-4 mx-auto">
+				<div class="max-w-5xl mx-auto bg-neutral-100 dark:bg-slate-950 p-8 rounded-lg shadow-xl">
+					<div class="flex flex-wrap items-center -mx-5">
+						<div class="w-full px-5">
+							<ul>
+								<li class="flex pb-4 mb-2 border-b border-neutral-200">
+									<div class="mr-8">
+										<span class="flex justify-center items-center w-14 h-14 bg-blue-300 text-blue-600 text-lg font-bold rounded-full"><i class="fa-solid fa-hand-point-up"></i></span>
+									</div>
+									<div class="max-w-full w-full">
+										<h3 class="mb-2 text-lg font-bold text-neutral-700 dark:text-neutral-300">Memilih Produk</h3>
+										<p class="text-md text-neutral-500">Pilih Produk Pada bagian Katalog Kami</p>
+									</div>
+								</li>
+								<li class="flex pb-4 mb-2 border-b border-neutral-200">
+									<div class="mr-8">
+										<span class="flex justify-center items-center w-14 h-14 bg-blue-300 text-blue-600 text-lg font-bold rounded-full"><i class="fa-solid fa-cart-arrow-down"></i></span>
+									</div>
+									<div class="max-w-full">
+										<h3 class="mb-2 text-lg font-bold text-neutral-700 dark:text-neutral-300">Masukan Produk ke Keranjang</h3>
+										<p class="text-md text-neutral-500">Pilih 2 Opsi Varian jika tersedia.Isi Jumlah (Quantity) Sesuai keperluan anda lalu klik Tombol Add to Cart</p>
+									</div>
+								</li>
+								<li class="flex pb-4 mb-2 border-b border-neutral-200">
+									<div class="mr-8">
+										<span class="flex justify-center items-center w-14 h-14 bg-blue-300 text-blue-600 text-lg font-bold rounded-full"><i class="fa-solid fa-cash-register"></i></span>
+									</div>
+									<div class="max-w-full">
+										<h3 class="mb-2 text-lg font-bold text-neutral-700 dark:text-neutral-300">Order / Checkout</h3>
+										<p class="text-md text-neutral-500">Selanjutya Isi Nama Anda dan Nomor Whatsapp Anda lalu klik Tombol Order Now</p>
+									</div>
+								</li>
+								<li class="flex pb-4 mb-2 border-b border-neutral-200">
+									<div class="mr-8">
+										<span class="flex justify-center items-center w-14 h-14 bg-blue-300 text-blue-600 text-lg font-bold rounded-full"><i class="fa-solid fa-user"></i></span>
+									</div>
+									<div class="max-w-full">
+										<h3 class="mb-2 text-lg font-bold text-neutral-700 dark:text-neutral-300">Chat Admin</h3>
+										<p class="text-md text-neutral-500">Terakhir Setelah Order Dibuat Anda akan diarahkan ke Halaman Detail Order anda lalu klik Tombol Send Order Confirmation agar pesanan anda dilanjutkan oleh Admin PrintMax.</p>
+									</div>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+				<div class="text-center pt-24">
+					<a href="<?= base_url('/') ?>" type="button"
+						class="text-neutral-200 bg-blue-600 hover:bg-blue-950 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 border-neutral-200 border-2">
+						<i class="fa-solid fa-chevron-left px-2 text-lg"></i>
+						<span class="sr-only">Back to Home</span>
+					</a>
+				</div>
+			</div>
+			<!-- New -->
+			<!-- <div
 				class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-2 justify-between items-center bg-neutral-100 dark:bg-slate-900 rounded-lg shadow-xl">
 				<p class="text-xs text-neutral-950 dark:text-neutral-50"><strong>ID</strong></p>
 				<div class="w-full py-4">
@@ -85,10 +141,10 @@
 							Detail Order</strong> anda lalu klik Tombol <strong>Send Order Confirmation</strong> agar
 						pesanan anda dilanjutkan oleh Admin PrintMax.</p>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</section>
-	<section id="guide-en" class="my-24">
+	<!-- <section id="guide-en" class="my-24">
 		<div class="w-full">
 			<div
 				class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-2 justify-between items-center bg-neutral-100 dark:bg-slate-900 rounded-lg shadow-xl">
@@ -126,9 +182,9 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 
-	<div class="text-center mb-12">
+	<div class="text-center mb-12 invisible">
 		<a href="<?= base_url('/') ?>" type="button"
 			class="text-neutral-200 bg-blue-600 hover:bg-blue-950 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 border-neutral-200 border-2">
 			<i class="fa-solid fa-chevron-left px-2 text-lg"></i>
