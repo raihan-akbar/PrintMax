@@ -69,7 +69,7 @@ class Main extends CI_Controller
 			}
 		}
 
-		$data['getProduct'] = $this->Mod->get('product', array('product_id !=' => '0'))->result();
+		$data['getProduct'] = $this->Mod->get('product', array('product_state !=' => '0'))->result();
 		$data['getAgentCart'] = $this->Mod->getAgentCart()->result();
 
 		$this->load->view('public/home', $data);

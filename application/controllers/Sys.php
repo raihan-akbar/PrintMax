@@ -1187,4 +1187,49 @@ class Sys extends CI_Controller
 		);
 		redirect(base_url('cms/order/'));
 	}
+
+	public function remove_product($product_token = null)
+	{
+		if ($product_token == null) {
+			$this->session->set_flashdata(
+				"flash",
+				"<script>
+						window.onload=function(){
+						swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+						</script>"
+			);
+
+			redirect(base_url('cms/product/'));
+		} else {
+			$product_check = $this->Mod->get('product', array('product_token' => $product_token))->num_rows();
+
+			if ($product_check != true) {
+				$this->session->set_flashdata(
+					"flash",
+					"<script>
+							window.onload=function(){
+							swal({title: 'Error!', text: 'Process Failed, Please Try Again your Action.', icon: 'error', button: 'Close',})};
+							</script>"
+				);
+
+				redirect(base_url('cms/product/'));
+			} else {
+
+				$data = array('product_state' => "0",);
+
+				$this->Mod->upd(array('product_token' => $product_token), $data, 'product');
+
+				$this->session->set_flashdata(
+					"flash",
+					"<script>
+							window.onload=function(){
+							swal({title: 'Success!', text: 'Product Data Deleted Successfully.', icon: 'success', button: 'Close',})};
+							</script>"
+				);
+
+				redirect(base_url('cms/product/'));
+			}
+		}
+
+	}
 }/* End of file Sys.php */

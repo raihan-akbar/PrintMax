@@ -94,4 +94,10 @@
   'fontawesome' => array(
     'normal' => $fontDir . '/fontawesome-normal_c907d906dd48cac7662497c582daa2a0',
   ),
+  'roboto condensed' => array(
+    'italic' => $fontDir . '/roboto-condensed-italic_b4121a69e437850f626ea67b36831032',
+    '300' => $fontDir . '/roboto-condensed-300_c2780478db50bef11262f023b6c74b07',
+    'normal' => $fontDir . '/roboto-condensed-normal_46d200cd3044bc4e212c187f8758ea3c',
+    'bold' => $fontDir . '/roboto-condensed-bold_905b6cdce7b42e4412c27aacd6542f9b',
+  ),
 ) ?>

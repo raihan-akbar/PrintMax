@@ -30,7 +30,14 @@
                     <div class="flex flex-wrap -mb-4 -mx-2">
                         <div class="w-full lg:w-1/3 mb-4 px-2">
                             <div class="bg-slate-100 dark:bg-slate-900 rounded-lg shadow-lg p-4 space-y-2 h-96">
-                                <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300">Hello, World!</h3>
+                                <div class="columns-2">
+                                    <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300">Hello, World!</h3>
+                                    <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300 text-right">
+
+                                        <button onclick="remove_product_<?= $i->product_token ?>()"
+                                            class="px-2 py-1 rounded-lg text-sm font-medium text-center text-slate-100 dark:text-slate-900 rounded-lg bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300">Delete <i class="fa-solid fa-trash fa-xs"></i></button>
+                                    </h3>
+                                </div>
                                 <hr class="w-full h-px my-2 bg-slate-400 border-0">
                                 <form method="post" action="<?= base_url('sys/update_product') ?>">
                                     <div class="w-full">
@@ -640,7 +647,7 @@
     <script>
         const dropzone = document.getElementById('dropzone');
         const fileInput = document.getElementById('file-upload');
-        const preview = document.getElementById('preview'); 
+        const preview = document.getElementById('preview');
         const ph = document.getElementById('ph');
 
         function displayPreview(file) {
@@ -758,6 +765,7 @@
     <?php foreach ($getVariant1 as $var1) { ?>
         <!-- Delete Variant 1 Confirmation -->
 
+
         <script>
             function remove_v1_<?= $var1->product_variant_1_id ?>() {
                 swal({
@@ -769,19 +777,18 @@
                     })
                     .then((willDelete) => {
                         if (willDelete) {
-                            location.href = "
-                            <?php echo base_url() . 'sys/remove_variant_1/' . $var1->product_token;
-                            echo '-';
-                            echo $var1->product_variant_1_id; ?> ";
+                            location.href = "<?php echo base_url() . 'sys/remove_variant_1/' . $var1->product_token;
+                                                echo '-';
+                                                echo $var1->product_variant_1_id; ?>";
                         }
                     });
 
             }
         </script>
 
+
     <?php } ?>
     <?php foreach ($getVariant2 as $var2) { ?>
-        <!-- Delete Variant 2 Confirmation -->
         <script>
             function remove_v2_<?= $var2->product_variant_2_id ?>() {
                 swal({
@@ -803,6 +810,23 @@
         </script>
 
     <?php } ?>
+    <script>
+        function remove_product_<?= $i->product_token ?>() {
+            swal({
+                    title: "Delete This Product?",
+                    text: "Just to make sure, this data will be not displayed anymore.",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        location.href = "<?php echo base_url() . 'sys/remove_product/' . $i->product_token;?>";
+                    }
+                });
+
+        }
+    </script>
 </body>
 
 </html>
