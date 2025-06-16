@@ -31,7 +31,7 @@
                         <div class="w-full lg:w-1/3 mb-4 px-2">
                             <div class="bg-slate-100 dark:bg-slate-900 rounded-lg shadow-lg p-4 space-y-2 h-96">
                                 <div class="columns-2">
-                                    <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300">Hello, World!</h3>
+                                    <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300">Product Details</h3>
                                     <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300 text-right">
 
                                         <button onclick="remove_product_<?= $i->product_token ?>()"
