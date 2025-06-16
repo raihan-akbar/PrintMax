@@ -63,7 +63,7 @@
 
 			<div class="columns-2">
 				<div class="">
-					<h3 class="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2"><a href="<?= base_url("cms/order") ?>">5 Latest Pending Order <i class="fa-solid fa-external-link fa-xs"></i></a></h3>
+					<h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2"><a href="<?= base_url("cms/order") ?>">5 Latest Pending Order <i class="fa-solid fa-external-link fa-xs"></i></a></h3>
 					<div class="relative overflow-x-auto rounded-lg">
 						<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 							<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -102,7 +102,7 @@
 				</div>
 
 				<div class="">
-					<h3 class="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Last 5 Recently Order</h3>
+					<h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Last 5 Recently Order</h3>
 					<div class="relative overflow-x-auto rounded-lg">
 						<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 							<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
