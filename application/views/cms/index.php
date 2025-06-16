@@ -25,7 +25,7 @@
 				<hr class="w-full h-px my-4 bg-slate-500 dark:bg-slate-600 border-0">
 			</div>
 			<!-- Content After HR -->
-
+			<h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Order Count Overview</h3>
 			<div class="columns-4">
 				<div class="bg-blue-700 dark:bg-blue-800 p-4 rounded-lg shadow-md mb-4">
 					<h3 class="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Total Orders</h3>
@@ -43,7 +43,7 @@
 					<p class="text-2xl font-bold text-slate-900 dark:text-slate-100"><?= $success_check ?></p>
 					<p class="text-sm text-slate-800 dark:text-slate-400">Total orders placed in total.</p>
 				</div>
-				<div class="bg-oirange-700 dark:bg-orange-800 p-4 rounded-lg shadow-md mb-4">
+				<div class="bg-orange-700 dark:bg-orange-800 p-4 rounded-lg shadow-md mb-4">
 					<h3 class="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Canceled Orders</h3>
 					<?php
 					$cancel_check = $this->Mod->get('book', array('book_status' => 'Cancel'))->num_rows();
@@ -61,7 +61,7 @@
 				</div>
 			</div>
 
-			<div class="columns-2">
+			<div class="columns-2 mt-4">
 				<div class="">
 					<h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2"><a href="<?= base_url("cms/order") ?>">5 Latest Pending Order <i class="fa-solid fa-external-link fa-xs"></i></a></h3>
 					<div class="relative overflow-x-auto rounded-lg">
@@ -91,7 +91,7 @@
 
 										</td>
 										<td class="px-6 py-4">
-											Rp  <?= number_format($f->price_total, 0, ',', '.') ?>
+											Rp <?= number_format($f->price_total, 0, ',', '.') ?>
 
 										</td>
 									</tr>
