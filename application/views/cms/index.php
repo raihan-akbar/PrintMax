@@ -25,39 +25,49 @@
 				<hr class="w-full h-px my-4 bg-slate-500 dark:bg-slate-600 border-0">
 			</div>
 			<!-- Content After HR -->
-			<h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Order Count Overview</h3>
+			<?php
+			//  Counter Setup
+			$start = date('Y-m-01 00:00:00');
+			$end = date('Y-m-t 23:59:59');
+			$total_order    = $this->db->where("book_date >=", $start)->where("book_date <=", $end)->get('book')->num_rows();
+			$success_check  = $this->db->where("book_status", "Finish")->where("book_date >=", $start)->where("book_date <=", $end)->get('book')->num_rows();
+			$cancel_check   = $this->db->where("book_status", "Cancel")->where("book_date >=", $start)->where("book_date <=", $end)->get('book')->num_rows();
+			$progress_check = $this->db->where("book_status", "Progress")->where("book_date >=", $start)->where("book_date <=", $end)->get('book')->num_rows();
+
+			?>
+			<h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">This <strong><?= date('F') ?></strong> Order Overview</h3>
 			<div class="columns-4">
 				<div class="bg-blue-700 dark:bg-blue-800 p-4 rounded-lg shadow-md mb-4">
 					<h3 class="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Total Orders</h3>
 					<?php
-					$product_check = $this->Mod->get('book', array('book_status !=' => 'Pending'))->num_rows();
+					// $product_check = $this->Mod->get('book', array('book_status !=' => 'Pending'))->num_rows();
 					?>
-					<p class="text-2xl font-bold text-slate-900 dark:text-slate-100"><?= $product_check ?></p>
-					<p class="text-sm text-slate-800 dark:text-slate-400">Total orders placed in total.</p>
+					<p class="text-2xl font-bold text-slate-900 dark:text-slate-100"><?= $total_order ?></p>
+					<p class="text-sm text-slate-800 dark:text-slate-400">In Total of this month.</p>
 				</div>
 				<div class="bg-green-700 dark:bg-green-800 p-4 rounded-lg shadow-md mb-4">
 					<h3 class="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Success Order</h3>
 					<?php
-					$success_check = $this->Mod->get('book', array('book_status' => 'Finish'))->num_rows();
+					// $success_check = $this->Mod->get('book', array('book_status' => 'Finish'))->num_rows();
 					?>
 					<p class="text-2xl font-bold text-slate-900 dark:text-slate-100"><?= $success_check ?></p>
-					<p class="text-sm text-slate-800 dark:text-slate-400">Total orders placed in total.</p>
+					<p class="text-sm text-slate-800 dark:text-slate-400">In Total of this month.</p>
 				</div>
 				<div class="bg-orange-700 dark:bg-orange-800 p-4 rounded-lg shadow-md mb-4">
 					<h3 class="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Canceled Orders</h3>
 					<?php
-					$cancel_check = $this->Mod->get('book', array('book_status' => 'Cancel'))->num_rows();
+					// $cancel_check = $this->Mod->get('book', array('book_status' => 'Cancel'))->num_rows();
 					?>
 					<p class="text-2xl font-bold text-slate-900 dark:text-slate-100"><?= $cancel_check ?></p>
-					<p class="text-sm text-slate-800 dark:text-slate-400">Total orders placed in total.</p>
+					<p class="text-sm text-slate-800 dark:text-slate-400">In Total of this month.</p>
 				</div>
 				<div class="bg-purple-700 dark:bg-purple-800 p-4 rounded-lg shadow-md mb-4">
 					<h3 class="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Orders in Progress</h3>
 					<?php
-					$progress_check = $this->Mod->get('book', array('book_status' => 'Progress'))->num_rows();
+					// $progress_check = $this->Mod->get('book', array('book_status' => 'Progress'))->num_rows();
 					?>
 					<p class="text-2xl font-bold text-slate-900 dark:text-slate-100"><?= $progress_check ?></p>
-					<p class="text-sm text-slate-800 dark:text-slate-400">Total orders placed in total.</p>
+					<p class="text-sm text-slate-800 dark:text-slate-400">In Total of this month.</p>
 				</div>
 			</div>
 
@@ -79,7 +89,7 @@
 									</th>
 								</tr>
 							</thead>
-							<?php $five_pending = $this->db->query(" SELECT * FROM book WHERE book_status = 'Pending' ")->result(); ?>
+							<?php $five_pending = $this->db->query(" SELECT * FROM book WHERE book_status = 'Pending' ORDER BY book_id DESC LIMIT 5 ")->result(); ?>
 							<tbody>
 								<?php foreach ($five_pending as $f) { ?>
 									<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
@@ -118,62 +128,23 @@
 									</th>
 								</tr>
 							</thead>
+							<?php $five_order = $this->db->query(" SELECT * FROM book WHERE book_status != 'Pending' ORDER BY book_id ASC LIMIT 5 ")->result(); ?>
 							<tbody>
-								<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-									<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-										Tri Welas
-									</th>
-									<td class="px-6 py-4">
-										6285794555723
-									</td>
-									<td class="px-6 py-4">
-										Rp 38.000
-									</td>
-								</tr>
-								<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-									<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-										Nina
-									</th>
-									<td class="px-6 py-4">
-										6281215616512
-									</td>
-									<td class="px-6 py-4">
-										Rp 16.000
-									</td>
-								</tr>
-								<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-									<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-										ghina
-									</th>
-									<td class="px-6 py-4">
-										625576786756544
-									</td>
-									<td class="px-6 py-4">
-										Rp 129.000
-									</td>
-								</tr>
-								<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-									<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-										fina
-									</th>
-									<td class="px-6 py-4">
-										625576786756544
-									</td>
-									<td class="px-6 py-4">
-										Rp 121.000
-									</td>
-								</tr>
-								<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-									<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-										Dejan Soekri Stankovic
-									</th>
-									<td class="px-6 py-4">
-										6281215616512
-									</td>
-									<td class="px-6 py-4">
-										Rp 12.500
-									</td>
-								</tr>
+								<?php foreach ($five_order as $f) { ?>
+									<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+										<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+											<?= $f->customer_name; ?>
+										</th>
+										<td class="px-6 py-4">
+											<?= $f->customer_phone; ?>
+
+										</td>
+										<td class="px-6 py-4">
+											Rp <?= number_format($f->price_total, 0, ',', '.') ?>
+
+										</td>
+									</tr>
+								<?php } ?>
 							</tbody>
 						</table>
 					</div>
