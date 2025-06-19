@@ -34,8 +34,10 @@
                     $end_date = $this->session->userdata('sum_end_date') . " 23:59:59";
                     $start = $this->session->userdata('sum_start_date');
                     $end = $this->session->userdata('sum_end_date');
+                    $date_show_start = date('j, F Y', strtotime($start));
+                    $date_show_end = date('j, F Y', strtotime($end));
                     ?>
-                    <p style="margin: 0;">Periode : <?= $start; ?> - <?= $end; ?></p>
+                    <p style="margin: 0;">Periode : <?= $date_show_start; ?> - <?= $date_show_end; ?></p>
                 </td>
                 <td style="" width="30%">
 
@@ -46,10 +48,24 @@
     <section style="padding-top: 20px;" class="seccond y" id="seccond">
         <h3 style="margin: 0; text-align: center;">Jumlah Detail Order</h3>
         <?php
-        $totalTransaksi = $this->db->query("
+        $totalOrder = $this->db->query("
             SELECT COUNT(*) as total 
             FROM book 
             WHERE DATE(book_date) BETWEEN '$start_date' AND '$end_date'
+            ")->row()->total;
+
+        $totalBerhasil = $this->db->query("
+            SELECT COUNT(*) as total
+            FROM book
+            WHERE book_status = 'Finish' 
+            AND DATE(book_date) BETWEEN '$start_date' AND '$end_date'
+            ")->row()->total;
+
+        $totalBatal = $this->db->query("
+            SELECT COUNT(*) as total 
+            FROM book 
+            WHERE DATE(book_date) BETWEEN '$start_date' AND '$end_date'
+            AND book_status = 'Cancel'
             ")->row()->total;
 
         ?>
@@ -57,19 +73,19 @@
             <tr>
                 <td style="max-width: 100%; border-radius: 8px;" width="33.33%">
                     <div style="background-color:rgb(138, 169, 236); padding: 10px; border-radius: 8px; text-align: center;">
-                        <p style="font-size: 28px; font-weight: bold; margin:0 ;"><?= $totalTransaksi ?></p>
+                        <p style="font-size: 28px; font-weight: bold; margin:0 ;"><?= $totalOrder ?></p>
                         <p style="font-size: 18px; font-weight: bolder; margin:0 ;">Total Order</p>
                     </div>
                 </td>
                 <td style="max-width: 100%; border-radius: 8px;" width="33.33%">
                     <div style="background-color:rgb(135, 226, 140); padding: 10px; border-radius: 8px; text-align: center;">
-                        <p style="font-size: 28px; font-weight: bold; margin:0 ;">4</p>
+                        <p style="font-size: 28px; font-weight: bold; margin:0 ;"><?= $totalBerhasil ?></p>
                         <p style="font-size: 18px; font-weight: bolder; margin:0 ;">Order Berhasil</p>
                     </div>
                 </td>
                 <td style="max-width: 100%; border-radius: 8px;" width="33.33%">
                     <div style="background-color:rgb(204, 182, 122); padding: 10px; border-radius: 8px; text-align: center;">
-                        <p style="font-size: 28px; font-weight: bold; margin:0 ;">2</p>
+                        <p style="font-size: 28px; font-weight: bold; margin:0 ;"><?= $totalBatal ?></p>
                         <p style="font-size: 18px; font-weight: bolder; margin:0 ;">Order Batal</p>
                     </div>
                 </td>
@@ -77,32 +93,70 @@
         </table>
     </section>
     <section style="padding-top: 50px;" class="third y" id="third">
+        <?php
+        $this->db->select_sum('price_total');
+        $this->db->where('book_status', 'Finish');
+        $this->db->where('book_date >=', $start_date);
+        $this->db->where('book_date <=', $end_date);
+        $total_pendapatan = $this->db->get('book')->row()->price_total;
+
+        $this->db->select_sum('book_product.book_product_qty');
+        $this->db->from('book_product');
+        $this->db->join('book', 'book.book_token = book_product.book_token');
+        $this->db->where('book.book_status', 'Finish');
+        $this->db->where('book.book_date >=', $start_date);
+        $this->db->where('book.book_date <=', $end_date);
+
+        $produk_terjual = $this->db->get()->row()->book_product_qty;
+
+        $this->db->where('book_status', 'Finish');
+        $this->db->where('book_date >=', $start_date);
+        $this->db->where('book_date <=', $end_date);
+        $total_order_sukses = $this->db->get('book')->num_rows();
+
+        $rov = ($total_order_sukses > 0) ? ($total_pendapatan / $total_order_sukses) : 0;
+
+        ?>
         <table width="100%" style="min-width: 100%;">
             <tr>
                 <td style="border-radius: 8px;" width="33.33%">
                     <h3 style="margin: 0; font-size: 18px; text-align: center;">Total Pendapatan</h3>
                     <div style="max-width: 100%; background-color:rgb(192, 138, 236); padding: 10px; border-radius: 8px; text-align: center;">
-                        <p style="font-size: 20px; font-weight: bold; margin:0 ;">Rp<?= number_format($income = 2044500, 0, ',', '.') ?></p>
+                        <p style="font-size: 20px; font-weight: bold; margin:0 ;">Rp<?= number_format($total_pendapatan, 0, ',', '.') ?></p>
                     </div>
                 </td>
                 <td style="border-radius: 8px;" width="33.33%">
                     <h3 style="margin: 0; font-size: 18px; text-align: center;">Produk Terjual</h3>
                     <div style="max-width: 100%; background-color:rgb(149, 135, 226); padding: 10px; border-radius: 8px; text-align: center;">
-                        <p style="font-size: 20px; font-weight: bold; margin:0 ;">219</p>
+                        <p style="font-size: 20px; font-weight: bold; margin:0 ;"><?= $produk_terjual ?></p>
                     </div>
                 </td>
                 <td style="border-radius: 8px;" width="33.33%">
                     <h3 style="margin: 0; font-size: 18px; text-align: center;">Rata-rata Order Value</h3>
                     <div style="max-width: 100%; background-color:rgb(122, 201, 204); padding: 10px; border-radius: 8px; text-align: center;">
-                        <p style="font-size: 20px; font-weight: bold; margin:0 ;">Rp<?= number_format($avg = 136300, 0, ',', '.') ?></p>
+                        <p style="font-size: 20px; font-weight: bold; margin:0 ;">Rp<?= number_format($rov, 0, ',', '.') ?></p>
                     </div>
                 </td>
             </tr>
         </table>
     </section>
     <section style="padding-top: 50px;" class="fourth y" id="fourth">
-        <h3 style="margin: 0; text-align: left; padding-left: 2px;">Produk Paling Banyak Terjual</h3>
-        <table width="100%" style="background-color: lightgray; border-radius: 8px; padding: 6px;">
+        <?php
+        $this->db->select('product.product_name, product.product_price, product.product_state, SUM(book_product.book_product_qty) as total_terjual');
+        $this->db->from('book_product');
+        $this->db->join('book', 'book.book_token = book_product.book_token');
+        $this->db->join('product', 'product.product_token = book_product.product_token');
+        $this->db->where('book.book_status', 'Finish');
+        $this->db->where('book.book_date >=', $start_date);
+        $this->db->where('book.book_date <=', $end_date);
+        $this->db->group_by('book_product.product_token');
+        $this->db->order_by('total_terjual', 'DESC'); // Urut dari paling banyak
+        $this->db->limit(3); // Tampilkan top 3
+
+        $produk_terlaris = $this->db->get()->result();
+        ?>
+        <h3 style="margin: 0; text-align: left; padding-left: 2px; padding-bottom: 6px;">3 Produk Paling Banyak Terjual</h3>
+        <table width="100%" style="background-color: #aff1af; border-radius: 8px; padding: 6px;">
             <tr style="margin: 0; padding: 0; ">
                 <td style="margin: 0; padding: 0;">
                     <p style="font-size: 18px; font-weight: bolder; margin:0 ;">Produk</p>
@@ -117,25 +171,43 @@
                     <p style="font-size: 18px; font-weight: bolder; margin:0 ;">Terjual</p>
                 </td>
             </tr>
-            <tr>
-                <td style="padding-top: 8px">
-                    <p style="font-size: 18px; font-weight: regular; margin:0 ;">Sticker Chromo</p>
-                </td>
-                <td style="padding-top: 8px">
-                    <p style="font-size: 18px; font-weight: regular; margin:0 ;">Rp<?= number_format($income = 4000, 0, ',', '.') ?></p>
-                </td>
-                <td style="padding-top: 8px">
-                    <p style="font-size: 18px; font-weight: regular; margin:0 ;">Aktif</p>
-                </td>
-                <td style="padding-top: 8px">
-                    <p style="font-size: 18px; font-weight: regular; margin:0 ;">7567</p>
-                </td>
-            </tr>
+            <?php
+            foreach ($produk_terlaris as $p) { ?>
+                <tr>
+                    <td style="padding-top: 8px">
+                        <p style="font-size: 18px; font-weight: regular; margin:0 ;"><?= $p->product_name ?></p>
+                    </td>
+                    <td style="padding-top: 8px">
+                        <p style="font-size: 18px; font-weight: regular; margin:0 ;">Rp<?= number_format($p->product_price, 0, ',', '.') ?></p>
+                    </td>
+                    <td style="padding-top: 8px">
+                        <p style="font-size: 18px; font-weight: regular; margin:0 ;"><?= $p->product_state == 0 ? 'Tidak Aktif' : 'Aktif' ?></p>
+                    </td>
+                    <td style="padding-top: 8px">
+                        <p style="font-size: 18px; font-weight: regular; margin:0 ;"><?= $p->total_terjual ?> pcs</p>
+                    </td>
+                </tr>
+            <?php } ?>
         </table>
     </section>
     <section style="padding-top: 50px;" class="fifth y" id="fifth">
-        <h3 style="margin: 0; text-align: left; padding-left: 2px;">Produk Paling Sedikit Terjual</h3>
-        <table width="100%" style="background-color: lightgray; border-radius: 8px; padding: 6px;">
+        <?php
+        $this->db->select('product.product_name, product.product_price, product.product_state, SUM(book_product.book_product_qty) as total_terjual');
+        $this->db->from('book_product');
+        $this->db->join('book', 'book.book_token = book_product.book_token');
+        $this->db->join('product', 'product.product_token = book_product.product_token');
+        $this->db->where('book.book_status', 'Finish');
+        $this->db->where('book.book_date >=', $start_date);
+        $this->db->where('book.book_date <=', $end_date);
+        $this->db->group_by('book_product.product_token');
+        $this->db->order_by('total_terjual', 'ASC'); // Urut dari paling sedikit
+        $this->db->limit(3); // Tampilkan bottom 3
+
+        $produk_terendah = $this->db->get()->result();
+
+        ?>
+        <h3 style="margin: 0; text-align: left; padding-left: 2px; padding-bottom: 6px;">3 Produk Paling Sedikit Terjual</h3>
+        <table width="100%" style="background-color: #f1eaaf; border-radius: 8px; padding: 6px;">
             <tr style="margin: 0; padding: 0; ">
                 <td style="margin: 0; padding: 0;">
                     <p style="font-size: 18px; font-weight: bolder; margin:0 ;">Produk</p>
@@ -150,20 +222,23 @@
                     <p style="font-size: 18px; font-weight: bolder; margin:0 ;">Terjual</p>
                 </td>
             </tr>
-            <tr>
-                <td style="padding-top: 8px">
-                    <p style="font-size: 18px; font-weight: regular; margin:0 ;">Medali (10 Pcs)</p>
-                </td>
-                <td style="padding-top: 8px">
-                    <p style="font-size: 18px; font-weight: regular; margin:0 ;">Rp<?= number_format($income = 45000, 0, ',', '.') ?></p>
-                </td>
-                <td style="padding-top: 8px">
-                    <p style="font-size: 18px; font-weight: regular; margin:0 ;">Aktif</p>
-                </td>
-                <td style="padding-top: 8px">
-                    <p style="font-size: 18px; font-weight: regular; margin:0 ;">103</p>
-                </td>
-            </tr>
+            <?php
+            foreach ($produk_terendah as $p) { ?>
+                <tr>
+                    <td style="padding-top: 8px">
+                        <p style="font-size: 18px; font-weight: regular; margin:0 ;"><?= $p->product_name ?></p>
+                    </td>
+                    <td style="padding-top: 8px">
+                        <p style="font-size: 18px; font-weight: regular; margin:0 ;">Rp<?= number_format($p->product_price, 0, ',', '.') ?></p>
+                    </td>
+                    <td style="padding-top: 8px">
+                        <p style="font-size: 18px; font-weight: regular; margin:0 ;"><?= $p->product_state == 0 ? 'Tidak Aktif' : 'Aktif' ?></p>
+                    </td>
+                    <td style="padding-top: 8px">
+                        <p style="font-size: 18px; font-weight: regular; margin:0 ;"><?= $p->total_terjual ?> pcs</p>
+                    </td>
+                </tr>
+            <?php } ?>
         </table>
     </section>
     <section style="padding-top: 80px;" class="sixth y" id="sixth">
