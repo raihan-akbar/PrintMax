@@ -142,16 +142,34 @@
     </section>
     <section style="padding-top: 50px;" class="fourth y" id="fourth">
         <?php
+        // $this->db->select('product.product_name, product.product_price, product.product_state, SUM(book_product.book_product_qty) as total_terjual');
+        // $this->db->from('book_product');
+        // $this->db->join('book', 'book.book_token = book_product.book_token');
+        // $this->db->join('product', 'product.product_token = book_product.product_token');
+        // $this->db->where('book.book_status', 'Finish');
+        // $this->db->where('book.book_date >=', $start_date);
+        // $this->db->where('book.book_date <=', $end_date);
+        // $this->db->group_by('book_product.product_token');
+        // $this->db->order_by('total_terjual', 'DESC');
+        // $this->db->limit(3);
+
+
         $this->db->select('product.product_name, product.product_price, product.product_state, SUM(book_product.book_product_qty) as total_terjual');
         $this->db->from('book_product');
         $this->db->join('book', 'book.book_token = book_product.book_token');
         $this->db->join('product', 'product.product_token = book_product.product_token');
         $this->db->where('book.book_status', 'Finish');
-        $this->db->where('book.book_date >=', $start_date);
-        $this->db->where('book.book_date <=', $end_date);
-        $this->db->group_by('book_product.product_token');
-        $this->db->order_by('total_terjual', 'DESC'); // Urut dari paling banyak
-        $this->db->limit(3); // Tampilkan top 3
+        $this->db->where('book.book_date >=', $start);
+        $this->db->where('book.book_date <=', $end);
+        $this->db->group_by([
+            'product.product_token',
+            'product.product_name',
+            'product.product_price',
+            'product.product_state'
+        ]);
+        $this->db->order_by('total_terjual', 'DESC');
+        $this->db->limit(3);
+
 
         $produk_terlaris = $this->db->get()->result();
         ?>
